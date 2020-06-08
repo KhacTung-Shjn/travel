@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.auth.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,31 +11,36 @@ import androidx.annotation.Nullable;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 
-public class SampleFragment extends BaseFragment implements SampleFrMvpView {
-    public static final String TAG = SampleFragment.class.getSimpleName();
+import butterknife.ButterKnife;
 
-    private SampleFrMvpPresenter presenter;
+public class RegisterFragment extends BaseFragment implements RegisterFrMvpView {
+    public static final String TAG = RegisterFragment.class.getSimpleName();
 
-    public static SampleFragment newInstance() {
-        SampleFragment sampleFragment = new SampleFragment();
-        return sampleFragment;
+    private RegisterFrMvpPresenter presenter;
+
+    public static RegisterFragment newInstance() {
+        RegisterFragment registerFragment = new RegisterFragment();
+        return registerFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SampleFrPresenter(this);
+        presenter = new RegisterFrPresenter(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sample, container, false);
+        return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getActivity() != null) {
+            setUnbinder(ButterKnife.bind(this, getActivity()));
+        }
     }
 
 

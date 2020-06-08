@@ -1,10 +1,10 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.auth;
 
-public class SamplePresenter implements SampleMvpPresenter {
+public class AuthPresenter implements AuthMvpPresenter {
 
-    private SampleMvpView getMvpView;
+    private AuthMvpView getMvpView;
 
-    public SamplePresenter(SampleMvpView sampleMvpView) {
-        this.getMvpView = sampleMvpView;
+    public AuthPresenter(AuthMvpView authMvpView) {
+        this.getMvpView = authMvpView;
     }
 }

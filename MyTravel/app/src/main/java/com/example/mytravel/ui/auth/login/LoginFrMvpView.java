@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.auth.login;
 
-public interface SampleFrMvpView {
+public interface LoginFrMvpView {
 }

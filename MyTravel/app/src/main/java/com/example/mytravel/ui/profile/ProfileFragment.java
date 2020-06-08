@@ -12,6 +12,8 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.ui.favorite.FavoriteFragment;
 
+import butterknife.ButterKnife;
+
 public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
     public static final String TAG = ProfileFragment.class.getSimpleName();
     private ProfileFrMvpPresenter presenter;
@@ -36,6 +38,9 @@ public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getActivity() != null) {
+            setUnbinder(ButterKnife.bind(this, getActivity()));
+        }
     }
 
 

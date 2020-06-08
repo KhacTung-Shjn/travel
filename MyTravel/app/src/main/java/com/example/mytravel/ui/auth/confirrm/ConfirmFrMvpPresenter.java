@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.auth.login;
+package com.example.mytravel.ui.auth.confirrm;
 
 public interface ConfirmFrMvpPresenter {
 }

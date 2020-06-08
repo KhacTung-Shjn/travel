@@ -1,10 +1,10 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.auth.register;
 
-public class SampleFrPresenter implements SampleFrMvpPresenter {
+public class RegisterFrPresenter implements RegisterFrMvpPresenter {
 
-    private SampleFrMvpView getMvpView;
+    private RegisterFrMvpView getMvpView;
 
-    public SampleFrPresenter(SampleFrMvpView getMvpView) {
+    public RegisterFrPresenter(RegisterFrMvpView getMvpView) {
         this.getMvpView = getMvpView;
     }
 }

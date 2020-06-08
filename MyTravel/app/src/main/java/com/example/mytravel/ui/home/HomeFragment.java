@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 
+import butterknife.ButterKnife;
+
 public class HomeFragment extends BaseFragment implements HomeFrMvpView {
     public static final String TAG = HomeFragment.class.getSimpleName();
     private HomeFrMvpPresenter presenter;
@@ -35,6 +37,9 @@ public class HomeFragment extends BaseFragment implements HomeFrMvpView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getActivity() != null) {
+            setUnbinder(ButterKnife.bind(this, getActivity()));
+        }
     }
 
 

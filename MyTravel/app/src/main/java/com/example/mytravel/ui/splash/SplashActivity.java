@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseActivity;
+import com.example.mytravel.ui.auth.AuthActivity;
 import com.example.mytravel.ui.main.MainActivity;
 
 import butterknife.ButterKnife;
@@ -23,8 +24,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
         presenter = new SplashPresenter(this);
 
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(getBaseContext(), MainActivity.class));
-//            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            startActivity(new Intent(getBaseContext(), AuthActivity.class));
             finish();
         }, 600);
 
