@@ -1,4 +1,4 @@
 package com.example.mytravel.sample;
 
-public interface BaseMvpPresenter {
+public interface SampleMvpPresenter {
 }

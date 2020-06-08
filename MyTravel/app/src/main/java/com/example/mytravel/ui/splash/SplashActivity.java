@@ -7,8 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mytravel.R;
+import com.example.mytravel.base.BaseActivity;
 
-public class SplashActivity extends AppCompatActivity implements SplashMvpView {
+public class SplashActivity extends BaseActivity implements SplashMvpView {
     public SplashMvpPresenter presenter;
 
     @Override
