@@ -1,10 +1,10 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.favorite;
 
-public class SampleFrPresenter implements SampleFrMvpPresenter {
+public class FavoriteFrPresenter implements FavoriteFrMvpPresenter {
 
-    private SampleFrMvpView getMvpView;
+    private FavoriteFrMvpView getMvpView;
 
-    public SampleFrPresenter(SampleFrMvpView getMvpView) {
+    public FavoriteFrPresenter(FavoriteFrMvpView getMvpView) {
         this.getMvpView = getMvpView;
     }
 }

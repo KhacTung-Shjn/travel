@@ -1,4 +1,4 @@
-package com.example.mytravel.sample;
+package com.example.mytravel.ui.sample;
 
 public interface SampleFrMvpView {
 }

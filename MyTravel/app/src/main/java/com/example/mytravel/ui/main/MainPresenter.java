@@ -1,11 +1,11 @@
-package com.example.mytravel.sample;
+package com.example.mytravel.ui.main;
 
-public class SamplePresenter implements SampleMvpPresenter {
+public class MainPresenter implements MainMvpPresenter {
 
-    private SampleMvpView getMvpView;
+    private MainMvpView getMvpView;
 
 
-    public SamplePresenter(SampleMvpView sampleMvpView) {
-        this.getMvpView = sampleMvpView;
+    public MainPresenter(MainMvpView mainMvpView) {
+        this.getMvpView = mainMvpView;
     }
 }

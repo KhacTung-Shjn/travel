@@ -1,10 +1,10 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.home;
 
-public class SampleFrPresenter implements SampleFrMvpPresenter {
+public class HomeFrPresenter implements HomeFrMvpPresenter {
 
-    private SampleFrMvpView getMvpView;
+    private HomeFrMvpView getMvpView;
 
-    public SampleFrPresenter(SampleFrMvpView getMvpView) {
+    public HomeFrPresenter(HomeFrMvpView getMvpView) {
         this.getMvpView = getMvpView;
     }
 }

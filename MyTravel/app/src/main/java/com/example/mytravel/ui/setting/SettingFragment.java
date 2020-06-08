@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.setting;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,26 +10,27 @@ import androidx.annotation.Nullable;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.ui.home.HomeFragment;
 
-public class SampleFragment extends BaseFragment implements SampleFrMvpView {
+public class SettingFragment extends BaseFragment implements SettingFrMvpView {
+    public static final String TAG = SettingFragment.class.getSimpleName();
+    private SettingFrMvpPresenter presenter;
 
-    private SampleFrMvpPresenter presenter;
-
-    public static SampleFragment newInstance() {
-        SampleFragment sampleFragment = new SampleFragment();
-        return sampleFragment;
+    public static SettingFragment newInstance() {
+        SettingFragment settingFragment = new SettingFragment();
+        return settingFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SampleFrPresenter(this);
+        presenter = new SettingFrPresenter(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sample, container, false);
+        return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 
     @Override

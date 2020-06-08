@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,26 +10,27 @@ import androidx.annotation.Nullable;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.ui.favorite.FavoriteFragment;
 
-public class SampleFragment extends BaseFragment implements SampleFrMvpView {
+public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
+    public static final String TAG = ProfileFragment.class.getSimpleName();
+    private ProfileFrMvpPresenter presenter;
 
-    private SampleFrMvpPresenter presenter;
-
-    public static SampleFragment newInstance() {
-        SampleFragment sampleFragment = new SampleFragment();
-        return sampleFragment;
+    public static ProfileFragment newInstance() {
+        ProfileFragment profileFragment = new ProfileFragment();
+        return profileFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SampleFrPresenter(this);
+        presenter = new ProfileFrPresenter(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sample, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override

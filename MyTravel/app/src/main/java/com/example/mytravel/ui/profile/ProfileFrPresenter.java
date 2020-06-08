@@ -1,10 +1,10 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.profile;
 
-public class SampleFrPresenter implements SampleFrMvpPresenter {
+public class ProfileFrPresenter implements ProfileFrMvpPresenter {
 
-    private SampleFrMvpView getMvpView;
+    private ProfileFrMvpView getMvpView;
 
-    public SampleFrPresenter(SampleFrMvpView getMvpView) {
+    public ProfileFrPresenter(ProfileFrMvpView getMvpView) {
         this.getMvpView = getMvpView;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mytravel.sample;
+package com.example.mytravel.ui.main;
 
-public interface SampleMvpPresenter {
+public interface MainMvpPresenter {
 }

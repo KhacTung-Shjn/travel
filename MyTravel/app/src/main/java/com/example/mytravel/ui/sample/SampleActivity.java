@@ -1,9 +1,8 @@
-package com.example.mytravel.sample;
+package com.example.mytravel.ui.sample;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseActivity;
@@ -11,6 +10,7 @@ import com.example.mytravel.base.BaseActivity;
 import butterknife.ButterKnife;
 
 public class SampleActivity extends BaseActivity implements SampleMvpView {
+    public static final String TAG = SampleActivity.class.getSimpleName();
 
     public SampleMvpPresenter presenter;
 

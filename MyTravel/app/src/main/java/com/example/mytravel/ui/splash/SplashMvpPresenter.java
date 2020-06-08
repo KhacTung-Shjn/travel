@@ -1,4 +1,4 @@
-package com.example.mytravel.splash;
+package com.example.mytravel.ui.splash;
 
 public interface SplashMvpPresenter {
 }

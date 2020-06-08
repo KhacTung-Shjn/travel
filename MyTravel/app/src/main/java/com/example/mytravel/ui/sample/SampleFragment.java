@@ -1,4 +1,4 @@
-package com.example.mytravel.sample;
+package com.example.mytravel.ui.sample;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 
 public class SampleFragment extends BaseFragment implements SampleFrMvpView {
+    public static final String TAG = SampleFragment.class.getSimpleName();
 
     private SampleFrMvpPresenter presenter;
 
