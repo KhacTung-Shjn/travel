@@ -4,6 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/rlActionBar"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/frMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitleMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:textColor="@color/colorMain"
+            android:textSize="@dimen/size_24sp" />
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/frMain"
         android:layout_width="@dimen/size_0dp"
@@ -11,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rlActionBar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

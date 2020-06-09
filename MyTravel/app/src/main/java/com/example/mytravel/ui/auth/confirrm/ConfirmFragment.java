@@ -48,7 +48,7 @@ public class ConfirmFragment extends BaseFragment implements ConfirmFrMvpView {
     }
 
     @OnClick(R.id.btnNewTravel)
-    public void onClickRegister(View view) {
+    public void onClickRegister() {
         if (getFragmentManager() != null) {
             AppUtils.replaceFragment(getFragmentManager(),
                     R.id.frAuth, RegisterFragment.newInstance(),
@@ -57,7 +57,7 @@ public class ConfirmFragment extends BaseFragment implements ConfirmFrMvpView {
     }
 
     @OnClick(R.id.btnLogin)
-    public void onClickLogin(View view) {
+    public void onClickLogin() {
         if (getFragmentManager() != null) {
             AppUtils.replaceFragment(getFragmentManager(),
                     R.id.frAuth, LoginFragment.newInstance(),

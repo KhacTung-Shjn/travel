@@ -147,10 +147,83 @@
             app:layout_constraintStart_toStartOf="@+id/cvEmail"
             app:layout_constraintTop_toBottomOf="@+id/llBonus" />
 
+        <TextView
+            android:id="@+id/tvSignSocial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_24dp"
+            android:text="@string/text_login_social"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+
+        <RelativeLayout
+            android:id="@+id/rlSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSignSocial">
+
+            <ImageButton
+                android:id="@+id/ivFacebookLogin"
+                android:layout_width="@dimen/size_42dp"
+                android:layout_height="@dimen/size_42dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:backgroundTint="@color/colorWhite"
+                android:scaleType="center"
+                android:src="@drawable/ic_facebook" />
+
+            <ImageButton
+                android:id="@+id/ivGoogleLogin"
+                android:layout_width="@dimen/size_42dp"
+                android:layout_height="@dimen/size_42dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:layout_marginTop="1dp"
+                android:layout_toEndOf="@+id/ivFacebookLogin"
+                android:background="@drawable/bg_round_social"
+                android:scaleType="center"
+                android:src="@drawable/ic_google" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvQuestionAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_24dp"
+            android:text="@string/text_question_account"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvRegister"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rlSocial" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:text="@string/text_register"
+            android:textColor="@color/colorMain"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvQuestionAccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvQuestionAccount"
+            app:layout_constraintTop_toTopOf="@+id/tvQuestionAccount" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+            app:layout_constraintTop_toBottomOf="@+id/tvQuestionAccount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

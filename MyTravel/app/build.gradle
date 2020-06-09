@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -40,5 +41,8 @@ dependencies {
     //butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
 }

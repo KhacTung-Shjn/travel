@@ -3,6 +3,7 @@ package com.example.mytravel.ui.main;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BottomNav
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.frMain)
     FrameLayout frMain;
+    @BindView(R.id.tvTitleMain)
+    TextView tvTitleMain;
 
     private Fragment currentFragment;
     private ArrayList<FragmentController> listFragmentController = new ArrayList<>();
@@ -54,27 +57,34 @@ public class MainActivity extends BaseActivity implements MainMvpView, BottomNav
         listFragmentController.add(new FragmentController(ProfileFragment.newInstance(), ProfileFragment.TAG));
         listFragmentController.add(new FragmentController(SettingFragment.newInstance(), SettingFragment.TAG));
 
+        tvTitleMain.setText(getString(R.string.text_title_home));
         currentFragment = AppUtils.addFragmentsToActivity(getSupportFragmentManager(), listFragmentController, R.id.frMain, 0);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int maybeActive = -1;
+        String title = "";
         switch (menuItem.getItemId()) {
             case R.id.menu_home:
                 maybeActive = 0;
+                title = getString(R.string.text_title_home);
                 break;
             case R.id.menu_favorite:
                 maybeActive = 1;
+                title = getString(R.string.text_title_favorite);
                 break;
             case R.id.menu_profile:
                 maybeActive = 2;
+                title = getString(R.string.text_title_profiles);
                 break;
             case R.id.menu_setting:
                 maybeActive = 3;
+                title = getString(R.string.text_title_setting);
                 break;
         }
         if (maybeActive != -1) {
+            tvTitleMain.setText(title);
             currentFragment = AppUtils.switchFragmentActivity(getSupportFragmentManager(), currentFragment, listFragmentController.get(maybeActive).getFragment());
             return true;
         }
