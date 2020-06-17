@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.main;
 
-public interface MainMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface MainMvpView extends MvpView {
 }

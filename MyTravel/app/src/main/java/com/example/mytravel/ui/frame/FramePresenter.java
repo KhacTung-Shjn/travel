@@ -1,13 +1,13 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.frame;
 
 import com.example.mytravel.base.BasePresenter;
 
-public class SamplePresenter extends BasePresenter implements SampleMvpPresenter {
+public class FramePresenter extends BasePresenter implements FrameMvpPresenter {
 
-    private SampleMvpView getMvpView;
+    private FrameMvpView getMvpView;
 
-    public SamplePresenter(SampleMvpView sampleMvpView) {
-        super(sampleMvpView);
-        this.getMvpView = sampleMvpView;
+    public FramePresenter(FrameMvpView frameMvpView) {
+        super(frameMvpView);
+        this.getMvpView = frameMvpView;
     }
 }

@@ -1,15 +1,39 @@
 package com.example.mytravel.base;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mytravel.MainApp;
+import com.example.mytravel.data.AppDataManager;
+import com.example.mytravel.utils.CommonUtils;
+
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements MvpView {
 
     private Unbinder unbinder;
+    private BaseActivity activity;
+    private Dialog progressDialog;
+    private AppDataManager appDataManager;
+
+    public BaseActivity getBaseActivity() {
+        return activity;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof BaseActivity) {
+            this.activity = (BaseActivity) context;
+        }
+    }
 
     public void setUnbinder(Unbinder unbinder) {
         this.unbinder = unbinder;
@@ -18,8 +42,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appDataManager = MainApp.getInstance().getAppDataManager();
     }
 
+    public AppDataManager getAppDataManager() {
+        return appDataManager;
+    }
 
     @Override
     public void onDestroy() {
@@ -27,5 +55,39 @@ public abstract class BaseFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        if (!TextUtils.isEmpty(message)) {
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void showMessage(int resId) {
+        showMessage(getString(resId));
+    }
+
+    @Override
+    public void showLoading() {
+        if (getBaseActivity() != null)
+            getBaseActivity().runOnUiThread(() -> {
+                hideLoading();
+                if (this.getContext() != null)
+                    progressDialog = CommonUtils.showLoadingDialog(this.getContext());
+            });
+
+    }
+
+    @Override
+    public void hideLoading() {
+        if (getBaseActivity() != null)
+            getBaseActivity().runOnUiThread(() -> {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.cancel();
+                }
+            });
+
     }
 }

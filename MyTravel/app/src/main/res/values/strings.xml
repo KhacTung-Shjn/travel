@@ -1,10 +1,15 @@
 <resources>
-    <string name="app_name">MyTravel</string>
+    <!--    login facebook-->
+    <string name="facebook_app_id" translatable="false">2739732686266234</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2739732686266234</string>
+
+    <!--    string text-->
+    <string name="app_name" translatable="false">MyTravel</string>
     <string name="text_title_home">Home</string>
     <string name="text_title_favorite">Favorites</string>
     <string name="text_title_profiles">Profile</string>
     <string name="text_title_setting">Setting</string>
-    <string name="text_new_travel">New Travel ?</string>
+    <string name="text_new_travel">New Traveler ?</string>
     <string name="text_login">Login</string>
     <string name="text_register">Sign Up</string>
     <string name="text_name">Name</string>
@@ -17,7 +22,7 @@
     <string name="text_login_social">Login with social networks</string>
     <string name="text_question_account">Do not have an account ?</string>
     <string name="text_notification">Notification</string>
-    <string name="text_visa_travel_support">Visa travel support</string>
+    <string name="text_visa_travel_support" translatable="false">Visa travel support</string>
     <string name="text_privacy">Privacy</string>
     <string name="text_help">Help</string>
     <string name="text_update_password">Change Password</string>
@@ -27,4 +32,63 @@
     <string name="text_videos">Videos</string>
     <string name="text_photos">Photos</string>
     <string name="text_tours">Tours</string>
+    <string name="msg_error_enter_name">Please enter your name !</string>
+    <string name="msg_error_enter_password">Please enter your password !</string>
+    <string name="msg_error_enter_re_password">Please enter repeat your password !</string>
+    <string name="msg_error_enter_email">Please enter your email !</string>
+    <string name="msg_error_pass_not_match_re_pass">Can\'t confirm your password ! Please enter repeat your password !</string>
+    <string name="msg_error_email">Email Fail !</string>
+    <string name="msg_error_sign_up">Registration failed, please try again !</string>
+    <string name="msg_success_sign_up">Register Success !</string>
+    <string name="msg_error_login">Please check your email or password !</string>
+    <string name="msg_success_login">Login Success !</string>
+    <string name="msg_error_sign_in_google">Google sign in failed ! Please try again !</string>
+    <string name="msg_error_authentication">Authentication Failed.</string>
+    <string name="msg_success_log_out">Logout Success !</string>
+    <string name="msg_cancel_facebook">Account Facebook Canceled !</string>
+    <string name="msg_error_login_facebook">Login with Facebook Error ! Please try again !</string>
+    <string name="text_user_name_default">Employer</string>
+    <string name="text_credit">0 credit</string>
+    <string name="text_rating">Rating</string>
+    <string name="text_rating_detail">My travel 5 star</string>
+    <string name="text_support">Support 24/7</string>
+    <string name="text_support_detail" translatable="false">0344366899</string>
+    <string name="text_history">History</string>
+    <string name="text_history_detail">Tour booked</string>
+    <string name="text_money_word">Money Word</string>
+    <string name="text_money_word_detail" translatable="false">Dollar</string>
+    <string name="text_pay">Payment</string>
+    <string name="text_pay_detail">0 card</string>
+    <string name="msg_error_network">Please check your network !</string>
+    <string name="text_content_logout">Do you want log out My Travel ?</string>
+    <string name="text_yes">Yes</string>
+    <string name="text_no">No</string>
+    <string name="text_title_rating">Do you love My Travel ?</string>
+    <string name="text_content_rating">Rating for me !</string>
+    <string name="text_done">Done</string>
+    <string name="text_enter_code">Enter password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="text_information">Information</string>
+    <string name="text_version_app">Version 1.0.0</string>
+    <string name="text_my_name">Developer Android: N.K.T</string>
+    <string name="text_my_name_academy"><![CDATA["Posts & Telecommunications Institute of Technology "]]></string>
+    <string name="text_email_default" translatable="false">mytravel@gmail.com</string>
+    <string name="text_show_detail_account"><u>Detail My Account</u></string>
+    <string name="text_change_password">Change Password</string>
+    <string name="text_new_password">New Password</string>
+    <string name="msg_error_enter_new_password">Please enter new password !</string>
+    <string name="msg_error_confirm_password">Your password error ! Please Enter again !</string>
+    <string name="msg_error_pass_not_new">The new password must be different from the old password !</string>
+    <string name="msg_success_change_pass">Change password Success !</string>
+    <string name="msg_error_length_password">Password must be longer than 6 characters !</string>
+    <string name="text_title_support">Do you need advice?</string>
+    <string name="text_content_support">Call the phone number</string>
+    <string name="text_call">Call</string>
+    <string name="text_title_information_profile">Information Account</string>
+    <string name="text_phone">Phone</string>
+    <string name="text_gender">Gender</string>
+    <string name="text_obligatory">* is a required attribute</string>
+    <string name="text_update">Update</string>
+    <string name="msg_success_update_profile">Update Profile Sucess !</string>
+    <string name="msg_error_update_profile">Update Profile Fail !</string>
 </resources>

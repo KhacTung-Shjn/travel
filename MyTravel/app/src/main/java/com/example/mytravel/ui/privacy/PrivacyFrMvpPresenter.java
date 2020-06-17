@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.privacy;
 
-public interface SampleFrMvpPresenter {
+public interface PrivacyFrMvpPresenter {
 }

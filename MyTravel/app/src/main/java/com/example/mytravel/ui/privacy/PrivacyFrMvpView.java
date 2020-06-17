@@ -1,6 +1,6 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.privacy;
 
 import com.example.mytravel.base.MvpView;
 
-public interface SampleFrMvpView extends MvpView {
+public interface PrivacyFrMvpView extends MvpView {
 }

@@ -1,4 +1,12 @@
 package com.example.mytravel.base;
 
-interface MvpView {
+public interface MvpView {
+    void showMessage(String message);
+
+    void showMessage(int message);
+
+    void showLoading();
+
+    void hideLoading();
+
 }

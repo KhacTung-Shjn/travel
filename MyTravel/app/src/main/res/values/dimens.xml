@@ -37,4 +37,7 @@
     <dimen name="size_25dp">25dp</dimen>
     <dimen name="size_70dp">70dp</dimen>
     <dimen name="size_10sp">10sp</dimen>
+    <dimen name="size_25sp">25sp</dimen>
+    <dimen name="size_6dp">6dp</dimen>
+    <dimen name="size_80dp">80dp</dimen>
 </resources>

@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.auth;
 
-public interface AuthMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface AuthMvpView extends MvpView {
 }

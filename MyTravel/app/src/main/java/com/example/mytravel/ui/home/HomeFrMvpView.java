@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.home;
 
-public interface HomeFrMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface HomeFrMvpView extends MvpView {
 }

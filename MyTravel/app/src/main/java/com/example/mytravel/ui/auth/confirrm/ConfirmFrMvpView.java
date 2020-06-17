@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.auth.confirrm;
 
-public interface ConfirmFrMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface ConfirmFrMvpView extends MvpView {
 }

@@ -1,4 +1,4 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.frame;
 
-public interface SampleMvpPresenter {
+public interface FrameMvpPresenter {
 }

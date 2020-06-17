@@ -1,4 +1,8 @@
 package com.example.mytravel.ui.setting;
 
-public interface SettingFrMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface SettingFrMvpView extends MvpView {
+    void reloadView();
+
 }

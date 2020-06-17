@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.splash;
 
-public interface SplashMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface SplashMvpView extends MvpView {
 }

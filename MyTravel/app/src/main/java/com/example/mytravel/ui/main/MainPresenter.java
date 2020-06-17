@@ -1,11 +1,14 @@
 package com.example.mytravel.ui.main;
 
-public class MainPresenter implements MainMvpPresenter {
+import com.example.mytravel.base.BasePresenter;
+
+public class MainPresenter extends BasePresenter implements MainMvpPresenter {
 
     private MainMvpView getMvpView;
 
 
     public MainPresenter(MainMvpView mainMvpView) {
+        super(mainMvpView);
         this.getMvpView = mainMvpView;
     }
 }

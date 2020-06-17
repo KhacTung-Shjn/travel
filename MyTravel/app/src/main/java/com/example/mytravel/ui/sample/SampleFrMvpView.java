@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.sample;
 
-public interface SampleFrMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface SampleFrMvpView extends MvpView {
 }

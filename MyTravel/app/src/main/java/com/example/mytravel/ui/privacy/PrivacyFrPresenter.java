@@ -1,12 +1,12 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.privacy;
 
 import com.example.mytravel.base.BasePresenter;
 
-public class SampleFrPresenter extends BasePresenter implements SampleFrMvpPresenter {
+public class PrivacyFrPresenter extends BasePresenter implements PrivacyFrMvpPresenter {
 
-    private SampleFrMvpView getMvpView;
+    private PrivacyFrMvpView getMvpView;
 
-    public SampleFrPresenter(SampleFrMvpView getMvpView) {
+    public PrivacyFrPresenter(PrivacyFrMvpView getMvpView) {
         super(getMvpView);
         this.getMvpView = getMvpView;
     }

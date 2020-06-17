@@ -1,4 +1,6 @@
 package com.example.mytravel.ui.favorite;
 
-public interface FavoriteFrMvpView {
+import com.example.mytravel.base.MvpView;
+
+public interface FavoriteFrMvpView extends MvpView {
 }

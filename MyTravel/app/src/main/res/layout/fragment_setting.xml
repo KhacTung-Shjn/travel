@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/size_32dp"
         android:layout_marginTop="@dimen/size_40dp"
-        android:drawableStart="@drawable/ic_language"
+        android:drawableStart="@drawable/ic_languages"
         android:drawablePadding="@dimen/size_14dp"
         android:text="@string/text_language"
         android:textColor="@color/colorText"
@@ -58,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/size_32dp"
+        android:checked="false"
         android:thumb="@drawable/custom_switch_vietnam"
         android:track="@drawable/custom_switch_track"
         app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
@@ -78,19 +79,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
 
+    <Switch
+        android:id="@+id/switchPrivacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_32dp"
+        android:thumb="@drawable/custom_switch_selector"
+        android:track="@drawable/custom_switch_track"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrivacy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPrivacy" />
+
     <TextView
-        android:id="@+id/tvHelp"
+        android:id="@+id/tvInformation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/size_32dp"
         android:layout_marginTop="@dimen/size_40dp"
         android:drawableStart="@drawable/ic_information"
         android:drawablePadding="@dimen/size_14dp"
-        android:text="@string/text_help"
+        android:text="@string/text_information"
         android:textColor="@color/colorText"
         android:textSize="@dimen/size_14sp"
+        app:layout_constraintEnd_toEndOf="@+id/switchNoti"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrivacy" />
+        app:layout_constraintTop_toBottomOf="@+id/tvChangePassword" />
 
     <TextView
         android:id="@+id/tvChangePassword"
@@ -103,8 +116,9 @@
         android:text="@string/text_update_password"
         android:textColor="@color/colorText"
         android:textSize="@dimen/size_14sp"
+        app:layout_constraintEnd_toEndOf="@+id/switchNoti"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHelp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrivacy" />
 
     <TextView
         android:id="@+id/tvLogOut"
@@ -117,7 +131,8 @@
         android:text="@string/text_log_out"
         android:textColor="@color/colorText"
         android:textSize="@dimen/size_14sp"
+        app:layout_constraintEnd_toEndOf="@+id/switchNoti"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvChangePassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tvInformation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

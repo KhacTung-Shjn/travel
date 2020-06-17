@@ -1,4 +1,7 @@
-package com.example.mytravel.ui.sample;
+package com.example.mytravel.ui.auth.updateprofile;
 
-public interface SampleFrMvpPresenter {
+import com.example.mytravel.models.user.UserInformation;
+
+public interface UpdateProfileFrMvpPresenter {
+    void onClickUpdateProfile(String name, String email, boolean isMale, boolean isFeMale, String phone, UserInformation userInformation);
 }
