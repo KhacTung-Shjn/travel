@@ -45,7 +45,7 @@
             android:textSize="@dimen/size_10sp" />
 
         <RadioButton
-            android:id="@+id/radioHighPrices"
+            android:id="@+id/rbPhotos"
             style="@style/SelectableItemBackgroundBorderless"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_25dp"
@@ -59,7 +59,7 @@
             android:textSize="@dimen/size_10sp" />
 
         <RadioButton
-            android:id="@+id/radioLowPrices"
+            android:id="@+id/rbTours"
             style="@style/SelectableItemBackgroundBorderless"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_25dp"
@@ -84,5 +84,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgFavorites" />
 
-
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpFavorites"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewActionBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

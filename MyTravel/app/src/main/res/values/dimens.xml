@@ -40,4 +40,5 @@
     <dimen name="size_25sp">25sp</dimen>
     <dimen name="size_6dp">6dp</dimen>
     <dimen name="size_80dp">80dp</dimen>
+    <dimen name="size_140dp">140dp</dimen>
 </resources>

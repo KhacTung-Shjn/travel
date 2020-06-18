@@ -89,6 +89,8 @@
     <string name="text_gender">Gender</string>
     <string name="text_obligatory">* is a required attribute</string>
     <string name="text_update">Update</string>
-    <string name="msg_success_update_profile">Update Profile Sucess !</string>
+    <string name="msg_success_update_profile">Update Profile Success !</string>
     <string name="msg_error_update_profile">Update Profile Fail !</string>
+    <string name="text_female">FeMale</string>
+    <string name="text_male">Male</string>
 </resources>

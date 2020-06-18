@@ -77,10 +77,12 @@
     <string name="text_content_support">Hãy gọi đến số điện thoại</string>
     <string name="text_call">Gọi</string>
     <string name="text_female">Nữ</string>
-    <string name="text_male">Name</string>
+    <string name="text_male">Nam</string>
     <string name="text_title_information_profile">Thông tin tài khoản</string>
     <string name="text_phone">Số điện thoại</string>
     <string name="text_gender">GIới tính</string>
     <string name="text_obligatory">* là thuộc tính bắt buộc</string>
     <string name="text_update">Cập nhật</string>
+    <string name="msg_success_update_profile">Cập nhật thông tin thành công !</string>
+    <string name="msg_error_update_profile">Cập nhật thông tin thất bại !</string>
 </resources>
