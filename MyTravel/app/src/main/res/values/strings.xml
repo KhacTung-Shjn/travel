@@ -3,6 +3,12 @@
     <string name="facebook_app_id" translatable="false">2739732686266234</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb2739732686266234</string>
 
+    <!--    font-->
+    <string name="font_Roboto_Bold" translatable="false">fonts/Roboto-Bold.ttf</string>
+    <string name="font_Roboto_Italic" translatable="false">fonts/Roboto-Italic.ttf</string>
+    <string name="font_Roboto_Medium" translatable="false">fonts/Roboto-Medium.ttf</string>
+    <string name="font_Roboto_Thin" translatable="false">fonts/Roboto-Thin.ttf</string>
+
     <!--    string text-->
     <string name="app_name" translatable="false">MyTravel</string>
     <string name="text_title_home">Home</string>
@@ -93,4 +99,13 @@
     <string name="msg_error_update_profile">Update Profile Fail !</string>
     <string name="text_female">FeMale</string>
     <string name="text_male">Male</string>
+    <string name="text_address">Address</string>
+    <string name="text_birth">Birth of Day</string>
+    <string name="msg_get_all_list_city_empty">List City Empty !</string>
+    <string name="text_title_introduction">Introduction</string>
+    <string name="text_title_explore">Explore</string>
+    <string name="text_tour" translatable="false">TOUR</string>
+    <string name="msg_error_unknown">Error Unknown ! Please try again !</string>
+    <string name="msg_get_all_list_explore_empty">List Explore Empty !</string>
+    <string name="text_title_tour_popular">Tour Popular</string>
 </resources>

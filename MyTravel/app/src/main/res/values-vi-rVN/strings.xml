@@ -85,4 +85,10 @@
     <string name="text_update">Cập nhật</string>
     <string name="msg_success_update_profile">Cập nhật thông tin thành công !</string>
     <string name="msg_error_update_profile">Cập nhật thông tin thất bại !</string>
+    <string name="text_address">Địa chỉ</string>
+    <string name="text_birth">Ngày sinh</string>
+    <string name="msg_get_all_list_city_empty">Danh sách thành phố rỗng !</string>
+    <string name="text_title_introduction">Giới thiệu</string>
+    <string name="text_title_explore">Khám phá</string>
+    <string name="msg_error_unknown">Lỗi không xác định ! Vui lòng thử lại !</string>
 </resources>

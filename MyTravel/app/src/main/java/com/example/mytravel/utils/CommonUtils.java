@@ -10,7 +10,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mytravel.R;
 import com.example.mytravel.models.user.UserInformation;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,5 +77,19 @@ public class CommonUtils {
         }
 
         return userInformation;
+    }
+
+    public static void loadImageCircle(Context context, String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView);
+    }
+
+    public static void loadImage(Context context, String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .error(R.drawable.ic_default)
+                .into(imageView);
     }
 }

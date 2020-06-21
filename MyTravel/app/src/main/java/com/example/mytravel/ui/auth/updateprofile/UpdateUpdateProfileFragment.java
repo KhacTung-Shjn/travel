@@ -1,6 +1,8 @@
 package com.example.mytravel.ui.auth.updateprofile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -20,6 +23,8 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.utils.CommonUtils;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,10 +54,17 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
     RadioButton rbFeMale;
     @BindView(R.id.etPhone)
     EditText etPhone;
+    @BindView(R.id.etAddress)
+    EditText etAddress;
+    @BindView(R.id.tvChooseBirth)
+    TextView tvChooseBirth;
     @BindView(R.id.btnUpdate)
     Button btnUpdate;
 
     private UserInformation userInformation;
+    private String birth;
+    private Calendar calendar;
+    private int mDay, mMonth, mYear;
 
     public static UpdateUpdateProfileFragment newInstance(UserInformation userInformation) {
         UpdateUpdateProfileFragment updateProfileFragment = new UpdateUpdateProfileFragment();
@@ -66,6 +78,7 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new UpdateProfileFrPresenter(this);
+        calendar = Calendar.getInstance();
     }
 
     @Nullable
@@ -85,6 +98,11 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
         if (getArguments() != null) {
             userInformation = getArguments().getParcelable(KEY_USER_INFORMATION);
         }
+        if (calendar != null) {
+            mDay = calendar.get(Calendar.DAY_OF_MONTH);
+            mMonth = calendar.get(Calendar.MONTH);
+            mYear = calendar.get(Calendar.YEAR);
+        }
 
         if (userInformation != null) {
             if (!TextUtils.isEmpty(userInformation.getEmail())) {
@@ -95,7 +113,6 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
                 tvNameUser.setText(userInformation.getName());
                 etName.setText(userInformation.getName());
             }
-
         }
     }
 
@@ -113,7 +130,21 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
     @OnClick(R.id.btnUpdate)
     public void onClickUpdate() {
         presenter.onClickUpdateProfile(etName.getText().toString(), etEmail.getText().toString(),
-                rbMale.isChecked(), rbFeMale.isChecked(), etPhone.getText().toString(), userInformation);
+                rbMale.isChecked(), rbFeMale.isChecked(), etPhone.getText().toString(),
+                etAddress.getText().toString(), birth, userInformation);
+    }
+
+    @SuppressLint("DefaultLocale")
+
+    @OnClick(R.id.tvChooseBirth)
+    public void onClickChooseBirth() {
+        if (getContext() != null) {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
+                birth = String.format("%d/%d/%d", dayOfMonth, (month + 1), year);
+                tvChooseBirth.setText(birth);
+            }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
     }
 
     @Override

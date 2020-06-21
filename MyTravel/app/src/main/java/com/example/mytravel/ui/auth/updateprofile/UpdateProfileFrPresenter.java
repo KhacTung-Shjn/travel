@@ -24,7 +24,7 @@ public class UpdateProfileFrPresenter extends BasePresenter implements UpdatePro
     }
 
     @Override
-    public void onClickUpdateProfile(String name, String email, boolean isMale, boolean isFeMale, String phone, UserInformation userInformation) {
+    public void onClickUpdateProfile(String name, String email, boolean isMale, boolean isFeMale, String phone,String address, String birth, UserInformation userInformation) {
         if (isValidate(name, email)) {
             FirebaseUser user = MainApp.getInstance().getAuth().getCurrentUser();
 

@@ -10,6 +10,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainApp extends Application {
     public static final String TAG = MainApp.class.getSimpleName();
@@ -21,6 +22,7 @@ public class MainApp extends Application {
     private FirebaseUser currentUser;
     private MyPreference presenter;
     private AppDataManager appDataManager;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     public void onCreate() {
@@ -32,6 +34,7 @@ public class MainApp extends Application {
         AppEventsLogger.activateApp(this);
         presenter = new MyPreference(getSharedPreferences(TAG, MODE_PRIVATE));
         appDataManager = new AppDataManager(presenter, getApplicationContext());
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     public static MainApp getInstance() {
@@ -60,5 +63,9 @@ public class MainApp extends Application {
 
     public AppDataManager getAppDataManager() {
         return appDataManager;
+    }
+
+    public FirebaseFirestore getFirebaseFireStore() {
+        return firebaseFirestore;
     }
 }

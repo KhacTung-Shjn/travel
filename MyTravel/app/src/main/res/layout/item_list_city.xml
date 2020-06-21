@@ -7,6 +7,7 @@
     android:layout_margin="@dimen/size_10dp"
     android:elevation="@dimen/size_5dp"
     app:cardCornerRadius="@dimen/size_10dp"
+    tools:ignore="MissingPrefix"
     tools:targetApi="lollipop">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,18 +25,19 @@
 
         <ImageView
             android:id="@+id/ivLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size_20dp"
+            android:layout_height="@dimen/size_20dp"
             android:layout_margin="@dimen/size_10dp"
             android:src="@drawable/ic_location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/txtNameCity"
+            android:id="@+id/tvNameCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_5dp"
+            android:fontFamily="@string/font_Roboto_Bold"
             android:textAllCaps="true"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/size_16sp"

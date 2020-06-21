@@ -193,8 +193,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:gravity="center_vertical"
                     android:layout_marginEnd="@dimen/size_5dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -260,10 +260,98 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/size_10dp"
                     android:background="@null"
-                    android:inputType="phone"
                     android:digits="+0123456789"
                     android:gravity="end"
                     android:hint="@string/text_phone"
+                    android:inputType="phone"
+                    android:textSize="@dimen/size_12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorText"
+                app:layout_constraintTop_toBottomOf="@+id/rlPhone" />
+
+            <RelativeLayout
+                android:id="@+id/rlAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/rlPhone">
+
+                <TextView
+                    android:id="@+id/tvStar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:text=" "
+                    android:textColor="@color/colorMain"
+                    tools:ignore="DuplicateIds" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_2dp"
+                    android:layout_toEndOf="@+id/tvStar"
+                    android:text="@string/text_address"
+                    android:textSize="@dimen/size_12sp" />
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:background="@null"
+                    android:digits="+0123456789"
+                    android:gravity="end"
+                    android:hint="@string/text_address"
+                    android:inputType="phone"
+                    android:textSize="@dimen/size_12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorText"
+                app:layout_constraintTop_toBottomOf="@+id/rlAddress" />
+
+            <RelativeLayout
+                android:id="@+id/rlBirth"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/rlAddress">
+
+                <TextView
+                    android:id="@+id/tvStar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:text=" "
+                    android:textColor="@color/colorMain"
+                    tools:ignore="DuplicateIds" />
+
+                <TextView
+                    android:id="@+id/tvBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_2dp"
+                    android:layout_toEndOf="@+id/tvStar"
+                    android:text="@string/text_birth"
+                    android:textSize="@dimen/size_12sp" />
+
+                <TextView
+                    android:id="@+id/tvChooseBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:background="@null"
+                    android:gravity="end"
+                    android:hint="@string/text_birth"
                     android:textSize="@dimen/size_12sp" />
             </RelativeLayout>
 
@@ -272,7 +360,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/colorText"
-                app:layout_constraintTop_toBottomOf="@+id/rlPhone" />
+                app:layout_constraintTop_toBottomOf="@+id/rlBirth" />
 
             <TextView
                 android:id="@+id/tvObligatory"
