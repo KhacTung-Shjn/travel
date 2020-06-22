@@ -108,4 +108,6 @@
     <string name="msg_error_unknown">Error Unknown ! Please try again !</string>
     <string name="msg_get_all_list_explore_empty">List Explore Empty !</string>
     <string name="text_title_tour_popular">Tour Popular</string>
+    <string name="text_form">from</string>
+    <string name="msg_get_all_list_tour_popular_empty">List Tour Popular Empty !</string>
 </resources>

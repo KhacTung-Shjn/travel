@@ -14,12 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.City;
 import com.example.mytravel.models.city.Explore;
+import com.example.mytravel.models.city.TourPopular;
 import com.example.mytravel.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -49,9 +51,12 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
     TextView tvNoExplore;
     @BindView(R.id.tvRate)
     TextView tvRate;
+    @BindView(R.id.rcvListTourPopular)
+    RecyclerView rcvListTourPopular;
 
     private City city;
     private ExploreAdapter exploreAdapter;
+    private TourPopularAdapter tourPopularAdapter;
 
     public static DetailCityFragment newInstance(City city) {
         DetailCityFragment detailCityFragment = new DetailCityFragment();
@@ -66,6 +71,7 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
         super.onCreate(savedInstanceState);
         presenter = new DetailCityFrPresenter(this);
         exploreAdapter = new ExploreAdapter(getContext());
+        tourPopularAdapter = new TourPopularAdapter(getContext());
     }
 
     @Nullable
@@ -95,9 +101,13 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
 
         rcvExplore.setHasFixedSize(true);
         rcvExplore.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        ArrayList<Explore> listExplores = new ArrayList<>();
-        exploreAdapter.setListExplores(listExplores);
+        exploreAdapter.setListExplores(new ArrayList<>());
         rcvExplore.setAdapter(exploreAdapter);
+
+        rcvListTourPopular.setHasFixedSize(true);
+        rcvListTourPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        tourPopularAdapter.setListExplores(new ArrayList<>());
+        rcvListTourPopular.setAdapter(tourPopularAdapter);
 
         if (city != null) {
             tvRate.setText(String.valueOf(city.getRateCity()));
@@ -111,6 +121,7 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
                 tvDesc.setText(city.getDesc());
             }
             presenter.getListExplore(city.getIdCity());
+            presenter.getListTourPopular(city.getIdCity());
         }
 
 
@@ -136,6 +147,13 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
         } else {
             tvNoExplore.setVisibility(View.VISIBLE);
             rcvExplore.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void successGetListTourPopular(ArrayList<TourPopular> listTours) {
+        if (listTours != null) {
+            tourPopularAdapter.replaceAllData(listTours);
         }
     }
 }

@@ -29,28 +29,7 @@ public class City implements Parcelable {
     @SerializedName("desc")
     @Expose
     private String desc;
-    @SerializedName("tour")
-    @Expose
-    private Tour tour;
-    @SerializedName("place")
-    @Expose
-    private Place place;
-    @SerializedName("explore")
-    @Expose
-    private Explore explore;
 
-
-    public City(String id_city, String name_city, String lat, String lng, float rate_city, String image_city, Tour tour, Place place, Explore explore) {
-        this.id_city = id_city;
-        this.name_city = name_city;
-        this.lat = lat;
-        this.lng = lng;
-        this.rate_city = rate_city;
-        this.image_city = image_city;
-        this.tour = tour;
-        this.place = place;
-        this.explore = explore;
-    }
 
     public City() {
     }
@@ -111,30 +90,6 @@ public class City implements Parcelable {
         this.image_city = image_city;
     }
 
-    public Tour getTour() {
-        return tour;
-    }
-
-    public void setTour(Tour tour) {
-        this.tour = tour;
-    }
-
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
-    public Explore getExplore() {
-        return explore;
-    }
-
-    public void setExplore(Explore explore) {
-        this.explore = explore;
-    }
-
 
     @Override
     public int describeContents() {
@@ -150,9 +105,6 @@ public class City implements Parcelable {
         dest.writeFloat(this.rate_city);
         dest.writeString(this.image_city);
         dest.writeString(this.desc);
-        dest.writeParcelable(this.tour, flags);
-        dest.writeParcelable(this.place, flags);
-        dest.writeParcelable(this.explore, flags);
     }
 
     protected City(Parcel in) {
@@ -163,9 +115,6 @@ public class City implements Parcelable {
         this.rate_city = in.readFloat();
         this.image_city = in.readString();
         this.desc = in.readString();
-        this.tour = in.readParcelable(Tour.class.getClassLoader());
-        this.place = in.readParcelable(Place.class.getClassLoader());
-        this.explore = in.readParcelable(Explore.class.getClassLoader());
     }
 
     public static final Creator<City> CREATOR = new Creator<City>() {

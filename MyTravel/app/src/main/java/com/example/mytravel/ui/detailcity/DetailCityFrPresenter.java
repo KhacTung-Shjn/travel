@@ -4,6 +4,7 @@ import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BasePresenter;
 import com.example.mytravel.models.city.Explore;
+import com.example.mytravel.models.city.TourPopular;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -43,6 +44,35 @@ public class DetailCityFrPresenter extends BasePresenter implements DetailCityFr
                             getMvpView.successGetListExplore(listExplore);
                         } else {
                             getMvpView.showMessage(R.string.msg_get_all_list_explore_empty);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getListTourPopular(String idCity) {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .document(idCity)
+                .collection("tour_popular")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        getMvpView.showMessage(R.string.msg_error_unknown);
+                    }
+
+                    if (queryDocumentSnapshots != null) {
+                        ArrayList<TourPopular> listTours = new ArrayList<>();
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                            data = getGSon().toJson(snapshot.getData());
+                            if (data != null) {
+                                TourPopular tourPopular = getGSon().fromJson(data, TourPopular.class);
+                                listTours.add(tourPopular);
+                            }
+                        }
+                        if (listTours.size() != 0) {
+                            getMvpView.successGetListTourPopular(listTours);
+                        } else {
+                            getMvpView.showMessage(R.string.msg_get_all_list_tour_popular_empty);
                         }
                     }
                 });
