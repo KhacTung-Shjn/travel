@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_20dp"
+        android:fontFamily="@string/font_Roboto_Bold"
+        android:text="@string/text_title_welcome"
+        android:textSize="@dimen/size_30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNameExplore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_4dp"
+        android:fontFamily="@string/font_Roboto_Bold"
+        android:text="Cat Ba Islands"
+        android:textSize="@dimen/size_30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/viewGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvEvent"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_120dp"
+        android:layout_marginTop="@dimen/size_58dp"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:elevation="@dimen/size_5dp"
+        app:cardCornerRadius="@dimen/size_5dp"
+        app:layout_constraintEnd_toStartOf="@+id/viewGuide"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameExplore"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_event">
+
+            <ImageView
+                android:id="@+id/imgEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_event_activity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgEvent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_3dp"
+                android:text="@string/text_event_activities"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/size_10sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvHotel"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_120dp"
+        android:layout_marginStart="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:elevation="@dimen/size_5dp"
+        app:cardCornerRadius="@dimen/size_5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewGuide"
+        app:layout_constraintTop_toTopOf="@+id/cvEvent"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_hotel">
+
+            <ImageView
+                android:id="@+id/imgHotel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_hotel1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgHotel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_6dp"
+                android:text="@string/text_hotel"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/size_10sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvShopping"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_120dp"
+        android:layout_marginTop="@dimen/size_60dp"
+        android:elevation="@dimen/size_5dp"
+        app:cardCornerRadius="@dimen/size_5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cvEvent"
+        app:layout_constraintStart_toStartOf="@+id/cvEvent"
+        app:layout_constraintTop_toBottomOf="@+id/cvEvent"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_shopping_feature">
+
+            <ImageView
+                android:id="@+id/imgShopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_shopping" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgShopping"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_3dp"
+                android:text="@string/text_shopping"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/size_10sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCuisines"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_120dp"
+        android:elevation="@dimen/size_5dp"
+        app:cardCornerRadius="@dimen/size_5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cvHotel"
+        app:layout_constraintStart_toStartOf="@+id/cvHotel"
+        app:layout_constraintTop_toTopOf="@+id/cvShopping"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_cuisines">
+
+            <ImageView
+                android:id="@+id/imgCuisines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_cuisines" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgCuisines"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_3dp"
+                android:text="@string/text_cuisines"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/size_10sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

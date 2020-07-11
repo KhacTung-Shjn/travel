@@ -73,7 +73,7 @@
 
             <Button
                 android:id="@+id/btnDoneRating"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/size_140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/size_16sp"
                 android:background="@drawable/bg_btn_yes"

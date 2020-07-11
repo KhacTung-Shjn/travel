@@ -21,6 +21,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
 
     private ArrayList<Explore> listExplores;
     private Context context;
+    private OnClickItemInCity onClickItemInCity;
+
+    public void setOnClickItemInCity(OnClickItemInCity onClickItemInCity) {
+        this.onClickItemInCity = onClickItemInCity;
+    }
 
     public ExploreAdapter(Context context) {
         this.context = context;
@@ -62,6 +67,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
             holder.isLove.setSelected(explore.isLove());
 
             holder.isLove.setOnClickListener(v -> holder.isLove.setSelected(!holder.isLove.isSelected()));
+
+            holder.itemView.setOnClickListener(v -> onClickItemInCity.onClickExplore(explore));
         }
     }
 

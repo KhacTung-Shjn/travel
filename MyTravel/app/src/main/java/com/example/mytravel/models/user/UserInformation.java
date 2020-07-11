@@ -4,20 +4,27 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class UserInformation implements Parcelable {
-    private String providerId;
-    private String uid;
-    private String name;
-    private String email;
-    private Uri photoUrl;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public UserInformation(String providerId, String uid, String name, String email, Uri photoUrl) {
-        this.providerId = providerId;
-        this.uid = uid;
-        this.name = name;
-        this.email = email;
-        this.photoUrl = photoUrl;
-    }
+public class UserInformation implements Parcelable {
+
+    @SerializedName("providerId")
+    @Expose
+    private String providerId;
+    @SerializedName("uid")
+    @Expose
+    private String uid;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("avatarUrl")
+    @Expose
+    private String avatarUrl;
+
 
     public UserInformation() {
     }
@@ -54,12 +61,12 @@ public class UserInformation implements Parcelable {
         this.email = email;
     }
 
-    public Uri getPhotoUrl() {
-        return photoUrl;
+    public String getPhotoUrl() {
+        return avatarUrl;
     }
 
-    public void setPhotoUrl(Uri photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoUrl(String photoUrl) {
+        this.avatarUrl = photoUrl;
     }
 
 
@@ -74,7 +81,7 @@ public class UserInformation implements Parcelable {
         dest.writeString(this.uid);
         dest.writeString(this.name);
         dest.writeString(this.email);
-        dest.writeParcelable(this.photoUrl, flags);
+        dest.writeString(this.avatarUrl);
     }
 
     protected UserInformation(Parcel in) {
@@ -82,7 +89,7 @@ public class UserInformation implements Parcelable {
         this.uid = in.readString();
         this.name = in.readString();
         this.email = in.readString();
-        this.photoUrl = in.readParcelable(Uri.class.getClassLoader());
+        this.avatarUrl = in.readString();
     }
 
     public static final Creator<UserInformation> CREATOR = new Creator<UserInformation>() {

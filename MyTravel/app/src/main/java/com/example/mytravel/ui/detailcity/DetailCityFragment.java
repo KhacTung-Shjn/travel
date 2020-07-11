@@ -22,6 +22,7 @@ import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.City;
 import com.example.mytravel.models.city.Explore;
 import com.example.mytravel.models.city.TourPopular;
+import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_CITY;
 
-public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpView {
+public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpView, OnClickItemInCity {
     public static final String TAG = DetailCityFragment.class.getSimpleName();
 
     private DetailCityFrMvpPresenter presenter;
@@ -84,9 +85,10 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
+            setUnbinder(ButterKnife.bind(this, getActivity()));
+
             Window w = getActivity().getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            setUnbinder(ButterKnife.bind(this, getActivity()));
 
             RelativeLayout rlActionBar = getActivity().findViewById(R.id.rlActionBar);
             View viewActionBar = getActivity().findViewById(R.id.viewActionBar);
@@ -102,11 +104,13 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
         rcvExplore.setHasFixedSize(true);
         rcvExplore.setLayoutManager(new GridLayoutManager(getContext(), 2));
         exploreAdapter.setListExplores(new ArrayList<>());
+        exploreAdapter.setOnClickItemInCity(this);
         rcvExplore.setAdapter(exploreAdapter);
 
         rcvListTourPopular.setHasFixedSize(true);
         rcvListTourPopular.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         tourPopularAdapter.setListExplores(new ArrayList<>());
+        tourPopularAdapter.setOnClickItemInCity(this);
         rcvListTourPopular.setAdapter(tourPopularAdapter);
 
         if (city != null) {
@@ -155,5 +159,15 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
         if (listTours != null) {
             tourPopularAdapter.replaceAllData(listTours);
         }
+    }
+
+    @Override
+    public void onClickTour(TourPopular tourPopular) {
+        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular));
+    }
+
+    @Override
+    public void onClickExplore(Explore explore) {
+        startActivity(FrameActivity.newIntentDetailExplore(getContext(), explore, city.getIdCity()));
     }
 }

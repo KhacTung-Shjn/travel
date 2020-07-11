@@ -18,11 +18,14 @@ import com.example.mytravel.R;
 import com.example.mytravel.models.user.UserInformation;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.gson.Gson;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommonUtils {
+public class CommonUtils<T> {
 
     public static boolean isEmailValid(String email) {
         Pattern pattern;
@@ -67,13 +70,22 @@ public class CommonUtils {
     public static UserInformation getUserInfo(FirebaseUser user) {
         UserInformation userInformation = new UserInformation();
         if (user != null) {
-            for (UserInfo profile : user.getProviderData()) {
-                userInformation.setProviderId(profile.getProviderId());
-                userInformation.setUid(profile.getUid());
-                userInformation.setName(profile.getDisplayName());
-                userInformation.setEmail(profile.getEmail());
-                userInformation.setPhotoUrl(profile.getPhotoUrl());
-            }
+            UserInfo profile = user.getProviderData().get(0);
+            userInformation.setProviderId(profile.getProviderId());
+            userInformation.setUid(profile.getUid());
+            userInformation.setName(profile.getDisplayName());
+            userInformation.setEmail(profile.getEmail());
+            userInformation.setPhotoUrl(String.valueOf(profile.getPhotoUrl()));
+
+            //userInformation.setAvatarUrl(profile.get);
+
+//            for (UserInfo profile : user.getProviderData()) {
+//                userInformation.setProviderId(profile.getProviderId());
+//                userInformation.setUid(profile.getUid());
+//                userInformation.setName(profile.getDisplayName());
+//                userInformation.setEmail(profile.getEmail());
+//                //userInformation.setAvatarUrl(profile.getPhotoUrl());
+//            }
         }
 
         return userInformation;
@@ -92,4 +104,5 @@ public class CommonUtils {
                 .error(R.drawable.ic_default)
                 .into(imageView);
     }
+
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_10dp"
+    android:elevation="@dimen/size_5dp"
+    app:cardCornerRadius="@dimen/size_10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivItemTour"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_170dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/ic_launcher_background" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_60dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="HardcodedText">
+
+            <TextView
+                android:id="@+id/tvNameTour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:text="Name's Tour"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/size_14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAnnotate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:text="(6 Days 5 Nights)"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNameTour"
+                app:layout_constraintStart_toEndOf="@+id/tvNameTour"
+                app:layout_constraintTop_toTopOf="@+id/tvNameTour" />
+
+            <TextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:drawableStart="@drawable/ic_star_full"
+                android:drawablePadding="@dimen/size_5dp"
+                android:text="3.5"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/size_11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvNameTour"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameTour" />
+
+            <TextView
+                android:id="@+id/tvFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/size_5dp"
+                android:text="@string/text_form"
+                android:textColor="@color/colorMain"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+                app:layout_constraintEnd_toStartOf="@+id/tvPrice"
+                app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_14dp"
+                android:text="$300"
+                android:textColor="@color/colorMain"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_5dp"
+            app:cardCornerRadius="@dimen/size_30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.66">
+
+            <TextView
+                android:id="@+id/isLove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/cb_favorite_explore"
+                android:text=" " />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

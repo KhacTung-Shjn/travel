@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
+
 public class TourPopular implements Parcelable {
 
     @SerializedName("id_tour")
@@ -44,7 +46,6 @@ public class TourPopular implements Parcelable {
     @SerializedName("image_tour")
     @Expose
     private String urlImage;
-
 
     public String getUrlImage() {
         return urlImage;

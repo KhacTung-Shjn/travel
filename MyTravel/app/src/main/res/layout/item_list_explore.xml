@@ -29,7 +29,6 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/size_5dp"
             android:background="@drawable/cb_favorite_explore"
-            android:text=" "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

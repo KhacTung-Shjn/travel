@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/rgTour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbNew"
+            style="@style/SelectableItemBackgroundBorderless"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/text_new"
+            android:textColor="@drawable/bg_text_color_radio"
+            android:textSize="@dimen/size_10sp" />
+
+        <RadioButton
+            android:id="@+id/rbGoodPrices"
+            style="@style/SelectableItemBackgroundBorderless"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/text_good_price"
+            android:textColor="@drawable/bg_text_color_radio"
+            android:textSize="@dimen/size_10sp" />
+
+        <RadioButton
+            android:id="@+id/rbHighPrices"
+            style="@style/SelectableItemBackgroundBorderless"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/text_high_price"
+            android:textColor="@drawable/bg_text_color_radio"
+            android:textSize="@dimen/size_10sp" />
+
+        <RadioButton
+            android:id="@+id/rbLowPrices"
+            style="@style/SelectableItemBackgroundBorderless"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/text_low_price"
+            android:textColor="@drawable/bg_text_color_radio"
+            android:textSize="@dimen/size_10sp" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/viewActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_5dp"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:background="@color/colorBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgTour" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpTours"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewActionBar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

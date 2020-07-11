@@ -1,7 +1,6 @@
 package com.example.mytravel.base;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,22 +19,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mytravel.MainApp;
 import com.example.mytravel.data.AppDataManager;
-import com.example.mytravel.utils.CommonUtils;
+import com.example.mytravel.utils.ViewDialog;
 
 import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity implements MvpView {
 
     private Unbinder unbinder;
-    private Dialog progressDialog;
     private MvpPresenter presenter;
     private AppDataManager appDataManager;
+    private ViewDialog viewDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new BasePresenter(this);
         appDataManager = MainApp.getInstance().getAppDataManager();
+        viewDialog = new ViewDialog(this);
     }
 
     public AppDataManager getAppDataManager() {
@@ -87,7 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     public void showLoading() {
         runOnUiThread(() -> {
             hideLoading();
-            progressDialog = CommonUtils.showLoadingDialog(this);
+            viewDialog.showDialog();
         });
 
     }
@@ -95,8 +95,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     @Override
     public void hideLoading() {
         runOnUiThread(() -> {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.cancel();
+            if (viewDialog != null) {
+                viewDialog.hideDialog();
             }
         });
 

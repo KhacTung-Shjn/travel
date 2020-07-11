@@ -67,6 +67,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteFrMvpView,
         }
         if (getFragmentManager() != null) {
             favoritesViewPagerAdapter = new FavoritesViewPagerAdapter(getFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            vpFavorites.setOffscreenPageLimit(4);
             vpFavorites.setAdapter(favoritesViewPagerAdapter);
             vpFavorites.addOnPageChangeListener(this);
         }

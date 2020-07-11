@@ -22,9 +22,14 @@ public class TourPopularAdapter extends RecyclerView.Adapter<TourPopularAdapter.
 
     private ArrayList<TourPopular> listTours;
     private Context context;
+    private OnClickItemInCity onClickItemInCity;
 
     public TourPopularAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setOnClickItemInCity(OnClickItemInCity onClickItemInCity) {
+        this.onClickItemInCity = onClickItemInCity;
     }
 
     public void setListExplores(ArrayList<TourPopular> listTours) {
@@ -65,8 +70,10 @@ public class TourPopularAdapter extends RecyclerView.Adapter<TourPopularAdapter.
                 holder.tvTime.setText(tourPopular.getTime());
             }
             if (tourPopular.getMoney() != -1) {
-                holder.tvMoney.setText(context.getString(R.string.text_form) + tourPopular.getMoney() +"$");
+                holder.tvMoney.setText(context.getString(R.string.text_form) + tourPopular.getMoney() + "$");
             }
+
+            holder.itemView.setOnClickListener(v -> onClickItemInCity.onClickTour(tourPopular));
         }
     }
 

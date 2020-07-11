@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mytravel.MainApp;
 import com.example.mytravel.data.AppDataManager;
 import com.example.mytravel.utils.CommonUtils;
+import com.example.mytravel.utils.ViewDialog;
 
 import butterknife.Unbinder;
 
@@ -20,8 +21,8 @@ public abstract class BaseFragment extends Fragment implements MvpView {
 
     private Unbinder unbinder;
     private BaseActivity activity;
-    private Dialog progressDialog;
     private AppDataManager appDataManager;
+    private ViewDialog viewDialog;
 
     public BaseActivity getBaseActivity() {
         return activity;
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appDataManager = MainApp.getInstance().getAppDataManager();
+        viewDialog = new ViewDialog(activity);
     }
 
     public AppDataManager getAppDataManager() {
@@ -74,18 +76,18 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         if (getBaseActivity() != null)
             getBaseActivity().runOnUiThread(() -> {
                 hideLoading();
-                if (this.getContext() != null)
-                    progressDialog = CommonUtils.showLoadingDialog(this.getContext());
+                if (viewDialog != null) {
+                    viewDialog.showDialog();
+                }
             });
-
     }
 
     @Override
     public void hideLoading() {
         if (getBaseActivity() != null)
             getBaseActivity().runOnUiThread(() -> {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.cancel();
+                if (viewDialog != null) {
+                    viewDialog.hideDialog();
                 }
             });
 
