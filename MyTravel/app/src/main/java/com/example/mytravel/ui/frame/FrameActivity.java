@@ -16,6 +16,7 @@ import com.example.mytravel.base.BaseActivity;
 import com.example.mytravel.models.FragmentController;
 import com.example.mytravel.models.city.City;
 import com.example.mytravel.models.city.Explore;
+import com.example.mytravel.models.city.PlaceHot;
 import com.example.mytravel.models.city.TourPopular;
 import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.ui.auth.changepass.ChangePassFragment;
@@ -23,6 +24,8 @@ import com.example.mytravel.ui.auth.updateprofile.UpdateUpdateProfileFragment;
 import com.example.mytravel.ui.booktour.BookTourFragment;
 import com.example.mytravel.ui.detailcity.DetailCityFragment;
 import com.example.mytravel.ui.detailexplore.DetailExploreFragment;
+import com.example.mytravel.ui.detailexplore.map.MapFragment;
+import com.example.mytravel.ui.detailexplore.placehot.PlaceHotFragment;
 import com.example.mytravel.ui.detailtour.DetailTourFragment;
 import com.example.mytravel.ui.fearture.MoreFragment;
 import com.example.mytravel.ui.listtour.ListTourFragment;
@@ -39,9 +42,14 @@ import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_TOUR;
 import static com.example.mytravel.utils.ConstApp.DIRECT_EXPLORE_MORE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_LIST_TOUR;
+import static com.example.mytravel.utils.ConstApp.DIRECT_MAP_PLACE_HOT;
+import static com.example.mytravel.utils.ConstApp.DIRECT_PLACE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_PRIVACY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_UPDATE_PROFILE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_VERIFY;
+import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE;
+import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LAT;
+import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LNG;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_CITY;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_TOUR;
@@ -49,6 +57,7 @@ import static com.example.mytravel.utils.ConstApp.KEY_NAME_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.KEY_NAME_TOUR;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_USER_INFORMATION;
 
 public class FrameActivity extends BaseActivity implements FrameMvpView {
@@ -72,6 +81,10 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
     private String idExplore;
     private String nameExplore;
     private String nameTour;
+    private String idPlace;
+    private String lat;
+    private String lng;
+    private PlaceHot placeHot;
 
     public static Intent newIntentPrivacy(Context context) {
         Intent intent = new Intent(context, FrameActivity.class);
@@ -138,6 +151,24 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
         return intent;
     }
 
+    public static Intent newIntentPlaceHot(Context context, String idCity, String idExplore, String idPlace) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_PLACE_HOT);
+        intent.putExtra(KEY_TYPE_ID_CITY, idCity);
+        intent.putExtra(KEY_TYPE_ID_EXPLORE, idExplore);
+        intent.putExtra(KEY_TYPE_ID_PLACE, idPlace);
+        return intent;
+    }
+
+    public static Intent newIntentMapPlaceHot(Context context, String lat, String lng, PlaceHot placeHot) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_MAP_PLACE_HOT);
+        intent.putExtra(KEY_HOT_PLACE_LAT, lat);
+        intent.putExtra(KEY_HOT_PLACE_LNG, lng);
+        intent.putExtra(KEY_HOT_PLACE, placeHot);
+        return intent;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -157,6 +188,10 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
             idExplore = intent.getStringExtra(KEY_TYPE_ID_EXPLORE);
             nameExplore = intent.getStringExtra(KEY_NAME_EXPLORE);
             nameTour = intent.getStringExtra(KEY_NAME_TOUR);
+            idPlace = intent.getStringExtra(KEY_TYPE_ID_PLACE);
+            lat = intent.getStringExtra(KEY_HOT_PLACE_LAT);
+            lng = intent.getStringExtra(KEY_HOT_PLACE_LNG);
+            placeHot = intent.getParcelableExtra(KEY_HOT_PLACE);
         }
 
         asyncTaskExecutor = new AsyncTaskExecutor();
@@ -224,6 +259,17 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
                 case DIRECT_BOOK_TOUR: {
                     fragment = BookTourFragment.newInstance(nameTour);
                     TAG = BookTourFragment.TAG;
+                    break;
+                }
+                case DIRECT_PLACE_HOT: {
+                    title = getString(R.string.text_place_hot);
+                    fragment = PlaceHotFragment.newInstance(idCity, idExplore, idPlace);
+                    TAG = PlaceHotFragment.TAG;
+                    break;
+                }
+                case DIRECT_MAP_PLACE_HOT: {
+                    fragment = MapFragment.newInstance(lat, lng, placeHot);
+                    TAG = MapFragment.TAG;
                     break;
                 }
 

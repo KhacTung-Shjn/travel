@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseBottomSheetDialogFragment;
 import com.example.mytravel.models.city.Place;
+import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.utils.OnClickItem;
 
 import java.util.ArrayList;
 
 import static com.example.mytravel.utils.ConstApp.KEY_LIST_PLACE;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
 
 public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implements PlaceListBSFrMvpView, OnClickItem<Place>, View.OnTouchListener {
     public static final String TAG = PlaceListBSFragment.class.getSimpleName();
@@ -31,11 +34,14 @@ public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implement
 
     private ArrayList<Place> listPlaces = new ArrayList<>();
     private PlaceListAdapter placeListAdapter;
+    private String idCity, idExplore;
 
-    public static PlaceListBSFragment newInstance(ArrayList<Place> listPlaces) {
+    public static PlaceListBSFragment newInstance(String idCity, String idExplore, ArrayList<Place> listPlaces) {
         PlaceListBSFragment placeListBSFragment = new PlaceListBSFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(KEY_LIST_PLACE, listPlaces);
+        bundle.putString(KEY_TYPE_ID_CITY, idCity);
+        bundle.putString(KEY_TYPE_ID_EXPLORE, idExplore);
         placeListBSFragment.setArguments(bundle);
         return placeListBSFragment;
     }
@@ -60,6 +66,8 @@ public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implement
 
         if (getArguments() != null) {
             listPlaces = getArguments().getParcelableArrayList(KEY_LIST_PLACE);
+            idCity = getArguments().getString(KEY_TYPE_ID_CITY);
+            idExplore = getArguments().getString(KEY_TYPE_ID_EXPLORE);
         }
         if (listPlaces != null) {
             tvNumberPlace.setText(String.format("%d %s", this.listPlaces.size(), getString(R.string.text_places)));
@@ -74,7 +82,7 @@ public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implement
 
     @Override
     public void onClickItem(Place place) {
-
+        startActivity(FrameActivity.newIntentPlaceHot(getContext(), idCity, idExplore, place.getIdPlace()));
     }
 
     @SuppressLint("ClickableViewAccessibility")

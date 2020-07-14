@@ -141,4 +141,7 @@
     <string name="text_children">Children</string>
     <string name="text_title_information">Informations</string>
     <string name="text_request_book_tour">Request Book Tour</string>
+    <string name="text_open">Open</string>
+    <string name="msg_error_open_map">Unable to determine location !</string>
+    <string name="text_place_hot">Place Hot</string>
 </resources>

@@ -15,8 +15,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvPlace"
-            android:layout_width="@dimen/size_100dp"
-            android:layout_height="@dimen/size_100dp"
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="@dimen/size_80dp"
             android:layout_margin="@dimen/size_16dp"
             android:elevation="@dimen/size_5dp"
             app:cardCornerRadius="@dimen/size_10dp"
@@ -41,7 +41,7 @@
             android:singleLine="true"
             android:text="Sai Gon Zoo and Garden"
             android:textColor="@color/colorText"
-            android:textSize="@dimen/size_18sp"
+            android:textSize="@dimen/size_16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cvPlace"
@@ -65,20 +65,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:drawableStart="@drawable/ic_star_full"
+            android:drawablePadding="@dimen/size_8dp"
             android:text="3.5"
             android:textColor="@color/colorText"
             app:layout_constraintBottom_toBottomOf="@+id/cvPlace"
             app:layout_constraintStart_toStartOf="@+id/tvNameExplore"
             app:layout_constraintTop_toBottomOf="@+id/tvNameExplore" />
 
-        <CheckBox
+        <TextView
             android:id="@+id/cbLove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/size_16dp"
-            android:button="@drawable/checkbox_heart"
+            android:drawableStart="@drawable/checkbox_heart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

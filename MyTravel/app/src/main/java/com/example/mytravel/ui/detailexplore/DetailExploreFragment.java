@@ -175,7 +175,7 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
     @OnClick(R.id.tvPlace)
     public void onClickShowListPlace() {
         if (getFragmentManager() != null && listPlaces != null) {
-            PlaceListBSFragment.newInstance(listPlaces).show(getFragmentManager(), PlaceListBSFragment.TAG);
+            PlaceListBSFragment.newInstance(idCity, explore.getId(),listPlaces).show(getFragmentManager(), PlaceListBSFragment.TAG);
         }
     }
 

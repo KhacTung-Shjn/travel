@@ -11,6 +11,8 @@ public class ConstApp {
     public static final String DIRECT_LIST_TOUR = "DIRECT_LIST_TOUR";
     public static final String DIRECT_EXPLORE_MORE = "DIRECT_EXPLORE_MORE";
     public static final String DIRECT_BOOK_TOUR = "DIRECT_BOOK_TOUR";
+    public static final String DIRECT_PLACE_HOT = "DIRECT_PLACE_HOT";
+    public static final String DIRECT_MAP_PLACE_HOT = "DIRECT_MAP_PLACE_HOT";
 
     public static final String KEY_CONFIRM_PASS_CODE = "KEY_CONFIRM_PASS_CODE";
     public static final String KEY_CHECK_FROM_SPLASH = "KEY_CHECK_FROM_SPLASH";
@@ -29,8 +31,13 @@ public class ConstApp {
     public static final String KEY_NAME_EXPLORE = "KEY_NAME_EXPLORE";
     public static final String KEY_NAME_TOUR = "KEY_NAME_TOUR";
     public static final String KEY_LIST_PLACE = "KEY_LIST_PLACE";
+    public static final String KEY_TYPE_ID_PLACE = "KEY_TYPE_ID_PLACE";
+    public static final String KEY_HOT_PLACE_LAT = "KEY_HOT_PLACE_LAT";
+    public static final String KEY_HOT_PLACE_LNG = "KEY_HOT_PLACE_LNG";
+    public static final String KEY_HOT_PLACE = "KEY_HOT_PLACE";
 
     public static final int REQUEST_CODE_PRIVACY = 10;
     public static final int REQUEST_CODE_UPDATE_PROFILE = 11;
+    public static final int REQUEST_PERMISSION_CODE = 101;
 
 }

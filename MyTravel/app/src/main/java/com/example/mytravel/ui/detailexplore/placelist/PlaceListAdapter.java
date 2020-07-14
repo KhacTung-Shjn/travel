@@ -72,9 +72,9 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
             if (place.getRatePlace() != -1) {
                 holder.tvRate.setText(String.valueOf(place.getRatePlace()));
             }
-            holder.cbLove.setChecked(place.isLove());
+            holder.cbLove.setSelected(place.isLove());
 
-            holder.cbLove.setOnClickListener(v -> holder.cbLove.setChecked(!holder.cbLove.isChecked()));
+            holder.cbLove.setOnClickListener(v -> holder.cbLove.setSelected(!holder.cbLove.isSelected()));
             holder.itemView.setOnClickListener(v -> placeOnClickItem.onClickItem(place));
         }
     }
@@ -89,7 +89,7 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
         TextView tvTitlePlace;
         TextView tvNameExplore;
         TextView tvRate;
-        CheckBox cbLove;
+        TextView cbLove;
 
         public PlaceListViewHolder(@NonNull View itemView) {
             super(itemView);

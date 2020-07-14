@@ -49,4 +49,26 @@ public class AddData {
                 .collection("place")
                 .add(place);
     }
+
+    public static void addPlaceHot() {
+        HashMap<String, Object> placeHot = new HashMap<>();
+        placeHot.put("idPlaceHot", "");
+        placeHot.put("timeOpen", "");
+        placeHot.put("desPlaceHot", "");
+        placeHot.put("lat", "");
+        placeHot.put("lng", "");
+        placeHot.put("isLovePlaceHot", true);
+        placeHot.put("urlImagePlaceHot", "");
+
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .document("Oad4kLBC4rxPyJUG2c1A")
+                .collection("explore")
+                .document("wIev48W97TnKkbt7yrnp")
+                .collection("place")
+                .document("JBdbhAvtKmxBFFMQ0IJk")
+                .collection("placehot")
+                .add(placeHot);
+    }
 }

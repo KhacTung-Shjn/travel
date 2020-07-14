@@ -126,4 +126,6 @@
     <string name="text_children">Trẻ em</string>
     <string name="text_title_information">Thông tin</string>
     <string name="text_request_book_tour">Xác thực đặt tour</string>
+    <string name="text_open">Mở cửa</string>
+    <string name="msg_error_open_map">Không thể xác định vị trí !</string>
 </resources>
