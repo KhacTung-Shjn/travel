@@ -26,11 +26,12 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.Explore;
 import com.example.mytravel.models.city.Place;
+import com.example.mytravel.models.city.PlaceHot;
+import com.example.mytravel.models.favorites.FavoritesExplore;
 import com.example.mytravel.ui.detailexplore.placelist.PlaceListBSFragment;
 import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.utils.AddData;
 import com.example.mytravel.utils.CommonUtils;
-import com.example.mytravel.utils.ViewDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -69,8 +70,8 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
     ImageView ivDetail2;
     @BindView(R.id.ivDetail3)
     ImageView ivDetail3;
-    @BindView(R.id.btnFeature)
-    Button btnFeature;
+    //    @BindView(R.id.btnFeature)
+//    Button btnFeature;
     @BindView(R.id.btnBookTour)
     Button btnBookTour;
 
@@ -78,6 +79,9 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
     private AlertDialog ratingExploreDialog;
     private String idCity;
     private ArrayList<Place> listPlaces;
+    private ArrayList<PlaceHot> listHotMarker;
+    private ArrayList<String> listIdFavorites = new ArrayList<>();
+    private ArrayList<FavoritesExplore> favoritesExplores;
 
     public static DetailExploreFragment newInstance(Explore explore, String idCity) {
         DetailExploreFragment detailExploreFragment = new DetailExploreFragment();
@@ -92,6 +96,14 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new DetailExploreFrPresenter(this);
+        favoritesExplores = getAppDataManager().getListFavoritesExplore();
+        getIdExplore();
+    }
+
+    private void getIdExplore() {
+        for (FavoritesExplore favoritesExplore : favoritesExplores) {
+            listIdFavorites.add(favoritesExplore.getIdExplore());
+        }
     }
 
     @Nullable
@@ -122,8 +134,9 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
             idCity = getArguments().getString(KEY_TYPE_ID_CITY);
         }
         if (explore != null) {
+            presenter.getAllListHotMarker();
             presenter.getListPlaces(idCity, explore.getId(), explore.getNameExplore());
-            cbLove.setChecked(explore.isLove());
+            cbLove.setSelected(listIdFavorites.contains(explore.getId()));
 
             if (!TextUtils.isEmpty(explore.getUrlImage())) {
                 CommonUtils.loadImage(getContext(), explore.getUrlImage(), ivExploreDetail);
@@ -167,21 +180,33 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
         startActivity(FrameActivity.newIntentListTour(getContext(), idCity, explore.getId()));
     }
 
-    @OnClick(R.id.btnFeature)
-    public void onClickMore() {
-        startActivity(FrameActivity.newIntentExploreMore(getContext(), idCity, explore.getId(), explore.getNameExplore()));
-    }
+//    @OnClick(R.id.btnFeature)
+//    public void onClickMore() {
+//        startActivity(FrameActivity.newIntentExploreMore(getContext(), idCity, explore.getId(), explore.getNameExplore()));
+//    }
 
     @OnClick(R.id.tvPlace)
     public void onClickShowListPlace() {
         if (getFragmentManager() != null && listPlaces != null) {
-            PlaceListBSFragment.newInstance(idCity, explore.getId(),listPlaces).show(getFragmentManager(), PlaceListBSFragment.TAG);
+            PlaceListBSFragment.newInstance(idCity, explore.getId(), listPlaces).show(getFragmentManager(), PlaceListBSFragment.TAG);
+        }
+    }
+
+    @OnClick(R.id.tvMap)
+    public void onClickHotMarker() {
+        if (this.listHotMarker != null) {
+            startActivity(FrameActivity.newIntentHotMarker(getContext(), this.listHotMarker));
         }
     }
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getContext(), String.valueOf(cbLove.isChecked()), Toast.LENGTH_SHORT).show();
+        cbLove.setSelected(!cbLove.isSelected());
+        if (cbLove.isSelected()) {
+            presenter.setLoveExplore(idCity, explore.getId());
+        } else {
+            presenter.removeLoveExplore(explore.getId());
+        }
     }
 
     @OnClick(R.id.tvRatePlace)
@@ -205,6 +230,11 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
         }
     }
 
+    @OnClick(R.id.btnMore)
+    public void onClickOpenMoreImage() {
+        startActivity(FrameActivity.newIntentImageHotFragment(getContext(), explore.getId()));
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -219,6 +249,13 @@ public class DetailExploreFragment extends BaseFragment implements DetailExplore
         if (listPlaces != null) {
             this.listPlaces = listPlaces;
             tvPlace.setText(String.format("%d %s", this.listPlaces.size(), getString(R.string.text_places)));
+        }
+    }
+
+    @Override
+    public void successGetHotMarker(ArrayList<PlaceHot> listHotMarker) {
+        if (listHotMarker != null) {
+            this.listHotMarker = listHotMarker;
         }
     }
 }

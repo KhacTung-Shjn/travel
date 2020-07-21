@@ -14,6 +14,7 @@ import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.TourPopular;
 import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.ui.listtour.ItemTourAdapter;
+import com.example.mytravel.ui.listtour.OnClickItemTour;
 import com.example.mytravel.utils.OnClickItem;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
 
-public class NewTourFragment extends BaseFragment implements NewTourFrMvpView, OnClickItem<TourPopular> {
+public class NewTourFragment extends BaseFragment implements NewTourFrMvpView, OnClickItemTour {
     public static final String TAG = NewTourFragment.class.getSimpleName();
 
     private NewTourFrMvpPresenter presenter;
@@ -93,6 +94,15 @@ public class NewTourFragment extends BaseFragment implements NewTourFrMvpView, O
     @Override
     public void onClickItem(TourPopular tourPopular) {
         startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular));
+    }
+
+    @Override
+    public void onSetIsLove(String idTour, boolean isLove) {
+        if(isLove){
+            presenter.setLoveTour(idCity,idExplore,idTour);
+        }else{
+            presenter.removeLoveTour(idTour);
+        }
     }
 }
 

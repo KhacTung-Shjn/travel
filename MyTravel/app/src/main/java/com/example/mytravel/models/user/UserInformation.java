@@ -1,6 +1,5 @@
 package com.example.mytravel.models.user;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInformation implements Parcelable {
 
+    //social
     @SerializedName("providerId")
     @Expose
     private String providerId;
@@ -25,8 +25,73 @@ public class UserInformation implements Parcelable {
     @Expose
     private String avatarUrl;
 
+    //firebase
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("avatar")
+    @Expose
+    private String avatar;
+    @SerializedName("birth")
+    @Expose
+    private String birth;
+    @SerializedName("gender")
+    @Expose
+    private int gender;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
 
     public UserInformation() {
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getProviderId() {
@@ -82,6 +147,11 @@ public class UserInformation implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.email);
         dest.writeString(this.avatarUrl);
+        dest.writeString(this.address);
+        dest.writeString(this.avatar);
+        dest.writeString(this.birth);
+        dest.writeInt(this.gender);
+        dest.writeString(this.phone);
     }
 
     protected UserInformation(Parcel in) {
@@ -90,6 +160,11 @@ public class UserInformation implements Parcelable {
         this.name = in.readString();
         this.email = in.readString();
         this.avatarUrl = in.readString();
+        this.address = in.readString();
+        this.avatar = in.readString();
+        this.birth = in.readString();
+        this.gender = in.readInt();
+        this.phone = in.readString();
     }
 
     public static final Creator<UserInformation> CREATOR = new Creator<UserInformation>() {

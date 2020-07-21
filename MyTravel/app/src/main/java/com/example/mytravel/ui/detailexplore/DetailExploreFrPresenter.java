@@ -6,25 +6,78 @@ import android.os.AsyncTask;
 import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BasePresenter;
-import com.example.mytravel.models.city.Explore;
 import com.example.mytravel.models.city.Place;
+import com.example.mytravel.models.city.PlaceHot;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class DetailExploreFrPresenter extends BasePresenter implements DetailExploreFrMvpPresenter {
 
     private DetailExploreFrMvpView getMvpView;
     private String data;
+    private ArrayList<PlaceHot> listHotMarker = new ArrayList<>();
+    private String email;
 
     public DetailExploreFrPresenter(DetailExploreFrMvpView getMvpView) {
         super(getMvpView);
         this.getMvpView = getMvpView;
+        email = getDataManager().getUserInformation().getEmail();
     }
 
     @Override
     public void getListPlaces(String idCity, String idExplore, String nameExplore) {
-        new LoadListPlaceAsyncTask(idCity,idExplore,nameExplore).execute();
+        new LoadListPlaceAsyncTask(idCity, idExplore, nameExplore).execute();
+    }
+
+    @Override
+    public void getAllListHotMarker() {
+        new LoadListHotMarkerAsyncTask().execute();
+    }
+
+    @Override
+    public void setLoveExplore(String idCity, String idExplore) {
+        HashMap<String, Object> love = new HashMap<>();
+        love.put("idCity", idCity);
+        love.put("idExplore", idExplore);
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_explore")
+                                    .document(idExplore).set(love);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void removeLoveExplore(String idExplore) {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_explore")
+                                    .document(idExplore).delete();
+                        }
+                    }
+                });
     }
 
 
@@ -83,4 +136,48 @@ public class DetailExploreFrPresenter extends BasePresenter implements DetailExp
             getMvpView.hideLoading();
         }
     }
+
+    @SuppressLint("StaticFieldLeak")
+    class LoadListHotMarkerAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            getMvpView.showLoading();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            MainApp.getInstance().getFirebaseFireStore()
+                    .collection("placehot")
+                    .addSnapshotListener((value, error) -> {
+                        if (error != null) {
+                            getMvpView.showMessage(R.string.msg_error_unknown);
+                        }
+                        if (value != null) {
+                            ArrayList<PlaceHot> listHotMarker = new ArrayList<>();
+                            for (DocumentSnapshot snapshot1 : value) {
+                                String json = getGSon().toJson(snapshot1.getData());
+                                if (json != null) {
+                                    PlaceHot placeHot = getGSon().fromJson(json, PlaceHot.class);
+                                    if (placeHot != null) {
+                                        listHotMarker.add(placeHot);
+                                    }
+                                }
+                            }
+                            if (listHotMarker.size() != 0) {
+                                getMvpView.successGetHotMarker(listHotMarker);
+                            } else {
+                                getMvpView.showMessage(R.string.msg_get_all_list_hot_marker_empty);
+                            }
+                        }
+                    });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            getMvpView.hideLoading();
+        }
+    }
+
 }

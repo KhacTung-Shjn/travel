@@ -7,4 +7,6 @@ public interface OnClickItemInCity {
     void onClickTour(TourPopular tourPopular);
 
     void onClickExplore(Explore explore);
+
+    void onClickIsLoveExplore(String IdExplore, boolean isLove);
 }

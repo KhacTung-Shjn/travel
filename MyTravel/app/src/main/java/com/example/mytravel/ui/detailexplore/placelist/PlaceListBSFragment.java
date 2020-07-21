@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseBottomSheetDialogFragment;
 import com.example.mytravel.models.city.Place;
+import com.example.mytravel.models.favorites.FavoritesPlace;
 import com.example.mytravel.ui.frame.FrameActivity;
-import com.example.mytravel.utils.OnClickItem;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import static com.example.mytravel.utils.ConstApp.KEY_LIST_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
 
-public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implements PlaceListBSFrMvpView, OnClickItem<Place>, View.OnTouchListener {
+public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implements PlaceListBSFrMvpView, View.OnTouchListener, OnClickItemPlace {
     public static final String TAG = PlaceListBSFragment.class.getSimpleName();
 
     private PlaceListBSFrMvpPresenter presenter;
@@ -63,7 +63,6 @@ public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implement
     protected void setUp(View view) {
         tvNumberPlace = view.findViewById(R.id.tvNumberPlace);
         rcvListPlace = view.findViewById(R.id.rcvListPlace);
-
         if (getArguments() != null) {
             listPlaces = getArguments().getParcelableArrayList(KEY_LIST_PLACE);
             idCity = getArguments().getString(KEY_TYPE_ID_CITY);
@@ -83,6 +82,15 @@ public class PlaceListBSFragment extends BaseBottomSheetDialogFragment implement
     @Override
     public void onClickItem(Place place) {
         startActivity(FrameActivity.newIntentPlaceHot(getContext(), idCity, idExplore, place.getIdPlace()));
+    }
+
+    @Override
+    public void onClickIsLove(String idPlace, boolean isLove) {
+        if (isLove) {
+            presenter.setLovePlace(idCity,idExplore,idPlace);
+        } else {
+            presenter.removeLovePlace(idPlace);
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -98,7 +98,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:button="@drawable/checkbox_heart" />
+                        android:button="@drawable/checkbox_heart"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -254,7 +255,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/more"
                                 android:layout_centerHorizontal="true"
-                                android:textColor="@color/colorText"
+                                android:textColor="@color/colorWhite"
                                 android:textSize="@dimen/size_8sp"
                                 tools:text="@string/text_more_Destinations" />
 
@@ -263,41 +264,56 @@
 
                 </LinearLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_50dp">
+                <Button
+                    android:id="@+id/btnBookTour"
+                    android:layout_width="@dimen/size_150dp"
+                    android:layout_height="@dimen/size_30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/size_50dp"
+                    android:background="@drawable/gradient"
+                    android:text="@string/text_book_tour"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/size_10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnFeature"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnFeature"
+                    app:layout_constraintTop_toTopOf="@+id/btnFeature" />
+                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="@dimen/size_50dp">-->
 
-                    <Button
-                        android:id="@+id/btnFeature"
-                        android:layout_width="@dimen/size_100dp"
-                        android:layout_height="@dimen/size_30dp"
-                        android:layout_marginBottom="@dimen/size_10dp"
-                        android:background="@drawable/bg_btn_login"
-                        android:text="@string/text_more"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/size_10sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btnBookTour"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <!--                    <Button-->
+                <!--                        android:id="@+id/btnFeature"-->
+                <!--                        android:layout_width="@dimen/size_100dp"-->
+                <!--                        android:layout_height="@dimen/size_30dp"-->
+                <!--                        android:layout_marginBottom="@dimen/size_10dp"-->
+                <!--                        android:background="@drawable/bg_btn_login"-->
+                <!--                        android:text="@string/text_more"-->
+                <!--                        android:textAllCaps="false"-->
+                <!--                        android:textColor="@color/colorMain"-->
+                <!--                        android:textSize="@dimen/size_10sp"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@+id/btnBookTour"-->
+                <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <Button
-                        android:id="@+id/btnBookTour"
-                        android:layout_width="@dimen/size_100dp"
-                        android:layout_height="@dimen/size_30dp"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/gradient"
-                        android:text="@string/text_book_tour"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/size_10sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnFeature"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/btnFeature"
-                        app:layout_constraintTop_toTopOf="@+id/btnFeature" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--                    <Button-->
+                <!--                        android:id="@+id/btnBookTour"-->
+                <!--                        android:layout_width="@dimen/size_100dp"-->
+                <!--                        android:layout_height="@dimen/size_30dp"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:background="@drawable/gradient"-->
+                <!--                        android:text="@string/text_book_tour"-->
+                <!--                        android:textAllCaps="false"-->
+                <!--                        android:textColor="@color/colorWhite"-->
+                <!--                        android:textSize="@dimen/size_10sp"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="@+id/btnFeature"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        app:layout_constraintStart_toEndOf="@+id/btnFeature"-->
+                <!--                        app:layout_constraintTop_toTopOf="@+id/btnFeature" />-->
+                <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <View
                     android:layout_width="match_parent"

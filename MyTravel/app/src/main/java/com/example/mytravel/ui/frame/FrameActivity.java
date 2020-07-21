@@ -18,6 +18,7 @@ import com.example.mytravel.models.city.City;
 import com.example.mytravel.models.city.Explore;
 import com.example.mytravel.models.city.PlaceHot;
 import com.example.mytravel.models.city.TourPopular;
+import com.example.mytravel.models.imagehot.ImageHot;
 import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.ui.auth.changepass.ChangePassFragment;
 import com.example.mytravel.ui.auth.updateprofile.UpdateUpdateProfileFragment;
@@ -28,9 +29,13 @@ import com.example.mytravel.ui.detailexplore.map.MapFragment;
 import com.example.mytravel.ui.detailexplore.placehot.PlaceHotFragment;
 import com.example.mytravel.ui.detailtour.DetailTourFragment;
 import com.example.mytravel.ui.fearture.MoreFragment;
+import com.example.mytravel.ui.imagehot.ImageHotFragment;
 import com.example.mytravel.ui.listtour.ListTourFragment;
 import com.example.mytravel.ui.privacy.PrivacyFragment;
+import com.example.mytravel.ui.viewimage.ViewImageFragment;
 import com.example.mytravel.utils.AppUtils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,18 +46,23 @@ import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_CITY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_TOUR;
 import static com.example.mytravel.utils.ConstApp.DIRECT_EXPLORE_MORE;
+import static com.example.mytravel.utils.ConstApp.DIRECT_HOT_MARKER;
+import static com.example.mytravel.utils.ConstApp.DIRECT_IMAGE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_LIST_TOUR;
 import static com.example.mytravel.utils.ConstApp.DIRECT_MAP_PLACE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_PLACE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_PRIVACY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_UPDATE_PROFILE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_VERIFY;
+import static com.example.mytravel.utils.ConstApp.DIRECT_VIEW_FULL_IMAGE_HOT;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LAT;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LNG;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_CITY;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_EXPLORE;
+import static com.example.mytravel.utils.ConstApp.KEY_ITEM_IMAGE_HOT;
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_TOUR;
+import static com.example.mytravel.utils.ConstApp.KEY_LIST_HOT_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_NAME_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.KEY_NAME_TOUR;
 import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
@@ -85,6 +95,8 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
     private String lat;
     private String lng;
     private PlaceHot placeHot;
+    private ArrayList<PlaceHot> listHotMarker;
+    private ImageHot imageHot;
 
     public static Intent newIntentPrivacy(Context context) {
         Intent intent = new Intent(context, FrameActivity.class);
@@ -169,8 +181,29 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
         return intent;
     }
 
+    public static Intent newIntentHotMarker(Context context, ArrayList<PlaceHot> listPlaceHots) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_HOT_MARKER);
+        intent.putExtra(KEY_LIST_HOT_PLACE, listPlaceHots);
+        return intent;
+    }
+
+    public static Intent newIntentImageHotFragment(Context context, String idExplore) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_IMAGE_HOT);
+        intent.putExtra(KEY_TYPE_ID_EXPLORE, idExplore);
+        return intent;
+    }
+
+    public static Intent newIntentFullViewImage(Context context, ImageHot imageHot) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_VIEW_FULL_IMAGE_HOT);
+        intent.putExtra(KEY_ITEM_IMAGE_HOT, imageHot);
+        return intent;
+    }
 
     @Override
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
@@ -192,6 +225,8 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
             lat = intent.getStringExtra(KEY_HOT_PLACE_LAT);
             lng = intent.getStringExtra(KEY_HOT_PLACE_LNG);
             placeHot = intent.getParcelableExtra(KEY_HOT_PLACE);
+            listHotMarker = intent.getParcelableArrayListExtra(KEY_LIST_HOT_PLACE);
+            imageHot = intent.getParcelableExtra(KEY_ITEM_IMAGE_HOT);
         }
 
         asyncTaskExecutor = new AsyncTaskExecutor();
@@ -270,6 +305,22 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
                 case DIRECT_MAP_PLACE_HOT: {
                     fragment = MapFragment.newInstance(lat, lng, placeHot);
                     TAG = MapFragment.TAG;
+                    break;
+                }
+                case DIRECT_HOT_MARKER: {
+                    fragment = MapFragment.newInstanceFromExplore(listHotMarker);
+                    TAG = MapFragment.TAG;
+                    break;
+                }
+                case DIRECT_IMAGE_HOT: {
+                    title = getString(R.string.text_image_hot);
+                    fragment = ImageHotFragment.newInstance(idExplore);
+                    TAG = ImageHotFragment.TAG;
+                    break;
+                }
+                case DIRECT_VIEW_FULL_IMAGE_HOT: {
+                    fragment = ViewImageFragment.newInstance(imageHot);
+                    TAG = ViewImageFragment.TAG;
                     break;
                 }
 

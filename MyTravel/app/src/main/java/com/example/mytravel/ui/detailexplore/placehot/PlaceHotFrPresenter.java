@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BasePresenter;
-import com.example.mytravel.models.city.Place;
 import com.example.mytravel.models.city.PlaceHot;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
@@ -49,14 +49,8 @@ public class PlaceHotFrPresenter extends BasePresenter implements PlaceHotFrMvpP
         @Override
         protected Void doInBackground(Void... voids) {
             MainApp.getInstance().getFirebaseFireStore()
-                    .collection("city")
-                    .document(idCity)
-                    .collection("explore")
-                    .document(idExplore)
-                    .collection("place")
-                    .document(idPlace)
                     .collection("placehot")
-                    .orderBy("timecreate", Query.Direction.DESCENDING)
+                    .whereEqualTo("idPlace", idPlace)
                     .addSnapshotListener((queryDocumentSnapshots, e) -> {
                         if (e != null) {
                             getMvpView.showMessage(R.string.msg_error_unknown);
@@ -68,11 +62,13 @@ public class PlaceHotFrPresenter extends BasePresenter implements PlaceHotFrMvpP
                                 data = getGSon().toJson(snapshot.getData());
                                 if (data != null) {
                                     PlaceHot placeHot = getGSon().fromJson(data, PlaceHot.class);
+                                    Timestamp timecreate = (Timestamp) snapshot.get("timecreate");
+                                    placeHot.setTimeCreate(timecreate);
                                     listPlaceHots.add(placeHot);
                                 }
                             }
                             if (listPlaceHots.size() != 0) {
-                                Collections.reverse(listPlaceHots);
+                                Collections.sort(listPlaceHots, (o1, o2) -> String.valueOf(o2.getTimeCreate()).compareTo(String.valueOf(o1.getTimeCreate())));
                                 getMvpView.successGetListPlaceHot(listPlaceHots);
                             } else {
                                 getMvpView.showMessage(R.string.msg_get_all_list_explore_empty);

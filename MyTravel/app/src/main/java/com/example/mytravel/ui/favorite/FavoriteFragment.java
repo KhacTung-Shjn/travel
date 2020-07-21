@@ -1,14 +1,11 @@
 package com.example.mytravel.ui.favorite;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +13,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
-import com.example.mytravel.ui.home.HomeFragment;
+import com.example.mytravel.models.city.Place;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +32,8 @@ public class FavoriteFragment extends BaseFragment implements FavoriteFrMvpView,
     RadioGroup rgFavorites;
     @BindView(R.id.rbPlaces)
     RadioButton rbPlaces;
-    @BindView(R.id.rbVideos)
-    RadioButton rbVideos;
+    @BindView(R.id.rbExplores)
+    RadioButton rbExplores;
     @BindView(R.id.rbPhotos)
     RadioButton rbPhotos;
     @BindView(R.id.rbTours)
@@ -65,9 +64,13 @@ public class FavoriteFragment extends BaseFragment implements FavoriteFrMvpView,
         if (getActivity() != null) {
             setUnbinder(ButterKnife.bind(this, getActivity()));
         }
+        presenter.getFavorites(getAppDataManager().getUserInformation().getEmail());
+        presenter.getFavoritesExplore(getAppDataManager().getUserInformation().getEmail());
+        presenter.getFavoritesPhoto(getAppDataManager().getUserInformation().getEmail());
+        presenter.getFavoritesTour(getAppDataManager().getUserInformation().getEmail());
+
         if (getFragmentManager() != null) {
             favoritesViewPagerAdapter = new FavoritesViewPagerAdapter(getFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-            vpFavorites.setOffscreenPageLimit(4);
             vpFavorites.setAdapter(favoritesViewPagerAdapter);
             vpFavorites.addOnPageChangeListener(this);
         }
@@ -96,7 +99,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteFrMvpView,
                     vpFavorites.setCurrentItem(0);
                     break;
                 }
-                case R.id.rbVideos: {
+                case R.id.rbExplores: {
                     vpFavorites.setCurrentItem(1);
                     break;
                 }

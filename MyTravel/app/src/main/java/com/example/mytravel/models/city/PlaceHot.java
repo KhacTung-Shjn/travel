@@ -3,8 +3,10 @@ package com.example.mytravel.models.city;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.Timestamp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 
 public class PlaceHot implements Parcelable {
     @SerializedName("idPlaceHot")
@@ -33,6 +35,30 @@ public class PlaceHot implements Parcelable {
     @Expose
     private String namePlaceHot;
 
+    @SerializedName("idPlace")
+    @Expose
+    private String idPlace;
+
+    @SerializedName("timecreate")
+    @Expose
+    private Timestamp timeCreate;
+
+
+    public String getIdPlace() {
+        return idPlace;
+    }
+
+    public void setIdPlace(String idPlace) {
+        this.idPlace = idPlace;
+    }
+
+    public Timestamp getTimeCreate() {
+        return timeCreate;
+    }
+
+    public void setTimeCreate(Timestamp timeCreate) {
+        this.timeCreate = timeCreate;
+    }
 
     public String getNamePlaceHot() {
         return namePlaceHot;
@@ -98,6 +124,7 @@ public class PlaceHot implements Parcelable {
         this.urlImagePlaceHot = urlImagePlaceHot;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -113,6 +140,8 @@ public class PlaceHot implements Parcelable {
         dest.writeByte(this.isLovePlaceHot ? (byte) 1 : (byte) 0);
         dest.writeString(this.urlImagePlaceHot);
         dest.writeString(this.namePlaceHot);
+        dest.writeString(this.idPlace);
+        dest.writeParcelable(this.timeCreate, flags);
     }
 
     public PlaceHot() {
@@ -127,6 +156,8 @@ public class PlaceHot implements Parcelable {
         this.isLovePlaceHot = in.readByte() != 0;
         this.urlImagePlaceHot = in.readString();
         this.namePlaceHot = in.readString();
+        this.idPlace = in.readString();
+        this.timeCreate = in.readParcelable(Timestamp.class.getClassLoader());
     }
 
     public static final Creator<PlaceHot> CREATOR = new Creator<PlaceHot>() {

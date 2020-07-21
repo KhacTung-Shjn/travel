@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, BottomNav
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         initListFragment();
+
     }
 
     private void initListFragment() {

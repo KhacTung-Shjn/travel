@@ -1,7 +1,16 @@
 package com.example.mytravel.utils;
 
 import com.example.mytravel.MainApp;
+import com.example.mytravel.R;
+import com.example.mytravel.models.city.PlaceHot;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.Query;
+import com.google.gson.Gson;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class AddData {
@@ -59,6 +68,8 @@ public class AddData {
         placeHot.put("lng", "");
         placeHot.put("isLovePlaceHot", true);
         placeHot.put("urlImagePlaceHot", "");
+        placeHot.put("timecreate", FieldValue.serverTimestamp());
+        placeHot.put("namePlaceHot", "");
 
 
         MainApp.getInstance().getFirebaseFireStore()
@@ -67,8 +78,68 @@ public class AddData {
                 .collection("explore")
                 .document("wIev48W97TnKkbt7yrnp")
                 .collection("place")
-                .document("JBdbhAvtKmxBFFMQ0IJk")
+                .document("XLTz58qMjSvvY3DgjHOx")
                 .collection("placehot")
                 .add(placeHot);
+    }
+
+    public static void addPlaceHot(PlaceHot ph) {
+        HashMap<String, Object> placeHot = new HashMap<>();
+        placeHot.put("idPlaceHot", ph.getIdPlaceHot());
+        placeHot.put("timeOpen", ph.getTimeOpen());
+        placeHot.put("desPlaceHot", ph.getDesPlaceHot());
+        placeHot.put("lat", ph.getLat());
+        placeHot.put("lng", ph.getLng());
+        placeHot.put("isLovePlaceHot", ph.isLovePlaceHot());
+        placeHot.put("urlImagePlaceHot", ph.getUrlImagePlaceHot());
+        placeHot.put("timecreate", FieldValue.serverTimestamp());
+        placeHot.put("namePlaceHot", ph.getNamePlaceHot());
+        placeHot.put("idPlace", "XLTz58qMjSvvY3DgjHOx");
+
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("placehot")
+                .document(ph.getIdPlaceHot())
+                .set(placeHot);
+    }
+
+
+    public static void moveDataHotPlace() {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .document("Oad4kLBC4rxPyJUG2c1A")
+                .collection("explore")
+                .document("wIev48W97TnKkbt7yrnp")
+                .collection("place")
+                .document("XLTz58qMjSvvY3DgjHOx")
+                .collection("placehot")
+                .orderBy("timecreate", Query.Direction.DESCENDING)
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+
+                    if (queryDocumentSnapshots != null) {
+                        ArrayList<PlaceHot> listPlaceHots = new ArrayList<>();
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                            String data = new Gson().toJson(snapshot.getData());
+                            if (data != null) {
+                                PlaceHot placeHot = new Gson().fromJson(data, PlaceHot.class);
+                                addPlaceHot(placeHot);
+                            }
+                        }
+                    }
+                });
+    }
+
+
+    public static void addImageHot() {
+
+        HashMap<String, Object> image = new HashMap<>();
+        image.put("idExplore", "wIev48W97TnKkbt7yrnp");
+        image.put("idImagehot", "");
+        image.put("urlImageHot", "https://img.thuthuatphanmem.vn/uploads/2018/09/26/anh-dep-chua-tran-quoc-ha-noi_053442220.jpg");
+
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("imagehot")
+                .add(image);
     }
 }

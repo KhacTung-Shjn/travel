@@ -71,7 +71,6 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new DetailCityFrPresenter(this);
-        exploreAdapter = new ExploreAdapter(getContext());
         tourPopularAdapter = new TourPopularAdapter(getContext());
     }
 
@@ -103,6 +102,7 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
 
         rcvExplore.setHasFixedSize(true);
         rcvExplore.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        exploreAdapter = new ExploreAdapter(getContext());
         exploreAdapter.setListExplores(new ArrayList<>());
         exploreAdapter.setOnClickItemInCity(this);
         rcvExplore.setAdapter(exploreAdapter);
@@ -170,4 +170,14 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
     public void onClickExplore(Explore explore) {
         startActivity(FrameActivity.newIntentDetailExplore(getContext(), explore, city.getIdCity()));
     }
+
+    @Override
+    public void onClickIsLoveExplore(String idExplore, boolean isLove) {
+        if (isLove) {
+            presenter.setLoveExplore(city.getIdCity(), idExplore);
+        } else {
+            presenter.removeLoveExplore(idExplore);
+        }
+    }
+
 }

@@ -11,16 +11,19 @@ import com.example.mytravel.models.city.TourPopular;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DetailCityFrPresenter extends BasePresenter implements DetailCityFrMvpPresenter {
 
     private DetailCityFrMvpView getMvpView;
 
     private String data;
+    private String email;
 
     public DetailCityFrPresenter(DetailCityFrMvpView getMvpView) {
         super(getMvpView);
         this.getMvpView = getMvpView;
+        email = getDataManager().getUserInformation().getEmail();
     }
 
     @Override
@@ -31,6 +34,48 @@ public class DetailCityFrPresenter extends BasePresenter implements DetailCityFr
     @Override
     public void getListTourPopular(String idCity) {
         new LoadListTourPopularAsyncTask(idCity).execute();
+    }
+
+    @Override
+    public void setLoveExplore(String idCity, String idExplore) {
+        HashMap<String, Object> love = new HashMap<>();
+        love.put("idCity", idCity);
+        love.put("idExplore", idExplore);
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_explore")
+                                    .document(idExplore).set(love);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void removeLoveExplore(String idExplore) {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_explore")
+                                    .document(idExplore).delete();
+                        }
+                    }
+                });
     }
 
 

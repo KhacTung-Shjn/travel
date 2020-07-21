@@ -3,7 +3,13 @@ package com.example.mytravel.data;
 import android.content.Context;
 
 import com.example.mytravel.data.presenter.MyPreference;
+import com.example.mytravel.models.favorites.FavoritesExplore;
+import com.example.mytravel.models.favorites.FavoritesPhoto;
+import com.example.mytravel.models.favorites.FavoritesPlace;
+import com.example.mytravel.models.favorites.FavoritesTour;
 import com.example.mytravel.models.user.UserInformation;
+
+import java.util.ArrayList;
 
 public class AppDataManager implements DataManager {
 
@@ -74,5 +80,45 @@ public class AppDataManager implements DataManager {
     @Override
     public void setPasswordCurrent(String passwordCurrent) {
         preference.setPasswordCurrent(passwordCurrent);
+    }
+
+    @Override
+    public ArrayList<FavoritesPlace> getListFavoritesPlace() {
+        return preference.getListFavoritesPlace();
+    }
+
+    @Override
+    public void setListFavoritesPlace(ArrayList<FavoritesPlace> listFavoritesPlace) {
+        preference.setListFavoritesPlace(listFavoritesPlace);
+    }
+
+    @Override
+    public ArrayList<FavoritesExplore> getListFavoritesExplore() {
+        return preference.getListFavoritesExplore();
+    }
+
+    @Override
+    public void setListFavoritesExplore(ArrayList<FavoritesExplore> listFavoritesExplore) {
+        preference.setListFavoritesExplore(listFavoritesExplore);
+    }
+
+    @Override
+    public ArrayList<FavoritesPhoto> getListFavoritesPhoto() {
+        return preference.getListFavoritesPhoto();
+    }
+
+    @Override
+    public void setListFavoritesPhoto(ArrayList<FavoritesPhoto> listFavoritesPhoto) {
+        preference.setListFavoritesPhoto(listFavoritesPhoto);
+    }
+
+    @Override
+    public ArrayList<FavoritesTour> getListFavoritesTour() {
+        return preference.getListFavoritesTour();
+    }
+
+    @Override
+    public void setListFavoritesTour(ArrayList<FavoritesTour> favoritesTours) {
+        preference.setListFavoritesTour(favoritesTours);
     }
 }

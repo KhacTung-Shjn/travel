@@ -12,8 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.models.city.TourPopular;
+import com.example.mytravel.models.favorites.FavoritesTour;
 import com.example.mytravel.utils.CommonUtils;
 import com.example.mytravel.utils.OnClickItem;
 
@@ -23,10 +25,21 @@ public class ItemTourAdapter extends RecyclerView.Adapter<ItemTourAdapter.ItemTo
 
     private ArrayList<TourPopular> listTours;
     private Context context;
-    private OnClickItem<TourPopular> popularOnClickItem;
+    private OnClickItemTour popularOnClickItem;
+    private ArrayList<FavoritesTour> favoritesTours;
+    private ArrayList<String> listIdTour = new ArrayList<>();
+
 
     public ItemTourAdapter(Context context) {
         this.context = context;
+        favoritesTours = MainApp.getInstance().getAppDataManager().getListFavoritesTour();
+        getListIdTour();
+    }
+
+    private void getListIdTour() {
+        for (FavoritesTour tour : favoritesTours) {
+            listIdTour.add(tour.getIdTour());
+        }
     }
 
     public void setListTours(ArrayList<TourPopular> listTours) {
@@ -44,7 +57,7 @@ public class ItemTourAdapter extends RecyclerView.Adapter<ItemTourAdapter.ItemTo
         notifyDataSetChanged();
     }
 
-    public void setPopularOnClickItem(OnClickItem<TourPopular> popularOnClickItem) {
+    public void setPopularOnClickItem(OnClickItemTour popularOnClickItem) {
         this.popularOnClickItem = popularOnClickItem;
     }
 
@@ -76,8 +89,12 @@ public class ItemTourAdapter extends RecyclerView.Adapter<ItemTourAdapter.ItemTo
                 holder.tvPrice.setText(String.valueOf(tour.getMoney() + " $"));
             }
 
-            holder.isLove.setSelected(tour.isLove());
-            holder.isLove.setOnClickListener(v -> holder.isLove.setSelected(!holder.isLove.isSelected()));
+            holder.isLove.setSelected(listIdTour.contains(tour.getId()));
+
+            holder.isLove.setOnClickListener(v -> {
+                holder.isLove.setSelected(!holder.isLove.isSelected());
+                popularOnClickItem.onSetIsLove(tour.getId(), holder.isLove.isSelected());
+            });
             holder.itemView.setOnClickListener(v -> popularOnClickItem.onClickItem(tour));
         }
     }

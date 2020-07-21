@@ -1,20 +1,23 @@
 package com.example.mytravel.ui.auth.updateprofile;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +27,20 @@ import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.utils.CommonUtils;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Calendar;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.mytravel.utils.ConstApp.KEY_USER_INFORMATION;
+import static com.example.mytravel.utils.ConstApp.REQUEST_CODE_CHOOSE_PHOTO_GALLERY;
+import static com.example.mytravel.utils.ConstApp.REQUEST_CODE_TAKE_PHOTO;
 
 public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateProfileFrMvpView, View.OnClickListener {
     public static final String TAG = UpdateUpdateProfileFragment.class.getSimpleName();
@@ -65,6 +74,7 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
     private String birth;
     private Calendar calendar;
     private int mDay, mMonth, mYear;
+    private String urlImage;
 
     public static UpdateUpdateProfileFragment newInstance(UserInformation userInformation) {
         UpdateUpdateProfileFragment updateProfileFragment = new UpdateUpdateProfileFragment();
@@ -113,6 +123,28 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
                 tvNameUser.setText(userInformation.getName());
                 etName.setText(userInformation.getName());
             }
+            if (!TextUtils.isEmpty(userInformation.getPhone()) && userInformation.getPhone() != null) {
+                etPhone.setText(userInformation.getPhone());
+            }
+            if (!TextUtils.isEmpty(userInformation.getAddress()) && userInformation.getAddress() != null) {
+                etAddress.setText(userInformation.getAddress());
+            }
+            if (!TextUtils.isEmpty(userInformation.getBirth()) && userInformation.getBirth() != null) {
+                tvChooseBirth.setText(userInformation.getBirth());
+            }
+            if (!TextUtils.isEmpty(userInformation.getAvatar()) && userInformation.getAvatar() != null) {
+                try {
+                    Bitmap bitmap = CommonUtils.StringToBitMap(userInformation.getAvatar());
+                    ivAvatar.setImageBitmap(bitmap);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), getString(R.string.msg_error_unknown), Toast.LENGTH_SHORT).show();
+                }
+            }
+            if (userInformation.getGender() == 0) {
+                rbFeMale.setChecked(true);
+            } else {
+                rbMale.setChecked(true);
+            }
         }
     }
 
@@ -131,7 +163,7 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
     public void onClickUpdate() {
         presenter.onClickUpdateProfile(etName.getText().toString(), etEmail.getText().toString(),
                 rbMale.isChecked(), rbFeMale.isChecked(), etPhone.getText().toString(),
-                etAddress.getText().toString(), birth, userInformation);
+                etAddress.getText().toString(), birth, userInformation, urlImage);
     }
 
     @SuppressLint("DefaultLocale")
@@ -168,8 +200,65 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
         if (getActivity() != null) {
             Intent intent = new Intent();
             intent.putExtra(KEY_USER_INFORMATION, userInformation);
-            getActivity().setResult(Activity.RESULT_OK, intent);
+            getActivity().setResult(RESULT_OK, intent);
             getActivity().finish();
+        }
+    }
+
+    @OnClick(R.id.ivAvatar)
+    public void onClickSetAvatar(View view) {
+        final CharSequence[] options = {getString(R.string.text_take_photo), getString(R.string.text_choose_from_gallery), getString(R.string.text_cancel)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle(getString(R.string.text_choose_your_profile_picture));
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals(getString(R.string.text_take_photo))) {
+                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, REQUEST_CODE_TAKE_PHOTO);
+            } else if (options[item].equals(getString(R.string.text_choose_from_gallery))) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK);
+                pickPhoto.setType("image/*");
+                startActivityForResult(pickPhoto, REQUEST_CODE_CHOOSE_PHOTO_GALLERY);
+            } else if (options[item].equals(getString(R.string.text_cancel))) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_TAKE_PHOTO: {
+                if (resultCode == RESULT_OK && data != null) {
+                    Bitmap selectedImage = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                    if (selectedImage != null) {
+                        ivAvatar.setImageBitmap(selectedImage);
+                        urlImage = CommonUtils.BitMapToString(selectedImage);
+                    }
+                }
+                break;
+            }
+            case REQUEST_CODE_CHOOSE_PHOTO_GALLERY: {
+                if (resultCode == RESULT_OK && data != null && getActivity() != null) {
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream;
+                        if (imageUri != null) {
+                            imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            ivAvatar.setImageBitmap(selectedImage);
+                            urlImage = CommonUtils.BitMapToString(selectedImage);
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), getString(R.string.msg_error_catch_choose_image), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.msg_error_choose_image_gallery), Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
         }
     }
 }

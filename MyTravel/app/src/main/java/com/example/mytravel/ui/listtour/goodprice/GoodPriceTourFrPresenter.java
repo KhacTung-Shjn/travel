@@ -13,23 +13,69 @@ import com.google.firebase.firestore.Query;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GoodPriceTourFrPresenter extends BasePresenter implements GoodPriceTourFrMvpPresenter {
 
     private GoodPriceTourFrMvpView getMvpView;
     private FirebaseFirestore db;
     private Gson gson;
+    private String email;
 
     public GoodPriceTourFrPresenter(GoodPriceTourFrMvpView getMvpView) {
         super(getMvpView);
         this.getMvpView = getMvpView;
         this.db = MainApp.getInstance().getFirebaseFireStore();
         gson = new Gson();
+        email = getDataManager().getUserInformation().getEmail();
     }
 
     @Override
     public void getListGoodPriceTour(String idCity, String idExplore) {
-        new LoadGoodPriceListTourAsyncTask(idCity,idExplore).execute();
+        new LoadGoodPriceListTourAsyncTask(idCity, idExplore).execute();
+    }
+
+    @Override
+    public void setLoveTour(String idCity, String idExplore, String idTour) {
+        HashMap<String, Object> love = new HashMap<>();
+        love.put("idCity", idCity);
+        love.put("idExplore", idExplore);
+        love.put("idTour", idTour);
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_tours")
+                                    .document(idTour).set(love);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void removeLoveTour(String idTour) {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("favorite_tours")
+                                    .document(idTour).delete();
+                        }
+                    }
+                });
     }
 
     @SuppressLint("StaticFieldLeak")

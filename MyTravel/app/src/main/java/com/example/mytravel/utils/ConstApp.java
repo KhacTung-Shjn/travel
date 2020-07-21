@@ -13,6 +13,9 @@ public class ConstApp {
     public static final String DIRECT_BOOK_TOUR = "DIRECT_BOOK_TOUR";
     public static final String DIRECT_PLACE_HOT = "DIRECT_PLACE_HOT";
     public static final String DIRECT_MAP_PLACE_HOT = "DIRECT_MAP_PLACE_HOT";
+    public static final String DIRECT_HOT_MARKER = "DIRECT_HOT_MARKER";
+    public static final String DIRECT_IMAGE_HOT = "DIRECT_IMAGE_HOT";
+    public static final String DIRECT_VIEW_FULL_IMAGE_HOT = "DIRECT_VIEW_FULL_IMAGE_HOT";
 
     public static final String KEY_CONFIRM_PASS_CODE = "KEY_CONFIRM_PASS_CODE";
     public static final String KEY_CHECK_FROM_SPLASH = "KEY_CHECK_FROM_SPLASH";
@@ -35,9 +38,17 @@ public class ConstApp {
     public static final String KEY_HOT_PLACE_LAT = "KEY_HOT_PLACE_LAT";
     public static final String KEY_HOT_PLACE_LNG = "KEY_HOT_PLACE_LNG";
     public static final String KEY_HOT_PLACE = "KEY_HOT_PLACE";
+    public static final String KEY_LIST_HOT_PLACE = "KEY_LIST_HOT_PLACE";
+    public static final String KEY_ITEM_IMAGE_HOT = "KEY_ITEM_IMAGE_HOT";
+    public static final String KEY_LIST_FAVORITES_PLACE = "KEY_LIST_FAVORITES_PLACE";
+    public static final String KEY_LIST_FAVORITES_EXPLORE = "KEY_LIST_FAVORITES_EXPLORE";
+    public static final String KEY_LIST_FAVORITES_PHOTO = "KEY_LIST_FAVORITES_PHOTO";
+    public static final String KEY_LIST_FAVORITES_TOUR = "KEY_LIST_FAVORITES_TOUR";
 
     public static final int REQUEST_CODE_PRIVACY = 10;
     public static final int REQUEST_CODE_UPDATE_PROFILE = 11;
     public static final int REQUEST_PERMISSION_CODE = 101;
+    public static final int REQUEST_CODE_CHOOSE_PHOTO_GALLERY = 9;
+    public static final int REQUEST_CODE_TAKE_PHOTO = 8;
 
 }

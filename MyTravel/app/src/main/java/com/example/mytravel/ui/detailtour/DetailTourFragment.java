@@ -1,6 +1,8 @@
 package com.example.mytravel.ui.detailtour;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 
 import com.example.mytravel.R;
@@ -19,6 +24,8 @@ import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.TourPopular;
 import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.utils.CommonUtils;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +70,7 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
     Button btnBookTour;
 
     private TourPopular tourPopular;
+    private AlertDialog ratingTourDialog;
 
     public static DetailTourFragment newInstance(TourPopular tourPopular) {
         DetailTourFragment detailTourFragment = new DetailTourFragment();
@@ -145,5 +153,34 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
     @OnClick(R.id.btnBookTour)
     public void onClickBookTour() {
         startActivity(FrameActivity.newIntentBookTour(getContext(), tvNameTour.getText().toString()));
+    }
+
+    @OnClick(R.id.btnRateTour)
+    public void onClickRateTour() {
+        if (getActivity() != null && getContext() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View mView = getLayoutInflater().inflate(R.layout.dialog_rate_tour, null);
+            builder.setView(mView);
+            ratingTourDialog = builder.create();
+            Objects.requireNonNull(ratingTourDialog.getWindow()).setBackgroundDrawable((new ColorDrawable(Color.TRANSPARENT)));
+
+            RatingBar ratingBar = mView.findViewById(R.id.rbRating);
+
+            //TODO RATING
+            mView.findViewById(R.id.btnDoneRating).setOnClickListener(v -> Toast.makeText(getContext(), "Number Star: " + ratingBar.getRating(), Toast.LENGTH_SHORT).show());
+
+            mView.findViewById(R.id.ivClose).setOnClickListener(v -> ratingTourDialog.dismiss());
+
+            ratingTourDialog.setCancelable(true);
+            ratingTourDialog.show();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (ratingTourDialog != null) {
+            ratingTourDialog.dismiss();
+        }
     }
 }

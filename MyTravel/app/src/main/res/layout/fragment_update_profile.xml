@@ -151,6 +151,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/size_10dp"
                     android:background="@null"
+                    android:enabled="false"
                     android:gravity="end"
                     android:hint="@string/text_email_address"
                     android:textSize="@dimen/size_12sp" />
@@ -305,10 +306,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/size_10dp"
                     android:background="@null"
-                    android:digits="+0123456789"
                     android:gravity="end"
                     android:hint="@string/text_address"
-                    android:inputType="phone"
                     android:textSize="@dimen/size_12sp" />
             </RelativeLayout>
 

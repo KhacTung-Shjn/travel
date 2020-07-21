@@ -23,4 +23,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewActionBar"
         tools:listitem="@layout/item_list_city" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

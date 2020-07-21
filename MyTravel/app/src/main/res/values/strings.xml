@@ -144,4 +144,16 @@
     <string name="text_open">Open</string>
     <string name="msg_error_open_map">Unable to determine location !</string>
     <string name="text_place_hot">Place Hot</string>
+    <string name="msg_get_all_list_hot_marker_empty">List Hot Marker Empty !</string>
+    <string name="text_take_photo">Take Photo</string>
+    <string name="text_choose_from_gallery">Choose from Gallery</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_choose_your_profile_picture">Choose your profile picture</string>
+    <string name="msg_error_choose_image_gallery">You haven\'t picked Image</string>
+    <string name="msg_error_catch_choose_image">Something went wrong</string>
+    <string name="text_title_explores">Explores</string>
+    <string name="text_title_rating_tour">Rate your tour</string>
+    <string name="text_image_hot">Hot Photos</string>
+    <string name="msg_get_all_list_explore_favorite_empty">List Favorites Place Empty !</string>
+    <string name="msg_get_all_list_tour_favorite_empty">List Favorites Tour Empty !</string>
 </resources>

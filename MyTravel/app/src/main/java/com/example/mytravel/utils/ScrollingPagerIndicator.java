@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.mytravel.R;
 
@@ -99,74 +98,42 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * You should make indicator looped in your PagerAttacher implementation if your custom pager is looped too
-     * If pager has less items than visible_dot_count, indicator will work as usual;
-     * otherwise it will always be in infinite state.
-     *
-     * @param looped true if pager is looped
-     */
     public void setLooped(boolean looped) {
         this.looped = looped;
         reattach();
         invalidate();
     }
 
-    /**
-     * @return not selected dot color
-     */
+
     @ColorInt
     public int getDotColor() {
         return dotColor;
     }
 
-    /**
-     * Sets dot color
-     *
-     * @param color dot color
-     */
+
     public void setDotColor(@ColorInt int color) {
         this.dotColor = color;
         invalidate();
     }
 
-    /**
-     * @return the selected dot color
-     */
+
     @ColorInt
     public int getSelectedDotColor() {
         return selectedDotColor;
     }
 
-    /**
-     * Sets selected dot color
-     *
-     * @param color selected dot color
-     */
+
     public void setSelectedDotColor(@ColorInt int color) {
         this.selectedDotColor = color;
         invalidate();
     }
 
-    /**
-     * Maximum number of dots which will be visible at the same time.
-     * If pager has more pages than visible_dot_count, indicator will scroll to show extra dots.
-     * Must be odd number.
-     *
-     * @return visible dot count
-     */
+
     public int getVisibleDotCount() {
         return visibleDotCount;
     }
 
-    /**
-     * Sets visible dot count. Maximum number of dots which will be visible at the same time.
-     * If pager has more pages than visible_dot_count, indicator will scroll to show extra dots.
-     * Must be odd number.
-     *
-     * @param visibleDotCount visible dot count
-     * @throws IllegalStateException when pager is already attached
-     */
+
     public void setVisibleDotCount(int visibleDotCount) {
         if (visibleDotCount % 2 == 0) {
             throw new IllegalArgumentException("visibleDotCount must be odd");
@@ -181,12 +148,7 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * The minimum number of dots which should be visible.
-     * If pager has less pages than visibleDotThreshold, no dots will be shown.
-     *
-     * @return visible dot threshold.
-     */
+
     public int getVisibleDotThreshold() {
         return visibleDotThreshold;
     }
@@ -206,21 +168,13 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * The visible orientation of the dots
-     *
-     * @return dot orientation (RecyclerView.HORIZONTAL, RecyclerView.VERTICAL)
-     */
+
     @Orientation
     public int getOrientation() {
         return orientation;
     }
 
-    /**
-     * Set the dot orientation
-     *
-     * @param orientation dot orientation (RecyclerView.HORIZONTAL, RecyclerView.VERTICAL)
-     */
+
     public void setOrientation(@Orientation int orientation) {
         this.orientation = orientation;
         if (attachRunnable != null) {
@@ -230,69 +184,24 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * Attaches indicator to ViewPager
-     *
-     * @param pager pager to attach
-     */
 //    public void attachToPager(@NonNull ViewPager pager) {
 //        attachToPager(pager, new ViewPagerAttacher());
 //    }
 
-    /**
-     * Attaches indicator to ViewPager2
-     *
-     * @param pager pager to attach
-     */
+
 //    public void attachToPager(@NonNull ViewPager2 pager) {
 //        attachToPager(pager, new ViewPager2Attacher());
 //    }
 
-    /**
-     * Attaches indicator to RecyclerView. Use this method if current page of the recycler is centered.
-     * All pages must have the same width.
-     * Like this:
-     * <p>
-     * +------------------------------+
-     * |---+  +----------------+  +---|
-     * |   |  |     current    |  |   |
-     * |   |  |      page      |  |   |
-     * |---+  +----------------+  +---|
-     * +------------------------------+
-     *
-     * @param recyclerView recycler view to attach
-     */
+
     public void attachToRecyclerView(@NonNull RecyclerView recyclerView) {
         attachToPager(recyclerView, new RecyclerViewAttacher());
     }
 
-    /**
-     * Attaches indicator to RecyclerView. Use this method if current page of the recycler isn't centered.
-     * All pages must have the same width.
-     * Like this:
-     * <p>
-     * +-|----------------------------+
-     * | +--------+  +--------+  +----|
-     * | | current|  |        |  |    |
-     * | |  page  |  |        |  |    |
-     * | +--------+  +--------+  +----|
-     * +-|----------------------------+
-     * | currentPageOffset
-     * |
-     *
-     * @param recyclerView      recycler view to attach
-     * @param currentPageOffset x coordinate of current view left corner/top relative to recycler view
-     */
     public void attachToRecyclerView(@NonNull RecyclerView recyclerView, int currentPageOffset) {
         attachToPager(recyclerView, new RecyclerViewAttacher(currentPageOffset));
     }
 
-    /**
-     * Attaches to any custom pager
-     *
-     * @param pager    pager to attach
-     * @param attacher helper which should setup this indicator to work with custom pager
-     */
     public <T> void attachToPager(@NonNull final T pager, @NonNull final PagerAttacher<T> attacher) {
         detachFromPager();
         attacher.attachToPager(this, pager);
@@ -307,9 +216,7 @@ public class ScrollingPagerIndicator extends View {
         };
     }
 
-    /**
-     * Detaches indicator from pager.
-     */
+
     public void detachFromPager() {
         if (currentAttacher != null) {
             currentAttacher.detachFromPager();
@@ -319,10 +226,6 @@ public class ScrollingPagerIndicator extends View {
         dotCountInitialized = false;
     }
 
-    /**
-     * Detaches indicator from pager and attaches it again.
-     * It may be useful for refreshing after adapter count change.
-     */
     public void reattach() {
         if (attachRunnable != null) {
             attachRunnable.run();
@@ -330,14 +233,7 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * This method must be called from ViewPager.OnPageChangeListener.onPageScrolled or from some
-     * similar callback if you use custom PagerAttacher.
-     *
-     * @param page   index of the first page currently being displayed
-     *               Page position+1 will be visible if offset is nonzero
-     * @param offset Value from [0, 1) indicating the offset from the page at position
-     */
+
     public void onPageScrolled(int page, float offset) {
         if (offset < 0 || offset > 1) {
             throw new IllegalArgumentException("Offset must be [0, 1]");
@@ -371,20 +267,11 @@ public class ScrollingPagerIndicator extends View {
         invalidate();
     }
 
-    /**
-     * Sets dot count
-     *
-     * @param count new dot count
-     */
+
     public void setDotCount(int count) {
         initDots(count);
     }
 
-    /**
-     * Sets currently selected position (according to your pager's adapter)
-     *
-     * @param position new current position
-     */
     public void setCurrentPosition(int position) {
         if (position != 0 && (position < 0 || position >= itemCount)) {
             throw new IndexOutOfBoundsException("Position must be [0, adapter.getItemCount()]");
@@ -645,29 +532,10 @@ public class ScrollingPagerIndicator extends View {
         }
     }
 
-    /**
-     * Interface for attaching to custom pagers.
-     *
-     * @param <T> custom pager's class
-     */
-    public interface PagerAttacher<T> {
 
-        /**
-         * Here you should add all needed callbacks to track pager's item count, position and offset
-         * You must call:
-         * {@link ScrollingPagerIndicator#setDotCount(int)} - initially and after page selection,
-         * {@link ScrollingPagerIndicator#setCurrentPosition(int)} - initially and after page selection,
-         * {@link ScrollingPagerIndicator#onPageScrolled(int, float)} - in your pager callback to track scroll offset,
-         * {@link ScrollingPagerIndicator#reattach()} - each time your adapter items change.
-         *
-         * @param indicator indicator
-         * @param pager     pager to attach
-         */
+    public interface PagerAttacher<T> {
         void attachToPager(@NonNull ScrollingPagerIndicator indicator, @NonNull T pager);
 
-        /**
-         * Here you should unregister all callbacks previously added to pager and adapter
-         */
         void detachFromPager();
     }
 }

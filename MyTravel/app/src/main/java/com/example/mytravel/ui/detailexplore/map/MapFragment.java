@@ -24,10 +24,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.PlaceHot;
+import com.example.mytravel.utils.CenterZoomLayoutManager;
+import com.example.mytravel.utils.OnClickItem;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -41,6 +45,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -50,21 +55,26 @@ import butterknife.OnClick;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LAT;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LNG;
+import static com.example.mytravel.utils.ConstApp.KEY_LIST_HOT_PLACE;
 import static com.example.mytravel.utils.ConstApp.REQUEST_PERMISSION_CODE;
 
-public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapReadyCallback, GoogleMap.InfoWindowAdapter, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapReadyCallback, GoogleMap.InfoWindowAdapter, GoogleMap.OnMarkerClickListener, OnClickItem<PlaceHot> {
     public static final String TAG = MapFragment.class.getSimpleName();
 
     private MapFrMvpPresenter presenter;
+
+    @BindView(R.id.rcvListHotMarker)
+    RecyclerView rcvListHotMarker;
 
     private String lat, lng;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Location location;
     private GoogleMap mMap;
-    private Marker currentMarker;
     private LatLng mCurrentLocation;
     private LatLng placeHotLocation;
     private PlaceHot placeHot;
+    private ArrayList<PlaceHot> listPlaceHots;
+    private HotMarkerAdapter hotMarkerAdapter;
 
     public static MapFragment newInstance(String lat, String lng, PlaceHot placeHot) {
         MapFragment mapFragment = new MapFragment();
@@ -72,6 +82,14 @@ public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapR
         bundle.putString(KEY_HOT_PLACE_LAT, lat);
         bundle.putString(KEY_HOT_PLACE_LNG, lng);
         bundle.putParcelable(KEY_HOT_PLACE, placeHot);
+        mapFragment.setArguments(bundle);
+        return mapFragment;
+    }
+
+    public static MapFragment newInstanceFromExplore(ArrayList<PlaceHot> listPlaceHots) {
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(KEY_LIST_HOT_PLACE, listPlaceHots);
         mapFragment.setArguments(bundle);
         return mapFragment;
     }
@@ -111,6 +129,7 @@ public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapR
             lat = getArguments().getString(KEY_HOT_PLACE_LAT);
             lng = getArguments().getString(KEY_HOT_PLACE_LNG);
             placeHot = getArguments().getParcelable(KEY_HOT_PLACE);
+            listPlaceHots = getArguments().getParcelableArrayList(KEY_LIST_HOT_PLACE);
         }
 
         if (getContext() != null && getActivity() != null) {
@@ -147,17 +166,46 @@ public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapR
                         .position(mCurrentLocation)
                         .icon(BitmapDescriptorFactory.fromBitmap(createMaker(Objects.requireNonNull(getContext()), R.drawable.ic_marker)))
                 );
-                //place hot
-                if (placeHot != null && !TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng)) {
-                    placeHotLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-                    mMap.addMarker(new MarkerOptions()
-                            .position(placeHotLocation)
-                            .icon(BitmapDescriptorFactory.fromBitmap(createMaker(Objects.requireNonNull(getContext()), R.drawable.ic_flag)))
-                            .title(placeHot.getNamePlaceHot())
-                            .snippet(placeHot.getTimeOpen())
-                    );
-                }
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 15));
+
+                if (listPlaceHots != null) {
+                    //list place hot from explore
+                    rcvListHotMarker.setVisibility(View.VISIBLE);
+                    for (PlaceHot place : listPlaceHots) {
+                        if (!TextUtils.isEmpty(place.getLat()) && !TextUtils.isEmpty(place.getLng())) {
+                            LatLng latLng = new LatLng(Double.parseDouble(place.getLat()), Double.parseDouble(place.getLng()));
+                            if (latLng != mCurrentLocation) {
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(latLng)
+                                        .icon(BitmapDescriptorFactory.fromBitmap(createMaker(Objects.requireNonNull(getContext()), R.drawable.ic_flag)))
+                                        .title(place.getNamePlaceHot())
+                                        .snippet(place.getTimeOpen())
+                                );
+                            }
+                        }
+                    }
+                    hotMarkerAdapter = new HotMarkerAdapter(getContext());
+                    hotMarkerAdapter.setListHotMarker(listPlaceHots);
+                    hotMarkerAdapter.setOnClickItem(this);
+                    CenterZoomLayoutManager centerZoomLayoutManager = new CenterZoomLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    rcvListHotMarker.setLayoutManager(centerZoomLayoutManager);
+                    rcvListHotMarker.setHasFixedSize(true);
+                    rcvListHotMarker.setAdapter(hotMarkerAdapter);
+                } else {
+                    //place hot
+                    rcvListHotMarker.setVisibility(View.GONE);
+                    if (placeHot != null && !TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng)) {
+                        placeHotLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                        if (placeHotLocation != mCurrentLocation) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(placeHotLocation)
+                                    .icon(BitmapDescriptorFactory.fromBitmap(createMaker(Objects.requireNonNull(getContext()), R.drawable.ic_flag)))
+                                    .title(placeHot.getNamePlaceHot())
+                                    .snippet(placeHot.getTimeOpen())
+                            );
+                        }
+                    }
+                }
             }
         });
 
@@ -231,5 +279,23 @@ public class MapFragment extends BaseFragment implements SampleFrMvpView, OnMapR
             this.mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null);
         }
         return false;
+    }
+
+    @Override
+    public void onClickItem(PlaceHot placeHot) {
+        if (this.mMap != null && placeHot != null) {
+            LatLng latLng = new LatLng(Double.parseDouble(placeHot.getLat()), Double.parseDouble(placeHot.getLng()));
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(latLng);
+            LatLngBounds bounds = builder.build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+            this.mMap.moveCamera(cameraUpdate);
+            this.mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null);
+        }
+    }
+
+    public int Dp2px(float dp) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
     }
 }

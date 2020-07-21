@@ -5,17 +5,17 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.models.city.Place;
+import com.example.mytravel.models.favorites.FavoritesPlace;
 import com.example.mytravel.utils.CommonUtils;
-import com.example.mytravel.utils.OnClickItem;
 
 import java.util.ArrayList;
 
@@ -23,13 +23,23 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
 
     private ArrayList<Place> listPlaces;
     private Context context;
-    private OnClickItem<Place> placeOnClickItem;
+    private OnClickItemPlace placeOnClickItem;
+    private ArrayList<FavoritesPlace> favoritesPlaces;
+    private ArrayList<String> listIdPlace = new ArrayList<>();
 
     public PlaceListAdapter(Context context) {
         this.context = context;
+        this.favoritesPlaces = MainApp.getInstance().getAppDataManager().getListFavoritesPlace();
+        getIdPlace();
     }
 
-    public void setPlaceOnClickItem(OnClickItem<Place> placeOnClickItem) {
+    private void getIdPlace() {
+        for (FavoritesPlace favoritesPlace : favoritesPlaces) {
+            listIdPlace.add(favoritesPlace.getIdPlace());
+        }
+    }
+
+    public void setPlaceOnClickItem(OnClickItemPlace placeOnClickItem) {
         this.placeOnClickItem = placeOnClickItem;
     }
 
@@ -72,9 +82,13 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
             if (place.getRatePlace() != -1) {
                 holder.tvRate.setText(String.valueOf(place.getRatePlace()));
             }
-            holder.cbLove.setSelected(place.isLove());
 
-            holder.cbLove.setOnClickListener(v -> holder.cbLove.setSelected(!holder.cbLove.isSelected()));
+            holder.cbLove.setSelected(listIdPlace.contains(place.getIdPlace()));
+
+            holder.cbLove.setOnClickListener(v -> {
+                holder.cbLove.setSelected(!holder.cbLove.isSelected());
+                placeOnClickItem.onClickIsLove(place.getIdPlace(), holder.cbLove.isSelected());
+            });
             holder.itemView.setOnClickListener(v -> placeOnClickItem.onClickItem(place));
         }
     }

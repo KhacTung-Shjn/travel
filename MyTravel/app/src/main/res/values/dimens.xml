@@ -59,4 +59,5 @@
     <dimen name="size_58dp">58dp</dimen>
     <dimen name="size_36sp">36sp</dimen>
     <dimen name="size_440dp">440dp</dimen>
+    <dimen name="size_48dp">48dp</dimen>
 </resources>

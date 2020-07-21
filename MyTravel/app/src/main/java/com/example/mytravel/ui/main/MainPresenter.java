@@ -11,4 +11,5 @@ public class MainPresenter extends BasePresenter implements MainMvpPresenter {
         super(mainMvpView);
         this.getMvpView = mainMvpView;
     }
+
 }

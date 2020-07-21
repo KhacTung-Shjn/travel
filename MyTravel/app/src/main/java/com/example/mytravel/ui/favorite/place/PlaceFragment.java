@@ -7,16 +7,35 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.models.city.Place;
+import com.example.mytravel.ui.detailexplore.placelist.OnClickItemPlace;
+import com.example.mytravel.ui.detailexplore.placelist.PlaceListAdapter;
+import com.example.mytravel.ui.frame.FrameActivity;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PlaceFragment extends BaseFragment implements PlaceFrMvpView {
+import static com.example.mytravel.utils.ConstApp.KEY_LIST_PLACE;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
+
+public class PlaceFragment extends BaseFragment implements PlaceFrMvpView, OnClickItemPlace {
     public static final String TAG = PlaceFragment.class.getSimpleName();
 
     private PlaceFrMvpPresenter presenter;
+
+    @BindView(R.id.rcvListFavoritesPlace)
+    RecyclerView rcvListFavoritesPlace;
+
+    private ArrayList<Place> listPlaces = new ArrayList<>();
+    private PlaceListAdapter placeListAdapter;
+    private String idCity, idExplore;
 
     public static PlaceFragment newInstance() {
         PlaceFragment placeFragment = new PlaceFragment();
@@ -40,6 +59,38 @@ public class PlaceFragment extends BaseFragment implements PlaceFrMvpView {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
             setUnbinder(ButterKnife.bind(this, getActivity()));
+        }
+
+        rcvListFavoritesPlace.setHasFixedSize(true);
+        placeListAdapter = new PlaceListAdapter(getContext());
+        placeListAdapter.setListPlaces(listPlaces);
+        placeListAdapter.setPlaceOnClickItem(this);
+        rcvListFavoritesPlace.setAdapter(placeListAdapter);
+
+        presenter.getListFavoritesPlace();
+    }
+
+    @Override
+    public void successGetListFavoritesPlace(ArrayList<Place> listPlaces, String idCity, String idExplore) {
+        if (listPlaces != null && idCity != null && idExplore != null) {
+            this.idCity = idCity;
+            this.idExplore = idExplore;
+            this.listPlaces = listPlaces;
+            placeListAdapter.replaceAllData(this.listPlaces);
+        }
+    }
+
+    @Override
+    public void onClickItem(Place place) {
+        startActivity(FrameActivity.newIntentPlaceHot(getContext(), idCity, idExplore, place.getIdPlace()));
+    }
+
+    @Override
+    public void onClickIsLove(String idPlace, boolean isLove) {
+        if (isLove) {
+            presenter.setLovePlace(idCity, idExplore, idPlace);
+        } else {
+            presenter.removeLovePlace(idPlace);
         }
     }
 }

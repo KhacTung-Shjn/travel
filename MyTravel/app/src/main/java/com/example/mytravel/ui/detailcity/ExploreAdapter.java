@@ -11,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.models.city.Explore;
+import com.example.mytravel.models.favorites.FavoritesExplore;
 import com.example.mytravel.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
     private ArrayList<Explore> listExplores;
     private Context context;
     private OnClickItemInCity onClickItemInCity;
+    private ArrayList<FavoritesExplore> favoritesExplores;
+    private ArrayList<String> listIdExplore = new ArrayList<>();
 
     public void setOnClickItemInCity(OnClickItemInCity onClickItemInCity) {
         this.onClickItemInCity = onClickItemInCity;
@@ -29,6 +33,14 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
 
     public ExploreAdapter(Context context) {
         this.context = context;
+        this.favoritesExplores = MainApp.getInstance().getAppDataManager().getListFavoritesExplore();
+        getIdExplore();
+    }
+
+    private void getIdExplore() {
+        for (FavoritesExplore favoritesExplore : this.favoritesExplores) {
+            listIdExplore.add(favoritesExplore.getIdExplore());
+        }
     }
 
     public void setListExplores(ArrayList<Explore> listExplores) {
@@ -64,9 +76,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
                 holder.tvTitle.setText(explore.getNameExplore());
             }
             holder.tvRate.setText(String.valueOf(explore.getRateExplore()));
-            holder.isLove.setSelected(explore.isLove());
 
-            holder.isLove.setOnClickListener(v -> holder.isLove.setSelected(!holder.isLove.isSelected()));
+            holder.isLove.setSelected(listIdExplore.contains(explore.getId()));
+
+            holder.isLove.setOnClickListener(v -> {
+                holder.isLove.setSelected(!holder.isLove.isSelected());
+                onClickItemInCity.onClickIsLoveExplore(explore.getId(), holder.isLove.isSelected());
+            });
 
             holder.itemView.setOnClickListener(v -> onClickItemInCity.onClickExplore(explore));
         }

@@ -164,10 +164,15 @@ public class LoginFragment extends BaseFragment implements LoginFrMvpView, Faceb
         if (getActivity() != null) {
             getAppDataManager().setPasswordCurrent(etPassword.getText().toString());
             UserInformation userInformation = CommonUtils.getUserInfo(user);
-            getAppDataManager().setUserInformation(userInformation);
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
+            presenter.getProfile(userInformation);
         }
+    }
+
+    @Override
+    public void getFinalLogin(UserInformation userInformation) {
+        getAppDataManager().setUserInformation(userInformation);
+        startActivity(new Intent(getActivity(), MainActivity.class));
+        Objects.requireNonNull(getActivity()).finish();
     }
 
     @Override

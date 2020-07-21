@@ -31,7 +31,7 @@
             android:textSize="@dimen/size_10sp" />
 
         <RadioButton
-            android:id="@+id/rbVideos"
+            android:id="@+id/rbExplores"
             style="@style/SelectableItemBackgroundBorderless"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_25dp"
@@ -40,7 +40,7 @@
             android:background="@drawable/bg_radio"
             android:button="@android:color/transparent"
             android:gravity="center"
-            android:text="@string/text_videos"
+            android:text="@string/text_title_explores"
             android:textColor="@drawable/bg_text_color_radio"
             android:textSize="@dimen/size_10sp" />
 

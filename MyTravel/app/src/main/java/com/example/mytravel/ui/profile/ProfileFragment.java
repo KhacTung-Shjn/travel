@@ -2,6 +2,7 @@ package com.example.mytravel.ui.profile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -22,12 +23,14 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.ui.frame.FrameActivity;
+import com.example.mytravel.utils.CommonUtils;
 
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.mytravel.utils.ConstApp.KEY_USER_INFORMATION;
 import static com.example.mytravel.utils.ConstApp.REQUEST_CODE_UPDATE_PROFILE;
@@ -40,6 +43,8 @@ public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
     TextView tvNameUser;
     @BindView(R.id.tvEmailUser)
     TextView tvEmailUser;
+    @BindView(R.id.ivAvatar)
+    CircleImageView ivAvatar;
 
 
     private AlertDialog ratingDialog;
@@ -80,6 +85,14 @@ public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
                 tvEmailUser.setText(userInformation.getEmail());
             } else {
                 tvEmailUser.setText("");
+            }
+            if (!TextUtils.isEmpty(userInformation.getAvatar()) && userInformation.getAvatar() != null) {
+                try {
+                    Bitmap bitmap = CommonUtils.StringToBitMap(userInformation.getAvatar());
+                    ivAvatar.setImageBitmap(bitmap);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), getString(R.string.msg_error_unknown), Toast.LENGTH_SHORT).show();
+                }
             }
         } else {
             tvNameUser.setText(getString(R.string.text_user_name_default));

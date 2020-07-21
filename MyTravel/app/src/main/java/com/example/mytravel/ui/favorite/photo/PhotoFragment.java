@@ -7,16 +7,32 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.models.imagehot.ImageHot;
+import com.example.mytravel.ui.frame.FrameActivity;
+import com.example.mytravel.ui.imagehot.ImageHotAdapter;
+import com.example.mytravel.utils.OnClickItem;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PhotoFragment extends BaseFragment implements PhotoFrMvpView {
+public class PhotoFragment extends BaseFragment implements PhotoFrMvpView, OnClickItem<ImageHot> {
     public static final String TAG = PhotoFragment.class.getSimpleName();
 
     private PhotoFrMvpPresenter presenter;
+
+    @BindView(R.id.rcvListFavoritesImage)
+    RecyclerView rcvListFavoritesImage;
+
+    private ImageHotAdapter imageHotAdapter;
+    private ArrayList<ImageHot> listImageHots = new ArrayList<>();
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     public static PhotoFragment newInstance() {
         PhotoFragment photoFragment = new PhotoFragment();
@@ -40,6 +56,29 @@ public class PhotoFragment extends BaseFragment implements PhotoFrMvpView {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
             setUnbinder(ButterKnife.bind(this, getActivity()));
+        }
+
+        imageHotAdapter = new ImageHotAdapter(getContext());
+        imageHotAdapter.setListUrlImageHot(listImageHots);
+        imageHotAdapter.setOnClickItem(this);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        rcvListFavoritesImage.setLayoutManager(staggeredGridLayoutManager);
+        rcvListFavoritesImage.setHasFixedSize(true);
+        rcvListFavoritesImage.setAdapter(imageHotAdapter);
+
+        presenter.getListFavoritesPhoto();
+    }
+
+    @Override
+    public void onClickItem(ImageHot imageHot) {
+        startActivity(FrameActivity.newIntentFullViewImage(getContext(), imageHot));
+    }
+
+    @Override
+    public void successGetListFavoritesPhoto(ArrayList<ImageHot> listPhotos) {
+        if (listPhotos != null) {
+            this.listImageHots = listPhotos;
+            imageHotAdapter.replaceAllData(listPhotos);
         }
     }
 }
