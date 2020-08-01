@@ -234,6 +234,7 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
                     Bitmap selectedImage = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                     if (selectedImage != null) {
                         ivAvatar.setImageBitmap(selectedImage);
+                        selectedImage = CommonUtils.getResizedBitmap(selectedImage, 200);
                         urlImage = CommonUtils.BitMapToString(selectedImage);
                     }
                 }
@@ -248,6 +249,7 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
                             imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                             Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                             ivAvatar.setImageBitmap(selectedImage);
+                            selectedImage = CommonUtils.getResizedBitmap(selectedImage, 200);
                             urlImage = CommonUtils.BitMapToString(selectedImage);
                         }
                     } catch (FileNotFoundException e) {

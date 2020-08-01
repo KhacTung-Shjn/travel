@@ -175,6 +175,8 @@ public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
                 getAppDataManager().setUserInformation(this.userInformation);
                 tvNameUser.setText(this.userInformation.getName());
                 tvEmailUser.setText(this.userInformation.getEmail());
+                Bitmap bitmap = CommonUtils.StringToBitMap(this.userInformation.getAvatar());
+                ivAvatar.setImageBitmap(bitmap);
             }
         }
     }

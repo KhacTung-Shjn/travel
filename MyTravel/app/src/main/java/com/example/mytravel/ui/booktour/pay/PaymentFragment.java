@@ -153,7 +153,7 @@ public class PaymentFragment extends BaseFragment implements PaymentFrMvpView, V
                 tvAdultsNumber.setText(String.format("%s: %s", getString(R.string.text_title_number_adults), bookTour.getNumberAdults()));
             }
             if (!TextUtils.isEmpty(bookTour.getNumberChildren())) {
-                tvChildrenNumber.setText(String.format("%s: %s", getString(R.string.text_title_number_adults), bookTour.getNumberChildren()));
+                tvChildrenNumber.setText(String.format("%s: %s", getString(R.string.text_title_number_children), bookTour.getNumberChildren()));
             }
             if (!TextUtils.isEmpty(bookTour.getPriceTour())) {
                 tvTotalPrice.setText(String.format("%s $%s", getString(R.string.text_title_total_price), bookTour.getPriceTour()));
