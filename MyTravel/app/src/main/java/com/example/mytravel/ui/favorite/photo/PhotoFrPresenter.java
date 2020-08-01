@@ -39,7 +39,9 @@ public class PhotoFrPresenter extends BasePresenter implements PhotoFrMvpPresent
 
     @Override
     public void getListFavoritesPhoto() {
-        new LoadFavoritesPhotoAsyncTask(listIdPhotos).execute();
+        if (listIdPhotos.size() != 0) {
+            new LoadFavoritesPhotoAsyncTask(listIdPhotos).execute();
+        }
     }
 
     @SuppressLint("StaticFieldLeak")

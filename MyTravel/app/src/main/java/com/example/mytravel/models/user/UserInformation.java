@@ -46,6 +46,10 @@ public class UserInformation implements Parcelable {
     public UserInformation() {
     }
 
+    public UserInformation(String email) {
+        this.email = email;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }

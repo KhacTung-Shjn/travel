@@ -54,6 +54,7 @@ public class ConstApp {
     public static final int REQUEST_CODE_PRIVACY = 10;
     public static final int REQUEST_CODE_UPDATE_PROFILE = 11;
     public static final int REQUEST_PERMISSION_CODE = 101;
+    public static final int REQUEST_PERMISSION_CODE_CAMERA = 103;
     public static final int REQUEST_CODE_CHOOSE_PHOTO_GALLERY = 9;
     public static final int REQUEST_CODE_TAKE_PHOTO = 8;
     public static final int PAYPAL_REQUEST_CODE = 71;

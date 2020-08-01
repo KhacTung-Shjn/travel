@@ -24,7 +24,6 @@ public class ViewDialog {
 
 
     public void showDialog() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         View mView = activity.getLayoutInflater().inflate(R.layout.dialog_loading, null);
         builder.setView(mView);

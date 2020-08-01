@@ -21,6 +21,7 @@ import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
 import com.example.mytravel.models.city.City;
 import com.example.mytravel.ui.frame.FrameActivity;
+import com.example.mytravel.utils.AddData;
 
 import java.util.ArrayList;
 import java.util.List;

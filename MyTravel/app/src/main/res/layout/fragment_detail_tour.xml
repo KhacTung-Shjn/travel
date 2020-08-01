@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_10dp"
-        android:text="0 Places"
+        android:text="3 Places"
         android:textColor="@color/colorText"
         android:textSize="@dimen/size_12sp"
         android:textStyle="italic"

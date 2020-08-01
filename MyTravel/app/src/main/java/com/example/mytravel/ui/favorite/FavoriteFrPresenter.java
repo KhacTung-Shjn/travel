@@ -31,26 +31,28 @@ public class FavoriteFrPresenter extends BasePresenter implements FavoriteFrMvpP
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult() != null) {
-                            MainApp.getInstance().getFirebaseFireStore()
-                                    .collection("user")
-                                    .document(task.getResult().getDocuments().get(0).getId())
-                                    .collection("favorite_place")
-                                    .addSnapshotListener((value, error) -> {
-                                        if (error != null) {
-                                            getMvpView.showMessage(R.string.msg_error_unknown);
-                                        }
-                                        if (value != null) {
-                                            ArrayList<FavoritesPlace> favoritesPlaces = new ArrayList<>();
-                                            for (QueryDocumentSnapshot snapshot : value) {
-                                                String json = getGSon().toJson(snapshot.getData());
-                                                if (json != null) {
-                                                    FavoritesPlace favoritesPlace = getGSon().fromJson(json, FavoritesPlace.class);
-                                                    favoritesPlaces.add(favoritesPlace);
-                                                }
+                            if (task.getResult().getDocuments().get(0) != null) {
+                                MainApp.getInstance().getFirebaseFireStore()
+                                        .collection("user")
+                                        .document(task.getResult().getDocuments().get(0).getId())
+                                        .collection("favorite_place")
+                                        .addSnapshotListener((value, error) -> {
+                                            if (error != null) {
+                                                getMvpView.showMessage(R.string.msg_error_unknown);
                                             }
-                                            getDataManager().setListFavoritesPlace(favoritesPlaces);
-                                        }
-                                    });
+                                            if (value != null) {
+                                                ArrayList<FavoritesPlace> favoritesPlaces = new ArrayList<>();
+                                                for (QueryDocumentSnapshot snapshot : value) {
+                                                    String json = getGSon().toJson(snapshot.getData());
+                                                    if (json != null) {
+                                                        FavoritesPlace favoritesPlace = getGSon().fromJson(json, FavoritesPlace.class);
+                                                        favoritesPlaces.add(favoritesPlace);
+                                                    }
+                                                }
+                                                getDataManager().setListFavoritesPlace(favoritesPlaces);
+                                            }
+                                        });
+                            }
                         }
                     }
                 });
@@ -65,26 +67,28 @@ public class FavoriteFrPresenter extends BasePresenter implements FavoriteFrMvpP
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult() != null) {
-                            MainApp.getInstance().getFirebaseFireStore()
-                                    .collection("user")
-                                    .document(task.getResult().getDocuments().get(0).getId())
-                                    .collection("favorite_explore")
-                                    .addSnapshotListener((value, error) -> {
-                                        if (error != null) {
-                                            getMvpView.showMessage(R.string.msg_error_unknown);
-                                        }
-                                        if (value != null) {
-                                            ArrayList<FavoritesExplore> favoritesExplores = new ArrayList<>();
-                                            for (QueryDocumentSnapshot snapshot : value) {
-                                                String json = getGSon().toJson(snapshot.getData());
-                                                if (json != null) {
-                                                    FavoritesExplore favoritesExplore = getGSon().fromJson(json, FavoritesExplore.class);
-                                                    favoritesExplores.add(favoritesExplore);
-                                                }
+                            if (task.getResult().getDocuments().get(0) != null) {
+                                MainApp.getInstance().getFirebaseFireStore()
+                                        .collection("user")
+                                        .document(task.getResult().getDocuments().get(0).getId())
+                                        .collection("favorite_explore")
+                                        .addSnapshotListener((value, error) -> {
+                                            if (error != null) {
+                                                getMvpView.showMessage(R.string.msg_error_unknown);
                                             }
-                                            getDataManager().setListFavoritesExplore(favoritesExplores);
-                                        }
-                                    });
+                                            if (value != null) {
+                                                ArrayList<FavoritesExplore> favoritesExplores = new ArrayList<>();
+                                                for (QueryDocumentSnapshot snapshot : value) {
+                                                    String json = getGSon().toJson(snapshot.getData());
+                                                    if (json != null) {
+                                                        FavoritesExplore favoritesExplore = getGSon().fromJson(json, FavoritesExplore.class);
+                                                        favoritesExplores.add(favoritesExplore);
+                                                    }
+                                                }
+                                                getDataManager().setListFavoritesExplore(favoritesExplores);
+                                            }
+                                        });
+                            }
                         }
                     }
                 });
@@ -99,26 +103,28 @@ public class FavoriteFrPresenter extends BasePresenter implements FavoriteFrMvpP
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult() != null) {
-                            MainApp.getInstance().getFirebaseFireStore()
-                                    .collection("user")
-                                    .document(task.getResult().getDocuments().get(0).getId())
-                                    .collection("favorite_photo")
-                                    .addSnapshotListener((value, error) -> {
-                                        if (error != null) {
-                                            getMvpView.showMessage(R.string.msg_error_unknown);
-                                        }
-                                        if (value != null) {
-                                            ArrayList<FavoritesPhoto> favoritesPhotos = new ArrayList<>();
-                                            for (QueryDocumentSnapshot snapshot : value) {
-                                                String json = getGSon().toJson(snapshot.getData());
-                                                if (json != null) {
-                                                    FavoritesPhoto favoritesPhoto = getGSon().fromJson(json, FavoritesPhoto.class);
-                                                    favoritesPhotos.add(favoritesPhoto);
-                                                }
+                            if (task.getResult().getDocuments().get(0) != null) {
+                                MainApp.getInstance().getFirebaseFireStore()
+                                        .collection("user")
+                                        .document(task.getResult().getDocuments().get(0).getId())
+                                        .collection("favorite_photo")
+                                        .addSnapshotListener((value, error) -> {
+                                            if (error != null) {
+                                                getMvpView.showMessage(R.string.msg_error_unknown);
                                             }
-                                            getDataManager().setListFavoritesPhoto(favoritesPhotos);
-                                        }
-                                    });
+                                            if (value != null) {
+                                                ArrayList<FavoritesPhoto> favoritesPhotos = new ArrayList<>();
+                                                for (QueryDocumentSnapshot snapshot : value) {
+                                                    String json = getGSon().toJson(snapshot.getData());
+                                                    if (json != null) {
+                                                        FavoritesPhoto favoritesPhoto = getGSon().fromJson(json, FavoritesPhoto.class);
+                                                        favoritesPhotos.add(favoritesPhoto);
+                                                    }
+                                                }
+                                                getDataManager().setListFavoritesPhoto(favoritesPhotos);
+                                            }
+                                        });
+                            }
                         }
                     }
                 });
@@ -133,26 +139,28 @@ public class FavoriteFrPresenter extends BasePresenter implements FavoriteFrMvpP
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult() != null) {
-                            MainApp.getInstance().getFirebaseFireStore()
-                                    .collection("user")
-                                    .document(task.getResult().getDocuments().get(0).getId())
-                                    .collection("favorite_tours")
-                                    .addSnapshotListener((value, error) -> {
-                                        if (error != null) {
-                                            getMvpView.showMessage(R.string.msg_error_unknown);
-                                        }
-                                        if (value != null) {
-                                            ArrayList<FavoritesTour> favoritesTours = new ArrayList<>();
-                                            for (QueryDocumentSnapshot snapshot : value) {
-                                                String json = getGSon().toJson(snapshot.getData());
-                                                if (json != null) {
-                                                    FavoritesTour favoritesTour = getGSon().fromJson(json, FavoritesTour.class);
-                                                    favoritesTours.add(favoritesTour);
-                                                }
+                            if (task.getResult().getDocuments().get(0) != null) {
+                                MainApp.getInstance().getFirebaseFireStore()
+                                        .collection("user")
+                                        .document(task.getResult().getDocuments().get(0).getId())
+                                        .collection("favorite_tours")
+                                        .addSnapshotListener((value, error) -> {
+                                            if (error != null) {
+                                                getMvpView.showMessage(R.string.msg_error_unknown);
                                             }
-                                            getDataManager().setListFavoritesTour(favoritesTours);
-                                        }
-                                    });
+                                            if (value != null) {
+                                                ArrayList<FavoritesTour> favoritesTours = new ArrayList<>();
+                                                for (QueryDocumentSnapshot snapshot : value) {
+                                                    String json = getGSon().toJson(snapshot.getData());
+                                                    if (json != null) {
+                                                        FavoritesTour favoritesTour = getGSon().fromJson(json, FavoritesTour.class);
+                                                        favoritesTours.add(favoritesTour);
+                                                    }
+                                                }
+                                                getDataManager().setListFavoritesTour(favoritesTours);
+                                            }
+                                        });
+                            }
                         }
                     }
                 });

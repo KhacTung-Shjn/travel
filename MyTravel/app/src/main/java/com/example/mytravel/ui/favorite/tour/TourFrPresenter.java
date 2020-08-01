@@ -45,7 +45,8 @@ public class TourFrPresenter extends BasePresenter implements TourFrMvpPresenter
 
     @Override
     public void getListFavoritesTour() {
-        new LoadFavoritesTourAsyncTask(listIdTour).execute();
+        if (listIdTour.size() != 0)
+            new LoadFavoritesTourAsyncTask(listIdTour).execute();
     }
 
     @Override

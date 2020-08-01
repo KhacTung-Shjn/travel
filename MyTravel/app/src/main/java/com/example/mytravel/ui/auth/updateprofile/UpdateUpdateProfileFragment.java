@@ -1,9 +1,11 @@
 package com.example.mytravel.ui.auth.updateprofile;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +23,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
@@ -41,6 +45,8 @@ import static android.app.Activity.RESULT_OK;
 import static com.example.mytravel.utils.ConstApp.KEY_USER_INFORMATION;
 import static com.example.mytravel.utils.ConstApp.REQUEST_CODE_CHOOSE_PHOTO_GALLERY;
 import static com.example.mytravel.utils.ConstApp.REQUEST_CODE_TAKE_PHOTO;
+import static com.example.mytravel.utils.ConstApp.REQUEST_PERMISSION_CODE;
+import static com.example.mytravel.utils.ConstApp.REQUEST_PERMISSION_CODE_CAMERA;
 
 public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateProfileFrMvpView, View.OnClickListener {
     public static final String TAG = UpdateUpdateProfileFragment.class.getSimpleName();
@@ -161,6 +167,12 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
 
     @OnClick(R.id.btnUpdate)
     public void onClickUpdate() {
+        if (TextUtils.isEmpty(urlImage) || urlImage == null) {
+            urlImage = getAppDataManager().getUserInformation().getAvatar();
+        }
+        if (birth == null || TextUtils.isEmpty(birth)) {
+            birth = getAppDataManager().getUserInformation().getBirth();
+        }
         presenter.onClickUpdateProfile(etName.getText().toString(), etEmail.getText().toString(),
                 rbMale.isChecked(), rbFeMale.isChecked(), etPhone.getText().toString(),
                 etAddress.getText().toString(), birth, userInformation, urlImage);
@@ -211,9 +223,13 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setTitle(getString(R.string.text_choose_your_profile_picture));
         builder.setItems(options, (dialog, item) -> {
-            if (options[item].equals(getString(R.string.text_take_photo))) {
-                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, REQUEST_CODE_TAKE_PHOTO);
+            if (options[item].equals(getString(R.string.text_take_photo)) && getContext() != null) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CODE_CAMERA);
+                } else {
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, REQUEST_CODE_TAKE_PHOTO);
+                }
             } else if (options[item].equals(getString(R.string.text_choose_from_gallery))) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK);
                 pickPhoto.setType("image/*");
@@ -259,6 +275,11 @@ public class UpdateUpdateProfileFragment extends BaseFragment implements UpdateP
                 } else {
                     Toast.makeText(getContext(), getString(R.string.msg_error_choose_image_gallery), Toast.LENGTH_LONG).show();
                 }
+                break;
+            }
+            case REQUEST_PERMISSION_CODE_CAMERA: {
+                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, REQUEST_CODE_TAKE_PHOTO);
                 break;
             }
         }

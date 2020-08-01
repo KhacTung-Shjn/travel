@@ -156,6 +156,47 @@ public class AddData {
         MainApp.getInstance().getFirebaseFireStore()
                 .collection("city")
                 .add(city);
+    }
+
+    public static void addExplore() {
+        HashMap<String, Object> explore = new HashMap<>();
+        explore.put("desc", "");
+        explore.put("hot_destinations", new ArrayList<String>());
+        explore.put("id_explore", "");
+        explore.put("image_explore", "");
+        explore.put("is_love", false);
+        explore.put("lat", "");
+        explore.put("lng", "");
+        explore.put("name_explore", "");
+        explore.put("rate_explore", 4);
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .document("Oad4kLBC4rxPyJUG2c1A")
+                .collection("explore")
+                .add(explore);
+    }
+
+    public static void addTourPopular() {
+        HashMap<String, Object> tour = new HashMap<>();
+        tour.put("end_date", "");
+        tour.put("schedule", "White Clothes is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\\u0027s stan");
+        tour.put("money", "100");
+        tour.put("nameTour", "Sầm Sơn Tour");
+        tour.put("id_tour", "");
+        tour.put("time", "3 days");
+        tour.put("image_tour", "https://tour.dulichvietnam.com.vn/uploads/tour/thm_bien-sam-son-thanh-hoa.jpg.jpg");
+        tour.put("is_love", true);
+        tour.put("introduction", "White Clothes is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\\u0027s stan");
+        tour.put("rate_tour", 3);
+        tour.put("start_date", "");
+        tour.put("traffic", "White Clothes is simply dummy text of the printing and typesetting industry");
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .document("Oad4kLBC4rxPyJUG2c1A")
+                .collection("tour_popular")
+                .add(tour);
 
     }
 }

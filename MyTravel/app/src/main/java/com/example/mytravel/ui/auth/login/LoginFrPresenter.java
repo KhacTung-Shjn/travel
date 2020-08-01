@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LoginFrPresenter extends BasePresenter implements LoginFrMvpPresenter {
 
@@ -65,21 +67,44 @@ public class LoginFrPresenter extends BasePresenter implements LoginFrMvpPresent
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult() != null) {
-                            DocumentSnapshot snapshot = task.getResult().getDocuments().get(0);
-                            String address = String.valueOf(snapshot.get("address"));
-                            String avatar = String.valueOf(snapshot.get("avatar"));
-                            String birth = String.valueOf(snapshot.get("birth"));
-                            String gender = String.valueOf(snapshot.get("gender"));
-                            String phone = String.valueOf(snapshot.get("phone"));
-                            userInformation.setAddress(address);
-                            userInformation.setAvatar(avatar);
-                            userInformation.setBirth(birth);
-                            userInformation.setGender(Integer.parseInt(gender));
-                            userInformation.setPhone(phone);
-                            getMvpView.getFinalLogin(userInformation);
+                            if (task.getResult().getDocuments().size() != 0) {
+                                DocumentSnapshot snapshot = task.getResult().getDocuments().get(0);
+                                String address = String.valueOf(snapshot.get("address"));
+                                String avatar = String.valueOf(snapshot.get("avatar"));
+                                String birth = String.valueOf(snapshot.get("birth"));
+                                String gender = String.valueOf(snapshot.get("gender"));
+                                String phone = String.valueOf(snapshot.get("phone"));
+                                userInformation.setAddress(address);
+                                userInformation.setAvatar(avatar);
+                                userInformation.setBirth(birth);
+                                userInformation.setGender(Integer.parseInt(gender));
+                                userInformation.setPhone(phone);
+                                getMvpView.getFinalLogin(userInformation);
+                            } else {
+                                pushUserToFirebase(userInformation);
+                            }
                         }
                     }
                 });
+    }
+
+    public void pushUserToFirebase(UserInformation userInformation) {
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("address", "");
+        user.put("avatar", "");
+        user.put("birth", "");
+        user.put("email", userInformation.getEmail());
+        user.put("gender", 1);
+        user.put("name", "Customer");
+        user.put("phone", "");
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .add(user).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                getProfile(userInformation);
+            }
+        });
     }
 
     private boolean isValidate(String email, String password) {

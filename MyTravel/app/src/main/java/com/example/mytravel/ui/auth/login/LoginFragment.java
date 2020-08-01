@@ -23,9 +23,12 @@ import com.example.mytravel.ui.auth.register.RegisterFragment;
 import com.example.mytravel.ui.main.MainActivity;
 import com.example.mytravel.utils.AppUtils;
 import com.example.mytravel.utils.CommonUtils;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -36,6 +39,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -100,7 +106,7 @@ public class LoginFragment extends BaseFragment implements LoginFrMvpView, Faceb
         // Configure Facebook Sign In
         mCallbackManager = CallbackManager.Factory.create();
         btnLoginFacebook.setFragment(this);
-        btnLoginFacebook.setReadPermissions("email");
+        btnLoginFacebook.setReadPermissions("public_profile email");
         btnLoginFacebook.registerCallback(mCallbackManager, this);
 
     }
@@ -195,12 +201,15 @@ public class LoginFragment extends BaseFragment implements LoginFrMvpView, Faceb
     @Override
     public void onSuccess(LoginResult loginResult) {
         //handleFacebookAccessToken(loginResult.getAccessToken());
+        getAppDataManager().setCheckLogin(true);
         showMessage(R.string.msg_success_login);
-        if (getActivity() != null) {
-            getAppDataManager().setCheckLogin(true);
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
-        }
+        presenter.getProfile(new UserInformation("customer@gmail.com"));
+
+//        if (getActivity() != null) {
+//            getAppDataManager().setCheckLogin(true);
+//            startActivity(new Intent(getActivity(), MainActivity.class));
+//            getActivity().finish();
+//        }
     }
 
     @Override
