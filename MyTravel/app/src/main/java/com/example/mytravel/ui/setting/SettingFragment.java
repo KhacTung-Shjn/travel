@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,8 @@ public class SettingFragment extends BaseFragment implements SettingFrMvpView, C
     Switch switchLanguage;
     @BindView(R.id.switchPrivacy)
     Switch switchPrivacy;
+    @BindView(R.id.switchNoti)
+    Switch switchNoti;
 
     public static SettingFragment newInstance() {
         SettingFragment settingFragment = new SettingFragment();
@@ -77,8 +80,10 @@ public class SettingFragment extends BaseFragment implements SettingFrMvpView, C
         }
 
         switchPrivacy.setChecked(MainApp.getInstance().getAppDataManager().isPrivacy());
+        switchNoti.setChecked(MainApp.getInstance().getAppDataManager().isNotification());
         switchLanguage.setOnCheckedChangeListener(this);
         switchPrivacy.setOnCheckedChangeListener(this);
+        switchNoti.setOnCheckedChangeListener(this);
     }
 
     @OnClick(R.id.tvLogOut)
@@ -121,6 +126,10 @@ public class SettingFragment extends BaseFragment implements SettingFrMvpView, C
         switch (buttonView.getId()) {
             case R.id.switchLanguage: {
                 presenter.setLanguageApp(isChecked, getResources());
+                break;
+            }
+            case R.id.switchNoti: {
+                MainApp.getInstance().getAppDataManager().setNotification(isChecked);
                 break;
             }
             case R.id.switchPrivacy: {

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_20dp"
+            android:elevation="@dimen/size_5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivCompany"
+                    android:layout_width="@dimen/size_100dp"
+                    android:layout_height="@dimen/size_100dp"
+                    android:layout_margin="@dimen/size_16dp"
+                    android:src="@color/colorMain"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNameCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:text="Travel NkTung"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_20sp"
+                    app:layout_constraintStart_toEndOf="@id/ivCompany"
+                    app:layout_constraintTop_toTopOf="@+id/ivCompany" />
+
+                <TextView
+                    android:id="@+id/tvTypeCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Travel Company"
+                    app:layout_constraintStart_toStartOf="@+id/tvNameCompany"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameCompany" />
+
+                <ImageView
+                    android:id="@+id/ivBarCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:src="@drawable/ic_barcode"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivCompany"
+                    app:layout_constraintStart_toStartOf="@+id/tvTypeCompany"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTypeCompany" />
+
+                <ImageView
+                    android:id="@+id/ivBarCode1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_2dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:src="@drawable/ic_barcode"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivCompany"
+                    app:layout_constraintStart_toEndOf="@+id/ivBarCode"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTypeCompany" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginEnd="@dimen/size_20dp"
+                    android:background="@color/colorGray"
+                    app:layout_constraintTop_toBottomOf="@+id/ivCompany" />
+
+                <TextView
+                    android:id="@+id/tvTitleCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="@string/text_title_customer"
+                    app:layout_constraintStart_toStartOf="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                <TextView
+                    android:id="@+id/tvCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Nguen Khac Tung"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleCustomer"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleCustomer" />
+
+                <TextView
+                    android:id="@+id/tvTitleEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="@string/text_email_address"
+                    app:layout_constraintStart_toStartOf="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCustomer" />
+
+                <TextView
+                    android:id="@+id/tvEmailCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="n.k.tung1998@gmail.com"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleEmail" />
+
+                <TextView
+                    android:id="@+id/tvTitlePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="@string/text_phone"
+                    app:layout_constraintStart_toStartOf="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmailCustomer" />
+
+                <TextView
+                    android:id="@+id/tvPhoneCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="0344366866"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitlePhone"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitlePhone" />
+
+                <TextView
+                    android:id="@+id/tvTitleDetailTour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="@string/text_title_detail_tour"
+                    app:layout_constraintStart_toStartOf="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhoneCustomer" />
+
+                <TextView
+                    android:id="@+id/tvNameTour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Name Tour: Hà Nội Tour"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleDetailTour"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleDetailTour" />
+
+                <TextView
+                    android:id="@+id/tvCheckInCheckOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Time Tour: 25/06/1998 - 25/06/2020"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvNameTour"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameTour" />
+
+                <TextView
+                    android:id="@+id/tvAdultsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Adults Number: 03"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvCheckInCheckOut"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCheckInCheckOut" />
+
+                <TextView
+                    android:id="@+id/tvChildrenNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="Children Number: 03"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvAdultsNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAdultsNumber" />
+
+                <TextView
+                    android:id="@+id/tvTotalPrice"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/size_40dp"
+                    android:background="@drawable/bg_tv_total_price"
+                    android:fontFamily="@string/font_Roboto_Bold"
+                    android:gravity="center"
+                    android:text="You need to pay $100"
+                    android:textColor="@color/colorMain"
+                    android:textSize="@dimen/size_18sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="@id/view"
+                    app:layout_constraintStart_toStartOf="@id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvChildrenNumber" />
+
+                <TextView
+                    android:id="@+id/tvPayed"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/size_40dp"
+                    android:background="@drawable/bg_tv_total_price"
+                    android:fontFamily="@string/font_Roboto_Bold"
+                    android:gravity="center"
+                    android:text="@string/text_payed"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/size_18sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/view"
+                    app:layout_constraintStart_toStartOf="@id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvChildrenNumber" />
+
+                <Button
+                    android:id="@+id/btnPay"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:background="@drawable/bg_button_payment"
+                    android:gravity="center"
+                    android:text="@string/text_title_pay"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/size_18sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="@id/view"
+                    app:layout_constraintStart_toStartOf="@id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTotalPrice" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnPay" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -142,4 +142,20 @@ public class AddData {
                 .collection("imagehot")
                 .add(image);
     }
+
+    public static void addCity() {
+        HashMap<String, Object> city = new HashMap<>();
+        city.put("id_city", "");
+        city.put("desc", "");
+        city.put("image_city", "");
+        city.put("lat", "");
+        city.put("lng", "");
+        city.put("name_city", "");
+        city.put("rate_city", 3);
+
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("city")
+                .add(city);
+
+    }
 }

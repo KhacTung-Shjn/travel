@@ -1,5 +1,6 @@
 package com.example.mytravel.data.presenter;
 
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.favorites.FavoritesExplore;
 import com.example.mytravel.models.favorites.FavoritesPhoto;
 import com.example.mytravel.models.favorites.FavoritesPlace;
@@ -49,4 +50,13 @@ public interface PreferenceHelper {
     ArrayList<FavoritesTour> getListFavoritesTour();
 
     void setListFavoritesTour(ArrayList<FavoritesTour> favoritesTours);
+
+    ArrayList<BookTour> getListBookTour();
+
+    void setListBookTour(ArrayList<BookTour> listBookTour);
+
+    boolean isNotification();
+
+    void setNotification(boolean notification);
+
 }

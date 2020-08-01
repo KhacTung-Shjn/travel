@@ -3,6 +3,7 @@ package com.example.mytravel.data;
 import android.content.Context;
 
 import com.example.mytravel.data.presenter.MyPreference;
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.favorites.FavoritesExplore;
 import com.example.mytravel.models.favorites.FavoritesPhoto;
 import com.example.mytravel.models.favorites.FavoritesPlace;
@@ -120,5 +121,25 @@ public class AppDataManager implements DataManager {
     @Override
     public void setListFavoritesTour(ArrayList<FavoritesTour> favoritesTours) {
         preference.setListFavoritesTour(favoritesTours);
+    }
+
+    @Override
+    public ArrayList<BookTour> getListBookTour() {
+        return preference.getListBookTour();
+    }
+
+    @Override
+    public void setListBookTour(ArrayList<BookTour> listBookTour) {
+        preference.setListBookTour(listBookTour);
+    }
+
+    @Override
+    public boolean isNotification() {
+        return preference.isNotification();
+    }
+
+    @Override
+    public void setNotification(boolean notification) {
+        preference.setNotification(notification);
     }
 }

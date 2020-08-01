@@ -2,7 +2,9 @@ package com.example.mytravel.ui.main;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, BottomNav
     FrameLayout frMain;
     @BindView(R.id.tvTitleMain)
     TextView tvTitleMain;
+    @BindView(R.id.ivSearch)
+    ImageView ivSearch;
 
     private Fragment currentFragment;
     private ArrayList<FragmentController> listFragmentController = new ArrayList<>();
@@ -69,18 +73,22 @@ public class MainActivity extends BaseActivity implements MainMvpView, BottomNav
         switch (menuItem.getItemId()) {
             case R.id.menu_home:
                 maybeActive = 0;
+                ivSearch.setVisibility(View.VISIBLE);
                 title = getString(R.string.text_title_home);
                 break;
             case R.id.menu_favorite:
                 maybeActive = 1;
+                ivSearch.setVisibility(View.INVISIBLE);
                 title = getString(R.string.text_title_favorite);
                 break;
             case R.id.menu_profile:
                 maybeActive = 2;
+                ivSearch.setVisibility(View.INVISIBLE);
                 title = getString(R.string.text_title_profiles);
                 break;
             case R.id.menu_setting:
                 maybeActive = 3;
+                ivSearch.setVisibility(View.INVISIBLE);
                 title = getString(R.string.text_title_setting);
                 break;
         }

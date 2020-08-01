@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseActivity;
 import com.example.mytravel.models.FragmentController;
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.city.City;
 import com.example.mytravel.models.city.Explore;
 import com.example.mytravel.models.city.PlaceHot;
@@ -23,12 +24,14 @@ import com.example.mytravel.models.user.UserInformation;
 import com.example.mytravel.ui.auth.changepass.ChangePassFragment;
 import com.example.mytravel.ui.auth.updateprofile.UpdateUpdateProfileFragment;
 import com.example.mytravel.ui.booktour.BookTourFragment;
+import com.example.mytravel.ui.booktour.pay.PaymentFragment;
 import com.example.mytravel.ui.detailcity.DetailCityFragment;
 import com.example.mytravel.ui.detailexplore.DetailExploreFragment;
 import com.example.mytravel.ui.detailexplore.map.MapFragment;
 import com.example.mytravel.ui.detailexplore.placehot.PlaceHotFragment;
 import com.example.mytravel.ui.detailtour.DetailTourFragment;
 import com.example.mytravel.ui.fearture.MoreFragment;
+import com.example.mytravel.ui.history.HistoryFragment;
 import com.example.mytravel.ui.imagehot.ImageHotFragment;
 import com.example.mytravel.ui.listtour.ListTourFragment;
 import com.example.mytravel.ui.privacy.PrivacyFragment;
@@ -46,15 +49,19 @@ import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_CITY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_DETAIL_TOUR;
 import static com.example.mytravel.utils.ConstApp.DIRECT_EXPLORE_MORE;
+import static com.example.mytravel.utils.ConstApp.DIRECT_HISTORY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_HOT_MARKER;
 import static com.example.mytravel.utils.ConstApp.DIRECT_IMAGE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_LIST_TOUR;
 import static com.example.mytravel.utils.ConstApp.DIRECT_MAP_PLACE_HOT;
+import static com.example.mytravel.utils.ConstApp.DIRECT_PAYMENT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_PLACE_HOT;
 import static com.example.mytravel.utils.ConstApp.DIRECT_PRIVACY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_UPDATE_PROFILE;
 import static com.example.mytravel.utils.ConstApp.DIRECT_VERIFY;
 import static com.example.mytravel.utils.ConstApp.DIRECT_VIEW_FULL_IMAGE_HOT;
+import static com.example.mytravel.utils.ConstApp.KEY_BOOK_TOUR;
+import static com.example.mytravel.utils.ConstApp.KEY_CHECK_HISTORY;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LAT;
 import static com.example.mytravel.utils.ConstApp.KEY_HOT_PLACE_LNG;
@@ -97,6 +104,8 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
     private PlaceHot placeHot;
     private ArrayList<PlaceHot> listHotMarker;
     private ImageHot imageHot;
+    private BookTour bookTour;
+    private boolean isHistory;
 
     public static Intent newIntentPrivacy(Context context) {
         Intent intent = new Intent(context, FrameActivity.class);
@@ -124,10 +133,12 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
         return intent;
     }
 
-    public static Intent newIntentDetailTour(Context context, TourPopular tourPopular) {
+    public static Intent newIntentDetailTour(Context context, TourPopular tourPopular, String idCity, String idExplore) {
         Intent intent = new Intent(context, FrameActivity.class);
         intent.putExtra(DIRECT_VERIFY, DIRECT_DETAIL_TOUR);
         intent.putExtra(KEY_ITEM_TOUR, tourPopular);
+        intent.putExtra(KEY_TYPE_ID_CITY, idCity);
+        intent.putExtra(KEY_TYPE_ID_EXPLORE, idExplore);
         return intent;
     }
 
@@ -156,10 +167,12 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
         return intent;
     }
 
-    public static Intent newIntentBookTour(Context context, String nameTour) {
+    public static Intent newIntentBookTour(Context context, TourPopular tour, String idCity, String idExplore) {
         Intent intent = new Intent(context, FrameActivity.class);
         intent.putExtra(DIRECT_VERIFY, DIRECT_BOOK_TOUR);
-        intent.putExtra(KEY_NAME_TOUR, nameTour);
+        intent.putExtra(KEY_ITEM_TOUR, tour);
+        intent.putExtra(KEY_TYPE_ID_CITY, idCity);
+        intent.putExtra(KEY_TYPE_ID_EXPLORE, idExplore);
         return intent;
     }
 
@@ -202,8 +215,23 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
         return intent;
     }
 
-    @Override
+    public static Intent newIntentPayment(Context context, BookTour bookTour, String idCity, String idExplore, boolean isHistory) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_PAYMENT);
+        intent.putExtra(KEY_BOOK_TOUR, bookTour);
+        intent.putExtra(KEY_TYPE_ID_CITY, idCity);
+        intent.putExtra(KEY_TYPE_ID_EXPLORE, idExplore);
+        intent.putExtra(KEY_CHECK_HISTORY, isHistory);
+        return intent;
+    }
 
+    public static Intent newIntentHistory(Context context) {
+        Intent intent = new Intent(context, FrameActivity.class);
+        intent.putExtra(DIRECT_VERIFY, DIRECT_HISTORY);
+        return intent;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
@@ -227,6 +255,8 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
             placeHot = intent.getParcelableExtra(KEY_HOT_PLACE);
             listHotMarker = intent.getParcelableArrayListExtra(KEY_LIST_HOT_PLACE);
             imageHot = intent.getParcelableExtra(KEY_ITEM_IMAGE_HOT);
+            bookTour = intent.getParcelableExtra(KEY_BOOK_TOUR);
+            isHistory = intent.getBooleanExtra(KEY_CHECK_HISTORY, false);
         }
 
         asyncTaskExecutor = new AsyncTaskExecutor();
@@ -271,7 +301,7 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
                 }
                 case DIRECT_DETAIL_TOUR: {
                     title = getString(R.string.text_title_detail_tour);
-                    fragment = DetailTourFragment.newInstance(tourPopular);
+                    fragment = DetailTourFragment.newInstance(tourPopular, idCity, idExplore);
                     TAG = DetailTourFragment.TAG;
                     break;
                 }
@@ -292,7 +322,7 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
                     break;
                 }
                 case DIRECT_BOOK_TOUR: {
-                    fragment = BookTourFragment.newInstance(nameTour);
+                    fragment = BookTourFragment.newInstance(tourPopular, idCity, idExplore);
                     TAG = BookTourFragment.TAG;
                     break;
                 }
@@ -321,6 +351,18 @@ public class FrameActivity extends BaseActivity implements FrameMvpView {
                 case DIRECT_VIEW_FULL_IMAGE_HOT: {
                     fragment = ViewImageFragment.newInstance(imageHot);
                     TAG = ViewImageFragment.TAG;
+                    break;
+                }
+                case DIRECT_PAYMENT: {
+                    title = getString(R.string.text_title_payment);
+                    fragment = PaymentFragment.newInstance(bookTour, idCity, idExplore, isHistory);
+                    TAG = PaymentFragment.TAG;
+                    break;
+                }
+                case DIRECT_HISTORY: {
+                    title = getString(R.string.text_title_history);
+                    fragment = HistoryFragment.newInstance();
+                    TAG = HistoryFragment.TAG;
                     break;
                 }
 

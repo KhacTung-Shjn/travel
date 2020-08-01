@@ -93,14 +93,14 @@ public class HighPriceTourFragment extends BaseFragment implements HighPriceTour
 
     @Override
     public void onClickItem(TourPopular tourPopular) {
-        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular));
+        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular, idCity, idExplore));
     }
 
     @Override
     public void onSetIsLove(String idTour, boolean isLove) {
-        if(isLove){
-            presenter.setLoveTour(idCity,idExplore,idTour);
-        }else{
+        if (isLove) {
+            presenter.setLoveTour(idCity, idExplore, idTour);
+        } else {
             presenter.removeLoveTour(idTour);
         }
     }

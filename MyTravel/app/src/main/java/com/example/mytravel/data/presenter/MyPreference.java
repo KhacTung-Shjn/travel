@@ -3,6 +3,7 @@ package com.example.mytravel.data.presenter;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.favorites.FavoritesExplore;
 import com.example.mytravel.models.favorites.FavoritesPhoto;
 import com.example.mytravel.models.favorites.FavoritesPlace;
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.example.mytravel.utils.ConstApp.KEY_CHECK_LOGIN;
+import static com.example.mytravel.utils.ConstApp.KEY_CHECK_NOTIFICATION;
 import static com.example.mytravel.utils.ConstApp.KEY_CHECK_PRIVACY;
 import static com.example.mytravel.utils.ConstApp.KEY_CONFIRM_PASS_CODE;
 import static com.example.mytravel.utils.ConstApp.KEY_LANGUAGE_STATE;
+import static com.example.mytravel.utils.ConstApp.KEY_LIST_BOOK_TOUR;
 import static com.example.mytravel.utils.ConstApp.KEY_LIST_FAVORITES_EXPLORE;
 import static com.example.mytravel.utils.ConstApp.KEY_LIST_FAVORITES_PHOTO;
 import static com.example.mytravel.utils.ConstApp.KEY_LIST_FAVORITES_PLACE;
@@ -179,5 +182,35 @@ public class MyPreference implements PreferenceHelper {
         if (favoritesTours == null) return;
         String dataJson = gson.toJson(favoritesTours);
         sharedPreferences.edit().putString(KEY_LIST_FAVORITES_TOUR, dataJson).apply();
+    }
+
+    @Override
+    public ArrayList<BookTour> getListBookTour() {
+        ArrayList<BookTour> listBookTour;
+        String s = sharedPreferences.getString(KEY_LIST_BOOK_TOUR, null);
+        if (!TextUtils.isEmpty(s)) {
+            Type type = new TypeToken<ArrayList<BookTour>>() {
+            }.getType();
+            listBookTour = gson.fromJson(s, type);
+            return listBookTour;
+        }
+        return null;
+    }
+
+    @Override
+    public void setListBookTour(ArrayList<BookTour> listBookTour) {
+        if (listBookTour == null) return;
+        String dataJson = gson.toJson(listBookTour);
+        sharedPreferences.edit().putString(KEY_LIST_BOOK_TOUR, dataJson).apply();
+    }
+
+    @Override
+    public boolean isNotification() {
+        return sharedPreferences.getBoolean(KEY_CHECK_NOTIFICATION, false);
+    }
+
+    @Override
+    public void setNotification(boolean notification) {
+        sharedPreferences.edit().putBoolean(KEY_CHECK_NOTIFICATION, notification).apply();
     }
 }

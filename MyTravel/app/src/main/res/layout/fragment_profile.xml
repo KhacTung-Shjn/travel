@@ -96,10 +96,10 @@
                 android:layout_width="@dimen/size_20dp"
                 android:layout_height="@dimen/size_20dp"
                 android:layout_marginTop="@dimen/size_16dp"
-                app:layout_constraintEnd_toEndOf="@+id/ivAvatar"
                 android:layout_marginBottom="@dimen/size_16dp"
                 android:src="@drawable/ic_credit"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ivAvatar"
                 app:layout_constraintStart_toStartOf="@+id/ivAvatar"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -265,7 +265,8 @@
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:layout_marginTop="@dimen/size_24dp">
+            android:layout_marginTop="@dimen/size_24dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/ivMoneyWord"
@@ -309,7 +310,8 @@
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:layout_marginTop="@dimen/size_24dp">
+            android:layout_marginTop="@dimen/size_24dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/ivPay"

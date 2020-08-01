@@ -156,4 +156,22 @@
     <string name="text_image_hot">Hot Photos</string>
     <string name="msg_get_all_list_explore_favorite_empty">List Favorites Place Empty !</string>
     <string name="msg_get_all_list_tour_favorite_empty">List Favorites Tour Empty !</string>
+    <string name="msg_error_choose_date_check_in">Please Choose Date Check In</string>
+    <string name="msg_error_choose_date_check_out">Please Choose Date Check Out</string>
+    <string name="msg_error_choose_number_adults">Please Choose Number Adults</string>
+    <string name="msg_error_choose_number_children">"Please Choose Number Children "</string>
+    <string name="text_title_payment">Payment</string>
+    <string name="text_title_customer">Customer</string>
+    <string name="text_title_pay">Pay</string>
+    <string name="text_title_name_tour">Name Tour</string>
+    <string name="text_title_check_in_check_out">Time Tour</string>
+    <string name="text_title_number_adults">Adults Number</string>
+    <string name="text_title_total_price">You need to pay</string>
+    <string name="text_payed">You have already paid</string>
+    <string name="text_title_history">History</string>
+    <string name="text_book_toured">Booked</string>
+    <string name="text_content_remove_history">Do you want remove this history ?</string>
+    <string name="text_title_detail_history">Detail History</string>
+    <string name="default_notification_channel_id">FOU:CHANNEL</string>
+    <string name="text_search">Search</string>
 </resources>

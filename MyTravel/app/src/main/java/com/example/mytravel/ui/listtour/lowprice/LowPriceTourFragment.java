@@ -93,7 +93,7 @@ public class LowPriceTourFragment extends BaseFragment implements LowPriceTourFr
 
     @Override
     public void onClickItem(TourPopular tourPopular) {
-        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular));
+        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular, idCity, idExplore));
     }
 
     @Override

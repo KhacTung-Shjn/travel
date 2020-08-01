@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -137,7 +138,7 @@ public class ProfileFragment extends BaseFragment implements ProfileFrMvpView {
 
     @OnClick(R.id.btnHistory)
     public void onClickHistory() {
-        //TODO HISTORY
+        startActivity(FrameActivity.newIntentHistory(getContext()));
     }
 
     @OnClick(R.id.btnMoney)

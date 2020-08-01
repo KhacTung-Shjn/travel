@@ -303,6 +303,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:drawableEnd="@drawable/ic_mail"
+                android:enabled="false"
                 android:gravity="center_vertical"
                 android:hint="@string/text_email_address"
                 android:inputType="textEmailAddress"

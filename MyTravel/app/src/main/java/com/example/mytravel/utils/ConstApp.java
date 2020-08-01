@@ -16,6 +16,8 @@ public class ConstApp {
     public static final String DIRECT_HOT_MARKER = "DIRECT_HOT_MARKER";
     public static final String DIRECT_IMAGE_HOT = "DIRECT_IMAGE_HOT";
     public static final String DIRECT_VIEW_FULL_IMAGE_HOT = "DIRECT_VIEW_FULL_IMAGE_HOT";
+    public static final String DIRECT_PAYMENT = "DIRECT_PAYMENT";
+    public static final String DIRECT_HISTORY = "DIRECT_HISTORY";
 
     public static final String KEY_CONFIRM_PASS_CODE = "KEY_CONFIRM_PASS_CODE";
     public static final String KEY_CHECK_FROM_SPLASH = "KEY_CHECK_FROM_SPLASH";
@@ -44,11 +46,18 @@ public class ConstApp {
     public static final String KEY_LIST_FAVORITES_EXPLORE = "KEY_LIST_FAVORITES_EXPLORE";
     public static final String KEY_LIST_FAVORITES_PHOTO = "KEY_LIST_FAVORITES_PHOTO";
     public static final String KEY_LIST_FAVORITES_TOUR = "KEY_LIST_FAVORITES_TOUR";
+    public static final String KEY_BOOK_TOUR = "KEY_BOOK_TOUR";
+    public static final String KEY_LIST_BOOK_TOUR = "KEY_LIST_BOOK_TOUR";
+    public static final String KEY_CHECK_HISTORY = "KEY_CHECK_HISTORY";
+    public static final String KEY_CHECK_NOTIFICATION = "KEY_CHECK_NOTIFICATION";
 
     public static final int REQUEST_CODE_PRIVACY = 10;
     public static final int REQUEST_CODE_UPDATE_PROFILE = 11;
     public static final int REQUEST_PERMISSION_CODE = 101;
     public static final int REQUEST_CODE_CHOOSE_PHOTO_GALLERY = 9;
     public static final int REQUEST_CODE_TAKE_PHOTO = 8;
+    public static final int PAYPAL_REQUEST_CODE = 71;
+
+    public static String PAYPAL_CLIENT_ID = "Ae4nVgeYfIzX3CK_HB4rvgzxh38eWYszzJVhGZZj-V6XM8olRdfIIpFoeADjNqkDUgkj_cCPSc6N37fB";
 
 }

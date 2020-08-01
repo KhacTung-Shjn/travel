@@ -17,5 +17,6 @@
     <color name="colorBetween">#4FC3F7</color>
     <color name="colorYellow">#FFE26E</color>
     <color name="colorSelectIndicator">#CC83F9</color>
+    <color name="colorRed">#E91E63</color>
 
 </resources>

@@ -163,7 +163,7 @@ public class DetailCityFragment extends BaseFragment implements DetailCityFrMvpV
 
     @Override
     public void onClickTour(TourPopular tourPopular) {
-        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular));
+        startActivity(FrameActivity.newIntentDetailTour(getContext(), tourPopular, "", ""));
     }
 
     @Override

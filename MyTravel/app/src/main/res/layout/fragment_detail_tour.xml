@@ -277,10 +277,29 @@
                     android:text="@string/text_book_tour"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/size_10sp"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btnRateTour"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnBookToured"
+                    android:layout_width="@dimen/size_110dp"
+                    android:layout_height="@dimen/size_30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/size_30dp"
+                    android:background="@drawable/bg_book_toured"
+                    android:text="@string/text_book_toured"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/size_10sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnRateTour"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

@@ -21,10 +21,12 @@ import androidx.cardview.widget.CardView;
 
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.city.TourPopular;
 import com.example.mytravel.ui.frame.FrameActivity;
 import com.example.mytravel.utils.CommonUtils;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -32,6 +34,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.example.mytravel.utils.ConstApp.KEY_ITEM_TOUR;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
 
 public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpView, View.OnClickListener {
     public static final String TAG = DetailTourFragment.class.getSimpleName();
@@ -68,14 +72,21 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
     Button btnRateTour;
     @BindView(R.id.btnBookTour)
     Button btnBookTour;
+    @BindView(R.id.btnBookToured)
+    Button btnBookToured;
 
     private TourPopular tourPopular;
     private AlertDialog ratingTourDialog;
+    private ArrayList<BookTour> listBookTour = new ArrayList<>();
+    private ArrayList<String> listIdTours = new ArrayList<>();
+    private String idCity, idExplore;
 
-    public static DetailTourFragment newInstance(TourPopular tourPopular) {
+    public static DetailTourFragment newInstance(TourPopular tourPopular, String idCity, String idExplore) {
         DetailTourFragment detailTourFragment = new DetailTourFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_ITEM_TOUR, tourPopular);
+        bundle.putString(KEY_TYPE_ID_CITY, idCity);
+        bundle.putString(KEY_TYPE_ID_EXPLORE, idExplore);
         detailTourFragment.setArguments(bundle);
         return detailTourFragment;
     }
@@ -84,6 +95,14 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new DetailTourFrPresenter(this);
+        listBookTour = getAppDataManager().getListBookTour();
+        getListIdTour(listBookTour);
+    }
+
+    private void getListIdTour(ArrayList<BookTour> listBookTour) {
+        for (BookTour bookTour : listBookTour) {
+            listIdTours.add(bookTour.getId());
+        }
     }
 
     @Nullable
@@ -102,10 +121,21 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
         }
         if (getArguments() != null) {
             tourPopular = getArguments().getParcelable(KEY_ITEM_TOUR);
+            idCity = getArguments().getString(KEY_TYPE_ID_CITY);
+            idExplore = getArguments().getString(KEY_TYPE_ID_EXPLORE);
         }
         if (tourPopular != null) {
+            if (listIdTours.contains(tourPopular.getId())) {
+                btnBookTour.setVisibility(View.INVISIBLE);
+                btnBookToured.setVisibility(View.VISIBLE);
+            } else {
+                btnBookTour.setVisibility(View.VISIBLE);
+                btnBookToured.setVisibility(View.INVISIBLE);
+            }
             getTourDetail(tourPopular);
         }
+
+
     }
 
 
@@ -152,7 +182,7 @@ public class DetailTourFragment extends BaseFragment implements DetailTourFrMvpV
 
     @OnClick(R.id.btnBookTour)
     public void onClickBookTour() {
-        startActivity(FrameActivity.newIntentBookTour(getContext(), tvNameTour.getText().toString()));
+        startActivity(FrameActivity.newIntentBookTour(getContext(), tourPopular, idCity, idExplore));
     }
 
     @OnClick(R.id.btnRateTour)

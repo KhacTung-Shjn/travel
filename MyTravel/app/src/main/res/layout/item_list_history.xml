@@ -9,10 +9,10 @@
     android:layout_marginEnd="@dimen/size_15dp"
     android:elevation="@dimen/size_8dp"
     app:cardCornerRadius="@dimen/size_10dp"
+    tools:ignore="HardcodedText"
     tools:targetApi="lollipop">
 
     <RelativeLayout
-        android:id="@+id/item_photo_video"
         style="@style/SelectableItemBackgroundBorderless"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +28,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/img_photo"
+                    android:id="@+id/ivPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY" />
@@ -36,7 +36,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/tvNameTour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_20dp"
@@ -46,16 +46,16 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="Hoi An Lantern Hoi An Lantern Hoi An Lantern    "
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/size_16sp" />
 
         <TextView
-            android:id="@+id/txtContent"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtTitle"
+            android:layout_below="@+id/tvNameTour"
             android:layout_marginStart="@dimen/size_20dp"
-            android:layout_marginTop="@dimen/size_2dp"
+            android:layout_marginTop="@dimen/size_5dp"
             android:layout_marginEnd="@dimen/size_50dp"
             android:layout_toEndOf="@+id/imgPhoto"
             android:ellipsize="end"
@@ -64,6 +64,15 @@
             android:textColor="@color/colorBlackLight"
             android:textSize="@dimen/size_12sp"
             android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDate"
+            android:layout_alignStart="@+id/tvDate"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:text="Price: $500" />
 
         <RelativeLayout
             android:id="@+id/btnDelete"

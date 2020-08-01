@@ -6,9 +6,12 @@ import android.os.AsyncTask;
 import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BasePresenter;
+import com.example.mytravel.models.booktour.BookTour;
 import com.example.mytravel.models.city.City;
+import com.example.mytravel.models.favorites.FavoritesPlace;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,40 @@ public class HomeFrPresenter extends BasePresenter implements HomeFrMvpPresenter
     @Override
     public void getListCity() {
         new LoadHomeAsyncTask().execute();
+    }
+
+    @Override
+    public void getListBookTour() {
+        MainApp.getInstance().getFirebaseFireStore()
+                .collection("user")
+                .whereEqualTo("email", getDataManager().getUserInformation().getEmail())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
+                            MainApp.getInstance().getFirebaseFireStore()
+                                    .collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("booktour")
+                                    .addSnapshotListener((value, error) -> {
+                                        if (error != null) {
+                                            getMvpView.showMessage(R.string.msg_error_unknown);
+                                        }
+                                        if (value != null) {
+                                            ArrayList<BookTour> listBookTours = new ArrayList<>();
+                                            for (QueryDocumentSnapshot snapshot : value) {
+                                                String json = getGSon().toJson(snapshot.getData());
+                                                if (json != null) {
+                                                    BookTour bookTour = getGSon().fromJson(json, BookTour.class);
+                                                    listBookTours.add(bookTour);
+                                                }
+                                            }
+                                            getDataManager().setListBookTour(listBookTours);
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 
 

@@ -12,20 +12,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.mytravel.MainApp;
 import com.example.mytravel.R;
 import com.example.mytravel.base.BaseFragment;
+import com.example.mytravel.models.booktour.BookTour;
+import com.example.mytravel.models.city.TourPopular;
+import com.example.mytravel.ui.frame.FrameActivity;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.mytravel.utils.ConstApp.KEY_NAME_TOUR;
+import static com.example.mytravel.utils.ConstApp.KEY_ITEM_TOUR;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_CITY;
+import static com.example.mytravel.utils.ConstApp.KEY_TYPE_ID_EXPLORE;
 
 public class BookTourFragment extends BaseFragment implements BookTourFrMvpView, View.OnClickListener {
     public static final String TAG = BookTourFragment.class.getSimpleName();
@@ -60,12 +65,16 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
     private TextView tvTitle;
     private Calendar calendar;
     private Context context;
+    private TourPopular tour;
     private long miniSecondCheckIn, miniSecondCheckOut, miniSecondCurrent;
+    private String idCity, idExplore;
 
-    public static BookTourFragment newInstance(String nameTour) {
+    public static BookTourFragment newInstance(TourPopular tour, String idCity, String idExplore) {
         BookTourFragment bookTourFragment = new BookTourFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_NAME_TOUR, nameTour);
+        bundle.putParcelable(KEY_ITEM_TOUR, tour);
+        bundle.putString(KEY_TYPE_ID_CITY, idCity);
+        bundle.putString(KEY_TYPE_ID_EXPLORE, idExplore);
         bookTourFragment.setArguments(bundle);
         return bookTourFragment;
     }
@@ -75,6 +84,7 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
         super.onCreate(savedInstanceState);
         presenter = new BookTourFrPresenter(this);
         calendar = Calendar.getInstance();
+        miniSecondCurrent = calendar.getTimeInMillis();
         this.context = getContext();
     }
 
@@ -94,10 +104,23 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
             ivBack.setOnClickListener(this);
         }
         if (getArguments() != null) {
-            String nameTour = getArguments().getString(KEY_NAME_TOUR);
-            if (!TextUtils.isEmpty(nameTour)) {
-                tvTitle.setText(nameTour);
+            tour = getArguments().getParcelable(KEY_ITEM_TOUR);
+            idCity = getArguments().getString(KEY_TYPE_ID_CITY);
+            idExplore = getArguments().getString(KEY_TYPE_ID_EXPLORE);
+
+            if (tour != null && !TextUtils.isEmpty(tour.getNameTour())) {
+                tvTitle.setText(tour.getNameTour());
             }
+            if (MainApp.getInstance().getPresenter().getUserInformation().getName() != null) {
+                etName.setText(MainApp.getInstance().getPresenter().getUserInformation().getName());
+            }
+            if (MainApp.getInstance().getPresenter().getUserInformation().getEmail() != null) {
+                etEmail.setText(MainApp.getInstance().getPresenter().getUserInformation().getEmail());
+            }
+            if (MainApp.getInstance().getPresenter().getUserInformation().getPhone() != null) {
+                etPhone.setText(MainApp.getInstance().getPresenter().getUserInformation().getPhone());
+            }
+
         }
         tvChooseCheckIn.setOnClickListener(this);
         tvChooseCheckOut.setOnClickListener(this);
@@ -105,6 +128,7 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
         btnUpAdults.setOnClickListener(this);
         btnDownChildren.setOnClickListener(this);
         btnUpChildren.setOnClickListener(this);
+        btnRequestBookTour.setOnClickListener(this);
     }
 
     @Override
@@ -128,9 +152,16 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
                 mMonth = calendar.get(Calendar.MONTH);
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
                 @SuppressLint("DefaultLocale") DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year, month, dayOfMonth) -> {
+                    calendar.set(year, month, dayOfMonth, 0, 0, 0);
+                    if (miniSecondCheckOut > 0 && miniSecondCheckOut < calendar.getTimeInMillis())
+                        return;
+                    miniSecondCheckIn = calendar.getTimeInMillis();
                     tvChooseCheckIn.setText(String.format("%d/%d/%d", dayOfMonth, (month + 1), year));
-                    Toast.makeText(getContext(), String.valueOf(miniSecondCheckIn), Toast.LENGTH_SHORT).show();
                 }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(miniSecondCurrent);
+                if (miniSecondCheckOut > 0) {
+                    datePickerDialog.getDatePicker().setMaxDate(miniSecondCheckOut);
+                }
                 datePickerDialog.show();
                 break;
             }
@@ -139,9 +170,18 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
                 mMonth = calendar.get(Calendar.MONTH);
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
                 @SuppressLint("DefaultLocale") DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year, month, dayOfMonth) -> {
+                    calendar.set(year, month, dayOfMonth, 23, 59, 59);
+                    if (miniSecondCheckIn > 0 && miniSecondCheckIn > calendar.getTimeInMillis())
+                        return;
+                    miniSecondCheckOut = calendar.getTimeInMillis();
                     tvChooseCheckOut.setText(String.format("%d/%d/%d", dayOfMonth, (month + 1), year));
-                    Toast.makeText(getContext(), String.valueOf(miniSecondCheckIn), Toast.LENGTH_SHORT).show();
                 }, mYear, mMonth, mDay);
+
+                if (miniSecondCheckIn > 0) {
+                    datePickerDialog.getDatePicker().setMinDate(miniSecondCheckIn);
+                } else {
+                    datePickerDialog.getDatePicker().setMinDate(miniSecondCurrent);
+                }
                 datePickerDialog.show();
                 break;
             }
@@ -167,6 +207,26 @@ public class BookTourFragment extends BaseFragment implements BookTourFrMvpView,
                 tvNumberChildren.setText(String.valueOf(++numberAdults));
                 break;
             }
+            case R.id.btnRequestBookTour: {
+                presenter.requestBookTour(tvChooseCheckIn.getText().toString(),
+                        tvChooseCheckOut.getText().toString(),
+                        tvNumberAdults.getText().toString(),
+                        tvNumberChildren.getText().toString(),
+                        etName.getText().toString(),
+                        etEmail.getText().toString(), etPhone.getText().toString(), miniSecondCheckIn, miniSecondCheckOut);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void successRequestBookTour(BookTour bookTour) {
+        if (bookTour != null) {
+            bookTour.setId(tour.getId());
+            bookTour.setNameTour(tour.getNameTour());
+            bookTour.setUrlImageTour(tour.getUrlImage());
+            bookTour.setPriceTour(String.valueOf(tour.getMoney()));
+            startActivity(FrameActivity.newIntentPayment(getContext(), bookTour, idCity, idExplore, false));
         }
     }
 }
