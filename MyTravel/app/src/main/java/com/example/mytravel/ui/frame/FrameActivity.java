@@ -27,7 +27,6 @@ import com.example.mytravel.ui.booktour.BookTourFragment;
 import com.example.mytravel.ui.booktour.pay.PaymentFragment;
 import com.example.mytravel.ui.detailcity.DetailCityFragment;
 import com.example.mytravel.ui.detailexplore.DetailExploreFragment;
-import com.example.mytravel.ui.detailexplore.map.MapFragment;
 import com.example.mytravel.ui.detailexplore.placehot.PlaceHotFragment;
 import com.example.mytravel.ui.detailtour.DetailTourFragment;
 import com.example.mytravel.ui.fearture.MoreFragment;
@@ -37,6 +36,7 @@ import com.example.mytravel.ui.listtour.ListTourFragment;
 import com.example.mytravel.ui.privacy.PrivacyFragment;
 import com.example.mytravel.ui.viewimage.ViewImageFragment;
 import com.example.mytravel.utils.AppUtils;
+import com.example.mytravel.ui.detailexplore.map.MapFragment;
 
 import java.util.ArrayList;
 

@@ -172,7 +172,7 @@
     <string name="text_book_toured">Booked</string>
     <string name="text_content_remove_history">Do you want remove this history ?</string>
     <string name="text_title_detail_history">Detail History</string>
-    <string name="default_notification_channel_id">FOU:CHANNEL</string>
+    <string name="default_notification_channel_id" translatable="false">FOU:CHANNEL</string>
     <string name="text_search">Search</string>
     <string name="text_title_number_children">Children Number</string>
 </resources>
